@@ -11,9 +11,9 @@
   --shadow:0 6px 26px rgba(58,73,45,.16);
   /* Planche paysage 3 volets — dimensions du dépliant imprimé (1 pt = 1 px, 1325 × 852 pt) */
   --sheet-w:1325px;
-  --sheet-h:916px;        /* largeur 1325 = imprimé ; hauteur resserrée vers le format paysage de l'imprimé */
+  --sheet-h:964px;        /* largeur 1325 = imprimé ; hauteur resserrée vers le format paysage de l'imprimé */
   --sheet-pad:30px;
-  --volet-h:856px;        /* --sheet-h - 2*--sheet-pad ; volets ~410px comme l'imprimé */
+  --volet-h:904px;        /* --sheet-h - 2*--sheet-pad ; volets ~410px comme l'imprimé */
   /* Apparence personnalisable (modale 🎨) */
   --font-title:'Playfair Display', serif;
   --font-body:'EB Garamond', serif;
@@ -156,10 +156,10 @@ body.placing-block, body.placing-block *{cursor:crosshair !important;}
 /* ---------- Section title ---------- */
 .blk-section h2{
   font-family:var(--font-title); font-weight:700; font-size:15.5px; color:var(--title-color);
-  margin:6px 0 4px; line-height:1.0; text-transform:uppercase; letter-spacing:.01em;
+  margin:6px 0 4px; line-height:1.0; text-transform:uppercase; letter-spacing:.035em;
   display:flex; align-items:baseline; gap:4px;
 }
-.blk-section.big h2{font-size:16.5px; letter-spacing:0;}
+.blk-section.big h2{font-size:18.5px; letter-spacing:.03em;}
 .blk-section:first-child h2{margin-top:0;}
 .blk-section h2 .en{font-family:var(--font-body); font-style:italic; font-weight:400; text-transform:none; color:var(--grey); font-size:9.5px; letter-spacing:0;}
 .blk-section h2 .en.unit{font-style:normal; letter-spacing:.02em; font-size:8px; margin-left:-1px;}
@@ -167,12 +167,12 @@ body.placing-block, body.placing-block *{cursor:crosshair !important;}
 .blk-section:first-child h2{margin-top:0;}
 
 /* ---------- Item row ---------- */
-.blk-item{display:flex; align-items:flex-start; gap:6px; padding:0 3px; margin-bottom:3.5px; line-height:1.0;}
+.blk-item{display:flex; align-items:flex-start; gap:6px; padding:0 3px; margin-bottom:6px; line-height:1.0;}
 .blk-item.inline, .blk-item.wine{margin-bottom:1.5px;}
 .blk-item.inline{align-items:baseline;}
 .blk-item .txt{flex:1 1 auto; min-width:0;}
-.blk-item .fr{font-family:var(--font-name); font-size:10.5px; font-weight:600; color:var(--title-color); letter-spacing:.07em; line-height:1.05;}
-.blk-item .en{font-size:10.5px; font-style:normal; color:#4c4c44; margin-top:1px; line-height:1.3; max-width:355px;}
+.blk-item .fr{font-family:var(--font-name); font-size:10.5px; font-weight:600; color:var(--title-color); letter-spacing:.09em; line-height:1.15;}
+.blk-item .en{font-size:10.5px; font-style:normal; color:#4c4c44; margin-top:2.5px; line-height:1.2; max-width:320px;}
 .blk-item .en:empty{display:none;}
 /* Item « inline » : qualificatif court sur la même ligne que le nom (ex. « 33 cl ») */
 .blk-item.inline .fr{display:inline;}
@@ -184,7 +184,7 @@ body.leaders-off .blk-item .leader{display:none;}
 
 /* Items « half » (cocktails, shots) répartis en 2 sous-colonnes, façon dépliant */
 .item-grid{column-count:2; column-gap:18px; margin:2px 0 3px;}
-.item-grid .blk-item{break-inside:avoid; margin-bottom:2px;}
+.item-grid .blk-item{break-inside:avoid; margin-bottom:5px;}
 .item-grid .blk-item .leader{display:none;}
 /* prix vides (cocktails/shots) invisibles ; prix non vides (petits plus) visibles */
 .item-grid .blk-item .price{flex:1 1 auto; text-align:right;}
@@ -238,7 +238,7 @@ body.leaders-off .blk-item .leader{display:none;}
 /* sous-titre de tête de section (PIADINAS / BUNS) : gras, vert foncé, romain */
 .blk-note.strong{font-style:normal; font-weight:700; color:var(--title-color); font-size:9.5px; margin:1px 0 2px;}
 /* légende AOP/IGP & paiements : bloc étroit centré (3 lignes) comme l'imprimé */
-.blk-note.center{text-align:center; font-size:6.8px; margin-top:6px; color:#6a6a62; max-width:330px; margin-left:auto; margin-right:auto;}
+.blk-note.center{text-align:center; font-size:7.2px; margin-top:6px; color:#6a6a62; max-width:330px; margin-left:auto; margin-right:auto;}
 
 /* ---------- Divider ---------- */
 .blk-divider{height:1px; background:var(--line); margin:8px 0;}
@@ -278,7 +278,7 @@ body.leaders-off .blk-item .leader{display:none;}
 .blk-brunch:hover{background:transparent;}
 .frame-bg{width:100%; height:auto; display:block; pointer-events:none;}
 .brunch-inner{
-  position:absolute; inset:6% 17% 6% 17%;
+  position:absolute; inset:6% 20% 6% 20%;
   display:flex; flex-direction:column; align-items:center; justify-content:space-between; text-align:center;
   color:var(--title-color);
 }
@@ -303,7 +303,7 @@ body.leaders-off .blk-item .leader{display:none;}
 .enfant-title{font-family:var(--font-title); font-weight:800; font-size:26px; line-height:.95;}
 .enfant-offer{font-family:var(--font-name); font-weight:700; font-size:10px; letter-spacing:.08em; text-transform:uppercase; margin-top:6px;}
 .enfant-offer i{font-family:var(--font-title); font-weight:400; font-style:italic;}
-.enfant-b{font-family:var(--font-body); font-size:10px; font-style:normal; color:#43433c; line-height:1.2; margin-top:4px;}
+.enfant-b{font-family:var(--font-body); font-size:9.5px; font-style:normal; color:#43433c; line-height:1.2; margin-top:4px;}
 
 /* ---------- Empty hint ---------- */
 .page-empty-hint{color:var(--grey); font-size:13px; text-align:center; padding:40px 0; border:1px dashed var(--line); border-radius:8px;}
@@ -433,6 +433,13 @@ body.exporting .block{background:transparent !important;}
 body.exporting .block.selected{outline:none !important;}
 body.exporting .blk-deco{outline:none !important;}
 body.exporting .sheet.overflowing{outline:none !important;}
+
+/* ---------- Planche 2 : répartition & grille « petits plus » (fidélité imprimé) ---------- */
+/* volets de la planche 2 : marge haute ET basse (space-evenly) au lieu d'un ancrage tout en haut */
+#canvasWrap > .sheet:nth-of-type(2) .volet{justify-content:space-evenly;}
+/* grille « petits plus » : filet vertical entre les 2 sous-colonnes + libellés compacts sur une ligne */
+#canvasWrap > .sheet:nth-of-type(2) .item-grid{column-rule:1px solid rgba(58,73,45,.16);}
+#canvasWrap > .sheet:nth-of-type(2) .item-grid .blk-item .fr{font-size:7.5px;}
 
 /* ---------- Vue étroite : volets empilés ---------- */
 @media (max-width:1100px){

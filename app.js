@@ -12,8 +12,8 @@ function defaultDoc(){
     /* ===================== PLANCHE 1 (boissons & desserts) ===================== */
 
     /* Éléments décoratifs (positionnés en absolu, déplaçables) */
-    b('deco', {img:'assets/deco-stamp.png', x:300, y:214, w:82, rot:0}),
-    b('deco', {img:'assets/deco-flower.png', x:758, y:742, w:80, rot:0}),
+    b('deco', {img:'assets/deco-stamp.png', x:300, y:200, w:82, rot:0}),
+    b('deco', {img:'assets/deco-flower.png', x:758, y:662, w:80, rot:0}),
 
     /* ---------- Volet 1 : cocktails, boissons fraîches, vins, champagnes ---------- */
     b('section', {fr:'COCKTAILS FRAIS PRESSÉS', en:'(40 cl)', price:'8'}),
@@ -165,9 +165,9 @@ function defaultDoc(){
     b('item', {fr:'ŒUF POCHÉ', en:'', price:'2.5', half:true}),
     b('item', {fr:'DEMI AVOCAT', en:'', price:'3', half:true}),
     b('item', {fr:'HALLOUMI GRILLÉ', en:'', price:'5', half:true}),
-    b('item', {fr:'CHAMPIGNONS SAUTÉS - HARICOTS VERTS', en:'', price:'5', half:true}),
+    b('item', {fr:'CHAMPIGNONS SAUTÉS - HARICOTS VERTS', en:'', price:'', half:true}),
     b('item', {fr:'SALADE VERTE - RIZ CURCUMA - SALADE DE POMMES DE TERRE', en:'', price:'5', half:true}),
-    b('item', {fr:'SAUMON FUMÉ - SAUMON CUIT MARINE', en:'', price:'5', half:true}),
+    b('item', {fr:'SAUMON FUMÉ - SAUMON CUIT MARINE', en:'', price:'', half:true}),
 
     b('colbreak', {}),
 
@@ -192,7 +192,7 @@ function defaultDoc(){
     b('enfant', {
       title:'Menu Enfant',
       offer:'PLAT • BOISSON • DESSERT <i>10</i>',
-      body:'Demi pavé de saumon, <i>ou</i> Mini club poulet <i>ou</i> thon, salade de pommes de terre<br>Sirop à l’eau <i>ou</i> jus de pomme pressé<br>Crêpe au sucre <i>ou</i> Nutella, <i>ou</i> Cake du moment',
+      body:'Demi pavé de saumon, <i>ou</i> Mini club poulet <i>ou</i> thon,<br>salade de pommes de terre<br>Sirop à l’eau <i>ou</i> jus de pomme pressé<br>Crêpe au sucre <i>ou</i> Nutella, <i>ou</i> Cake du moment',
     }),
 
     b('note', {text:'Paiements acceptés: Espèces, Tickets restaurant, CB, American Express. Prix nets en euros, service et TVA inclus. * Produit surgelé. DOP = dénomination d’origine protégée. Une carafe d’eau potable sera mise à votre disposition gratuitement sur demande. Liste des allergènes sur demande.', center:true, legend:true}),
