@@ -296,7 +296,7 @@ body.leaders-off .blk-item .leader{display:none;}
 }
 .blk-enfant:hover{background:transparent;}
 .enfant-inner{
-  position:absolute; inset:14% 12% 12% 30%;
+  position:absolute; inset:13% 5% 13% 26%;
   display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
   color:var(--title-color);
 }
