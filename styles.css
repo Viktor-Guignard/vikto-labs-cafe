@@ -11,9 +11,9 @@
   --shadow:0 6px 26px rgba(58,73,45,.16);
   /* Planche paysage 3 volets — dimensions du dépliant imprimé (1 pt = 1 px, 1325 × 852 pt) */
   --sheet-w:1325px;
-  --sheet-h:925px;        /* largeur 1325 = imprimé ; hauteur resserrée vers le format paysage de l'imprimé */
+  --sheet-h:916px;        /* largeur 1325 = imprimé ; hauteur resserrée vers le format paysage de l'imprimé */
   --sheet-pad:30px;
-  --volet-h:865px;        /* --sheet-h - 2*--sheet-pad ; volets ~410px comme l'imprimé */
+  --volet-h:856px;        /* --sheet-h - 2*--sheet-pad ; volets ~410px comme l'imprimé */
   /* Apparence personnalisable (modale 🎨) */
   --font-title:'Playfair Display', serif;
   --font-body:'EB Garamond', serif;
@@ -155,11 +155,11 @@ body.placing-block, body.placing-block *{cursor:crosshair !important;}
 
 /* ---------- Section title ---------- */
 .blk-section h2{
-  font-family:var(--font-title); font-weight:700; font-size:14px; color:var(--title-color);
-  margin:8px 0 6px; line-height:1.0; text-transform:uppercase; letter-spacing:.01em;
+  font-family:var(--font-title); font-weight:700; font-size:15.5px; color:var(--title-color);
+  margin:6px 0 4px; line-height:1.0; text-transform:uppercase; letter-spacing:.01em;
   display:flex; align-items:baseline; gap:4px;
 }
-.blk-section.big h2{font-size:15px; letter-spacing:0;}
+.blk-section.big h2{font-size:16.5px; letter-spacing:0;}
 .blk-section:first-child h2{margin-top:0;}
 .blk-section h2 .en{font-family:var(--font-body); font-style:italic; font-weight:400; text-transform:none; color:var(--grey); font-size:9.5px; letter-spacing:0;}
 .blk-section h2 .en.unit{font-style:normal; letter-spacing:.02em; font-size:8px; margin-left:-1px;}
@@ -172,7 +172,7 @@ body.placing-block, body.placing-block *{cursor:crosshair !important;}
 .blk-item.inline{align-items:baseline;}
 .blk-item .txt{flex:1 1 auto; min-width:0;}
 .blk-item .fr{font-family:var(--font-name); font-size:10.5px; font-weight:600; color:var(--title-color); letter-spacing:.07em; line-height:1.05;}
-.blk-item .en{font-size:9.5px; font-style:normal; color:#4c4c44; margin-top:1px; line-height:1.10; max-width:370px;}
+.blk-item .en{font-size:10.5px; font-style:normal; color:#4c4c44; margin-top:1px; line-height:1.3; max-width:355px;}
 .blk-item .en:empty{display:none;}
 /* Item « inline » : qualificatif court sur la même ligne que le nom (ex. « 33 cl ») */
 .blk-item.inline .fr{display:inline;}
@@ -189,7 +189,9 @@ body.leaders-off .blk-item .leader{display:none;}
 /* prix vides (cocktails/shots) invisibles ; prix non vides (petits plus) visibles */
 .item-grid .blk-item .price{flex:1 1 auto; text-align:right;}
 /* libellés compacts : tenir chaque item sur une seule ligne (petits plus, cocktails) */
-.item-grid .blk-item .fr{font-size:7px; letter-spacing:0;}
+.item-grid .blk-item .fr{font-size:8.5px; letter-spacing:0;}
+/* descriptions compactes dans la grille (cocktails/shots/petits plus) : rester sous le nom */
+.item-grid .blk-item .en{font-size:8.5px; line-height:1.15; max-width:none;}
 
 /* Pictos régime (sans gluten / végétarien) */
 .diet{height:13px; width:auto; vertical-align:-1px; margin-left:5px;}
@@ -200,7 +202,7 @@ body.leaders-off .blk-item .leader{display:none;}
 /* Colonnes de prix (vins / champagnes) — valeurs centrées + filets verticaux, façon imprimé */
 .pcols{flex:none; display:flex; align-self:flex-start;}
 .pcell{width:34px; text-align:center; font-style:italic; font-size:9.5px; color:var(--ink);}
-.blk-item.wine .pcols .pcell + .pcell{border-left:1px solid rgba(58,73,45,.28);}
+.blk-item.wine .pcols .pcell + .pcell{border-left:1px solid rgba(58,73,45,.16);}
 /* nom de vin : serif régulier (pas gras sans) comme l'imprimé */
 .blk-item.wine .fr{display:inline; font-family:var(--font-body); font-weight:400; color:var(--ink); text-transform:none; letter-spacing:0; font-size:9.5px;}
 /* lignes de vins : interligne serré, prix et nom sur la même baseline (façon imprimé) */
@@ -235,7 +237,8 @@ body.leaders-off .blk-item .leader{display:none;}
 .blk-note{font-size:9px; font-style:italic; color:var(--grey); line-height:1.2; margin:1px 0;}
 /* sous-titre de tête de section (PIADINAS / BUNS) : gras, vert foncé, romain */
 .blk-note.strong{font-style:normal; font-weight:700; color:var(--title-color); font-size:9.5px; margin:1px 0 2px;}
-.blk-note.center{text-align:center; font-size:6.8px; margin-top:6px; color:#6a6a62; max-width:560px; margin-left:auto; margin-right:auto;}
+/* légende AOP/IGP & paiements : bloc étroit centré (3 lignes) comme l'imprimé */
+.blk-note.center{text-align:center; font-size:6.8px; margin-top:6px; color:#6a6a62; max-width:330px; margin-left:auto; margin-right:auto;}
 
 /* ---------- Divider ---------- */
 .blk-divider{height:1px; background:var(--line); margin:8px 0;}
@@ -257,24 +260,26 @@ body.leaders-off .blk-item .leader{display:none;}
   padding:0; margin:0;
 }
 .blk-panel:hover{background:transparent;}
-.panel-img{width:100%; cursor:pointer; line-height:0; border-radius:18px; overflow:hidden; background:transparent;}
-.panel-img img{width:100%; height:auto; display:block; transform:scale(1.06); transform-origin:center; filter:none;}
+.panel-img{width:86%; margin-right:8%; cursor:pointer; line-height:0; border-radius:18px; overflow:hidden; background:transparent;}
+.panel-img img{width:100%; height:auto; display:block; transform:scale(1.02); transform-origin:center; filter:none;}
 .panel-caption{
   font-family:var(--font-title); font-style:normal; font-weight:400;
-  font-size:23px; color:var(--accent); text-align:center; line-height:1.2; padding:0 10px;
+  font-size:25px; color:var(--accent); text-align:center; line-height:1.2; padding:0 10px;
   max-width:260px; margin:0 auto;
 }
 .panel-caption em{font-style:italic;}
 
 /* ---------- Bloc Brunch (cadre botanique) ---------- */
 .blk-brunch{
-  position:relative; width:100%; margin-bottom:6px; padding:0;
+  position:relative; width:100%; margin-bottom:30px; padding:0;
 }
+/* volet ne contenant que le brunch + BUNS : empiler par le haut (bas de colonne vide, comme l'imprimé) */
+.volet:has(.blk-brunch){justify-content:flex-start;}
 .blk-brunch:hover{background:transparent;}
 .frame-bg{width:100%; height:auto; display:block; pointer-events:none;}
 .brunch-inner{
   position:absolute; inset:6% 17% 6% 17%;
-  display:flex; flex-direction:column; align-items:center; text-align:center;
+  display:flex; flex-direction:column; align-items:center; justify-content:space-between; text-align:center;
   color:var(--title-color);
 }
 .brunch-title{font-family:var(--font-title); font-weight:800; font-size:52px; line-height:.9; letter-spacing:.01em;}

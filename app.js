@@ -53,20 +53,20 @@ function defaultDoc(){
     b('formule', {text:'ROUGES', heading:true}),
     b('item', {fr:'Côtes du Rhone Amour de Fruits - Domaine Dieu le Fit BIO', en:'', cols:3, p1:'6', p2:'9', p3:'29'}),
     b('item', {fr:'Saint Nicolas de Bourgueil AOP - Domaine des Pins', en:'', cols:3, p1:'6', p2:'9', p3:'29'}),
-    b('item', {fr:'Graves AOP - Château les Majureaux', en:'', cols:3, p1:'—', p2:'—', p3:'35'}),
+    b('item', {fr:'Graves AOP - Château les Majureaux', en:'', cols:3, p1:'-', p2:'-', p3:'35'}),
     b('formule', {text:'BLANCS', heading:true}),
     b('item', {fr:'IGP Côtes de Gascogne Sauvignon Gros-Manseng - Famille Dufour', en:'demi sec', cols:3, p1:'6', p2:'9', p3:'29'}),
     b('item', {fr:'IGP D’OC Chardonnay - Cellier du Pic', en:'', cols:3, p1:'6', p2:'9', p3:'29'}),
-    b('item', {fr:'Petit Chablis - Domaine du Chardonnay', en:'', cols:3, p1:'9', p2:'—', p3:'45'}),
+    b('item', {fr:'Petit Chablis - Domaine du Chardonnay', en:'', cols:3, p1:'9', p2:'-', p3:'45'}),
     b('formule', {text:'ROSÉ', heading:true}),
     b('item', {fr:'Vin de France Gris de Gris Les Oliviers - Domaine des Captives BIO', en:'', cols:3, p1:'6', p2:'9', p3:'29'}),
 
     b('section', {fr:'CHAMPAGNES', en:null}),
     b('pricehead', {cols:2, h1:'VERRE\n12 cl', h2:'BTL\n75 cl'}),
-    b('item', {fr:'Grande Réserve Brut - Pierre Domi', en:'local', cols:2, p1:'9.5', p2:'—'}),
-    b('item', {fr:'Blanc de Blancs - Pierre Domi', en:'local', cols:2, p1:'—', p2:'60'}),
+    b('item', {fr:'Grande Réserve Brut - Pierre Domi', en:'local', cols:2, p1:'9.5', p2:'-'}),
+    b('item', {fr:'Blanc de Blancs - Pierre Domi', en:'local', cols:2, p1:'-', p2:'60'}),
     b('item', {fr:'Cuvée Royale Brut - Joseph Perrier', en:'', cols:2, p1:'12', p2:'65'}),
-    b('item', {fr:'« R » de Ruinart Brut - Ruinart', en:'', cols:2, p1:'—', p2:'90'}),
+    b('item', {fr:'« R » de Ruinart Brut - Ruinart', en:'', cols:2, p1:'-', p2:'90'}),
     b('note', {text:'AOP : Appellation d’Origine Protégée, IGP : Indication Géographique Protégée.  L’abus d’alcool est dangereux pour la santé. Toute boisson alcoolisée doit être accompagnée d’un plat.', center:true}),
 
     b('colbreak', {}),
@@ -152,7 +152,7 @@ function defaultDoc(){
     b('item', {fr:'CRISPY QUINOA', en:'Pousses d’épinard, salade romaine, quinoa, émincé de poulet, avocat, oignons crispy, sauce au miel', price:'18'}),
     b('item', {fr:'CAESAR', en:'Salade romaine, émincé de poulet, champignons, tomates cerise, fromage Grana Padano, oignons crispy, sauce caesar', price:'18'}),
     b('item', {fr:'SWEET NIÇOISE', sg:true, en:'Salade romaine, pousses d’épinard, filet de thon de Tarifa, œuf poché, haricots verts, patates douces, tomates cerise, pickles, olives Kalamata, huile d’olive-citron-miel', price:'21.5'}),
-    b('note', {text:'Toutes nos salades sont disponibles en version VEGGIE avec notre aiguillette végétale BIO*'}),
+    b('note', {text:'Toutes nos salades sont désormais disponibles en version VEGGIE avec notre aiguillette végétale BIO*'}),
 
     b('section', {fr:'PLATS CHAUDS', en:null, big:true}),
     b('item', {fr:'AUBERGINE À LA PARMIGGIANA', veg:true, en:'Fiore di latte, coulis de tomate, roquette', price:'18'}),
@@ -195,7 +195,7 @@ function defaultDoc(){
       body:'Demi pavé de saumon, <i>ou</i> Mini club poulet <i>ou</i> thon, salade de pommes de terre<br>Sirop à l’eau <i>ou</i> jus de pomme pressé<br>Crêpe au sucre <i>ou</i> Nutella, <i>ou</i> Cake du moment',
     }),
 
-    b('note', {text:'Paiements acceptés : Espèces, Tickets restaurant, CB, American Express. Prix nets en euros, service et TVA inclus. * Produit surgelé. DOP = dénomination d’origine protégée. Carafe d’eau potable gratuite sur demande. Liste des allergènes sur demande.', center:true, legend:true}),
+    b('note', {text:'Paiements acceptés: Espèces, Tickets restaurant, CB, American Express. Prix nets en euros, service et TVA inclus. * Produit surgelé. DOP = dénomination d’origine protégée. Une carafe d’eau potable sera mise à votre disposition gratuitement sur demande. Liste des allergènes sur demande.', center:true, legend:true}),
   ];
 }
 
