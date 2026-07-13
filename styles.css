@@ -119,8 +119,8 @@ body{
   color:#444; padding:0;
 }
 .rctrl:hover{background:#f2f2f2;}
-.rctrl.del{opacity:.28; color:var(--danger); font-weight:700;}
-.rctrl.del:hover{background:#fdeaea; opacity:1;}
+.rctrl.del{color:var(--danger); font-weight:700;}
+.rctrl.del:hover{background:#fdeaea;}
 .rctrl.grip{cursor:grab; color:#7a7a72; font-size:13px;}
 .rctrl.grip:active{cursor:grabbing;}
 .block:hover .rctrl{opacity:1;}
@@ -135,6 +135,17 @@ body.dragging-block, body.dragging-block *{cursor:grabbing !important; user-sele
 }
 .drop-indicator::before{content:''; position:absolute; left:-3px; top:-2.5px; width:8px; height:8px; border-radius:50%; background:var(--teal);}
 
+/* Ajout d'un bloc « au curseur » */
+body.placing-block, body.placing-block *{cursor:crosshair !important;}
+.placing-label{
+  position:fixed; z-index:950; pointer-events:none;
+  background:var(--teal); color:#fff; border-radius:8px; padding:6px 10px;
+  font-family:'Poppins',sans-serif; box-shadow:0 4px 16px rgba(0,0,0,.28);
+  display:flex; flex-direction:column; gap:1px; max-width:230px;
+}
+.placing-label b{font-weight:700; font-size:12px;}
+.placing-label span{font-size:10px; opacity:.85;}
+
 [contenteditable="true"]{outline:none; cursor:text; border-radius:3px;}
 [contenteditable="true"]:hover{background:rgba(58,73,45,.08);}
 [contenteditable="true"]:focus{background:rgba(58,73,45,.13); box-shadow:0 0 0 2px var(--teal) inset;}
@@ -142,8 +153,7 @@ body.dragging-block, body.dragging-block *{cursor:grabbing !important; user-sele
 /* ---------- Section title ---------- */
 .blk-section h2{
   font-family:var(--font-title); font-weight:800; font-size:18px; color:var(--title-color);
-  margin:7px 0 2px; line-height:1.0; text-transform:uppercase; letter-spacing:.01em;
-  border-bottom:1.5px solid var(--title-color); padding-bottom:2px;
+  margin:8px 0 3px; line-height:1.0; text-transform:uppercase; letter-spacing:.01em;
   display:flex; align-items:baseline; gap:6px;
 }
 .blk-section.big h2{font-size:19px; letter-spacing:0;}
@@ -156,7 +166,7 @@ body.dragging-block, body.dragging-block *{cursor:grabbing !important; user-sele
 .blk-item{display:flex; align-items:flex-start; gap:6px; padding:0 3px; margin-bottom:1.5px; line-height:.98;}
 .blk-item .txt{flex:1 1 auto; min-width:0;}
 .blk-item .fr{font-family:var(--font-name); font-size:10.5px; font-weight:600; color:var(--title-color); letter-spacing:.005em; line-height:1.0;}
-.blk-item .en{font-size:9.5px; font-style:italic; color:#4c4c44; margin-top:0; line-height:1.0;}
+.blk-item .en{font-size:9.5px; font-style:normal; color:#4c4c44; margin-top:0; line-height:1.0;}
 .blk-item .en:empty{display:none;}
 /* Item « inline » : qualificatif court sur la même ligne que le nom (ex. « 33 cl ») */
 .blk-item.inline .fr{display:inline;}

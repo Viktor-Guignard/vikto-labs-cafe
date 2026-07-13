@@ -722,6 +722,96 @@ function moveBlockBefore(dragId, beforeId){
   markDirty(); render();
 }
 
+/* ===================== Ajout d'un bloc « au curseur » (clic pour placer) ===================== */
+
+let placingState = null;
+
+function startPlacing(opt){
+  cancelPlacing();
+  const blk = { id: newId(), type: opt.type, ...opt.make() };
+  const label = document.createElement('div');
+  label.className = 'placing-label';
+  label.innerHTML = `<b>${opt.ttl}</b><span>cliquez pour placer · Échap pour annuler</span>`;
+  document.body.appendChild(label);
+  const indicator = document.createElement('div');
+  indicator.className = 'drop-indicator';
+  indicator.style.display = 'none';
+  document.body.appendChild(indicator);
+  document.body.classList.add('placing-block');
+  placingState = { blk, opt, label, indicator, beforeId: null, hasTarget: false };
+
+  const move = (ev) => {
+    label.style.left = (ev.clientX + 16) + 'px';
+    label.style.top = (ev.clientY + 16) + 'px';
+    if(blk.type === 'deco'){ indicator.style.display = 'none'; placingState.hasTarget = true; return; }
+    const t = findDropTarget(ev.clientX, ev.clientY, null);
+    if(t){
+      placingState.beforeId = t.beforeId; placingState.hasTarget = true;
+      indicator.style.display = 'block';
+      indicator.style.left = t.x + 'px'; indicator.style.top = t.y + 'px'; indicator.style.width = t.w + 'px';
+    } else { placingState.hasTarget = false; indicator.style.display = 'none'; }
+  };
+  const down = (ev) => {
+    const tgt = ev.target;
+    if(!tgt || typeof tgt.closest !== 'function'){ return; }
+    if(tgt.closest('#toolbar') || tgt.closest('.modal-backdrop')){ return; }
+    if(!tgt.closest('#canvasWrap')){ cancelPlacing(); return; }
+    ev.preventDefault(); ev.stopPropagation();
+    finishPlacing(ev.clientX, ev.clientY);
+  };
+  const key = (ev) => { if(ev.key === 'Escape'){ ev.preventDefault(); cancelPlacing(); } };
+  placingState.move = move; placingState.down = down; placingState.key = key;
+  document.addEventListener('mousemove', move);
+  document.addEventListener('keydown', key);
+  // différer l'écouteur de clic pour ne pas capter le clic qui a fermé le sélecteur
+  setTimeout(() => { if(placingState) document.addEventListener('mousedown', down, true); }, 0);
+  H_toast('Placez « ' + opt.ttl + ' » — cliquez à l\'endroit voulu');
+}
+
+function finishPlacing(cx, cy){
+  if(!placingState) return;
+  const blk = placingState.blk;
+  if(blk.type === 'deco'){
+    const sheets = [...document.querySelectorAll('.sheet')];
+    let sheetEl = sheets.find(s => { const r = s.getBoundingClientRect(); return cx>=r.left&&cx<=r.right&&cy>=r.top&&cy<=r.bottom; }) || sheets[0];
+    if(sheetEl){
+      const r = sheetEl.getBoundingClientRect();
+      blk.x = Math.round(cx - r.left - (blk.w||120)/2);
+      blk.y = Math.round(cy - r.top - 20);
+      const firstId = sheetEl.querySelector('[data-block-id]')?.dataset.blockId;
+      let to = firstId ? state.doc.findIndex(b => b.id === firstId) : state.doc.length;
+      if(to < 0) to = state.doc.length;
+      state.doc.splice(to, 0, blk);
+    } else { state.doc.push(blk); }
+  } else {
+    if(!placingState.hasTarget){ cancelPlacing(); return; }
+    const beforeId = placingState.beforeId;
+    let to = beforeId == null ? state.doc.length : state.doc.findIndex(b => b.id === beforeId);
+    if(to < 0) to = state.doc.length;
+    state.doc.splice(to, 0, blk);
+  }
+  state.selectedId = blk.id;
+  cleanupPlacing();
+  markDirty(); render();
+  H_toast('Bloc ajouté ✓');
+}
+
+function cancelPlacing(){ if(placingState) cleanupPlacing(); }
+
+function cleanupPlacing(){
+  if(!placingState) return;
+  document.removeEventListener('mousemove', placingState.move);
+  document.removeEventListener('mousedown', placingState.down, true);
+  document.removeEventListener('keydown', placingState.key);
+  if(placingState.label) placingState.label.remove();
+  if(placingState.indicator) placingState.indicator.remove();
+  document.body.classList.remove('placing-block');
+  placingState = null;
+}
+
+/* toast accessible avant la définition de toast() (hoisting des function declarations) */
+function H_toast(m){ try{ toast(m); }catch(e){} }
+
 /* Élément décoratif : positionné en absolu, déplaçable / redimensionnable / pivotable */
 function buildDecoEl(blk){
   const el = document.createElement('div');
@@ -850,12 +940,8 @@ BLOCK_LIBRARY.forEach(opt=>{
   el.className = 'block-opt';
   el.innerHTML = `<div class="ttl">${opt.ttl}</div><div class="desc">${opt.desc}</div>`;
   el.onclick = () => {
-    const newBlk = { id:newId(), type:opt.type, ...opt.make() };
-    const insertAt = (pendingInsertIndex==null ? state.doc.length-1 : pendingInsertIndex) + 1;
-    state.doc.splice(insertAt, 0, newBlk);
-    state.selectedId = newBlk.id;
     pickerBackdrop.classList.remove('open');
-    markDirty(); render();
+    startPlacing(opt);
   };
   blockGrid.appendChild(el);
 });
