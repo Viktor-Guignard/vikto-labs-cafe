@@ -12,12 +12,12 @@ function defaultDoc(){
     /* ===================== PLANCHE 1 (boissons & desserts) ===================== */
 
     /* Éléments décoratifs (positionnés en absolu, déplaçables) */
-    b('deco', {img:'assets/deco-stamp.png', x:352, y:292, w:106, rot:0}),
-    b('deco', {img:'assets/deco-flower.png', x:648, y:650, w:84, rot:0}),
+    b('deco', {img:'assets/deco-stamp.png', x:356, y:230, w:104, rot:0}),
+    b('deco', {img:'assets/deco-flower.png', x:792, y:660, w:82, rot:0}),
 
     /* ---------- Volet 1 : cocktails, boissons fraîches, vins, champagnes ---------- */
-    b('section', {fr:'COCKTAILS FRAIS PRESSÉS', en:'(40 cl)'}),
-    b('formule', {text:'8 € · Supplément collagène « Day+ » +2 €'}),
+    b('section', {fr:'COCKTAILS FRAIS PRESSÉS', en:'(40 cl)', price:'8'}),
+    b('formule', {text:'Supplément collagène « Day+ » +2 €'}),
     b('item', {fr:'GINGER ADDICT', en:'Pomme, citron, gingembre', price:'', half:true}),
     b('item', {fr:'FRESH', en:'Ananas, pomme, menthe fraîche', price:'', half:true}),
     b('item', {fr:'IPANEMA', en:'Baies d’açaï BIO*, banane, myrtille, pomme', price:'', half:true}),
@@ -28,26 +28,25 @@ function defaultDoc(){
     b('item', {fr:'GREEN JUICE', en:'Concombre, pomme, gingembre', price:'', half:true}),
     b('item', {fr:'GOOD MOOD', en:'Pomme, kiwi, citron', price:'', half:true}),
 
-    b('section', {fr:'SHOTS', en:'(7 cl)'}),
-    b('formule', {text:'3,5 €'}),
+    b('section', {fr:'SHOTS', en:'(7 cl)', price:'3.5'}),
     b('item', {fr:'LEMON SHOT', en:'Citron, gingembre', price:'', half:true}),
     b('item', {fr:'GINGER SHOT', en:'Pomme, gingembre', price:'', half:true}),
 
     b('section', {fr:'COCKTAILS CLASSIQUES', en:'(27 cl)'}),
-    b('item', {fr:'MOJITO ORIGINAL', en:'Rhum Havana 3 ans 4 cl, citron vert, menthe fraîche, cassonnade, eau gazeuse', price:'9 €'}),
-    b('item', {fr:'APÉROL SPRITZ', en:'Apérol 6 cl, Prosecco, eau gazeuse', price:'9 €'}),
-    b('item', {fr:'UGO SPRITZ', en:'Liqueur St Germain 6 cl, Prosecco, eau gazeuse', price:'11 €'}),
+    b('item', {fr:'MOJITO ORIGINAL', en:'Rhum Havana 3 ans 4 cl, citron vert, menthe fraîche, cassonnade, eau gazeuse', price:'9'}),
+    b('item', {fr:'APÉROL SPRITZ', en:'Apérol 6 cl, Prosecco, eau gazeuse', price:'9'}),
+    b('item', {fr:'UGO SPRITZ', en:'Liqueur St Germain 6 cl, Prosecco, eau gazeuse', price:'11'}),
 
     b('section', {fr:'BOISSONS FRAÎCHES', en:null}),
-    b('item', {fr:'EAU AQUACHIARA', en:'Plate ou gazeuse 75 cl', price:'5 €', inline:true}),
-    b('item', {fr:'EAU DÉTOX', en:'Concombre & menthe 75 cl', price:'5,5 €', inline:true}),
-    b('item', {fr:'THÉ GLACÉ MAISON', en:'Infusion par l’Infuseur : cassis, hibiscus, citronnelle · « Détox »', price:'6 €'}),
-    b('item', {fr:'COCA COLA, COCA COLA SANS SUCRE', en:'33 cl', price:'5,5 €', inline:true}),
-    b('item', {fr:'FUZE TEA', en:'Pêche 25 cl', price:'5 €', inline:true}),
-    b('item', {fr:'PERRIER', en:'33 cl', price:'5,5 €', inline:true}),
-    b('item', {fr:'BIÈRE 1664 BLONDE', en:'25 cl / 50 cl', price:'5,9 / 8,5 €', inline:true}),
-    b('item', {fr:'BIÈRE 1664 BLANCHE', en:'25 cl / 50 cl', price:'6,2 / 9 €', inline:true}),
-    b('item', {fr:'BIÈRE GRIMBERGEN ROUGE', en:'25 cl / 50 cl', price:'6,5 / 8,5 €', inline:true}),
+    b('item', {fr:'EAU AQUACHIARA', en:'Plate ou gazeuse 75 cl', price:'5', inline:true}),
+    b('item', {fr:'EAU DÉTOX', en:'Concombre & menthe 75 cl', price:'5.5', inline:true}),
+    b('item', {fr:'THÉ GLACÉ MAISON', en:'Infusion par l’Infuseur : cassis, hibiscus, citronnelle · « Détox »', price:'6'}),
+    b('item', {fr:'COCA COLA, COCA COLA SANS SUCRE', en:'33 cl', price:'5.5', inline:true}),
+    b('item', {fr:'FUZE TEA', en:'Pêche 25 cl', price:'5', inline:true}),
+    b('item', {fr:'PERRIER', en:'33 cl', price:'5.5', inline:true}),
+    b('item', {fr:'BIÈRE 1664 BLONDE', en:'25 cl / 50 cl', price:'5.9 / 8.5', inline:true}),
+    b('item', {fr:'BIÈRE 1664 BLANCHE', en:'25 cl / 50 cl', price:'6.2 / 9', inline:true}),
+    b('item', {fr:'BIÈRE GRIMBERGEN ROUGE', en:'25 cl / 50 cl', price:'6.5 / 8.5', inline:true}),
 
     b('section', {fr:'VINS', en:null}),
     b('pricehead', {cols:3, h1:'Verre 14 cl', h2:'Verre 25 cl', h3:'Btl 75 cl'}),
@@ -64,7 +63,7 @@ function defaultDoc(){
 
     b('section', {fr:'CHAMPAGNES', en:null}),
     b('pricehead', {cols:2, h1:'Verre 12 cl', h2:'Btl 75 cl'}),
-    b('item', {fr:'Grande Réserve Brut — Pierre Domi', en:'Local', cols:2, p1:'9,5', p2:'—'}),
+    b('item', {fr:'Grande Réserve Brut — Pierre Domi', en:'Local', cols:2, p1:'9.5', p2:'—'}),
     b('item', {fr:'Blanc de Blancs — Pierre Domi', en:'Local', cols:2, p1:'—', p2:'60'}),
     b('item', {fr:'Cuvée Royale Brut — Joseph Perrier', en:'', cols:2, p1:'12', p2:'65'}),
     b('item', {fr:'« R » de Ruinart Brut — Ruinart', en:'', cols:2, p1:'—', p2:'90'}),
@@ -74,34 +73,33 @@ function defaultDoc(){
 
     /* ---------- Volet 2 : desserts, boissons chaudes, lattes ---------- */
     b('section', {fr:'DESSERTS', en:null, big:true}),
-    b('item', {fr:'PÊCHE FAÇON MELBA', en:'Chantilly végétale, coulis de fruits rouges, amandes effilées', price:'8,5 €'}),
-    b('item', {fr:'MOUSSE AU CHOCOLAT NOIR', en:'', price:'8,5 €'}),
-    b('item', {fr:'CRUMBLE POMMES', en:'', price:'8,5 €'}),
-    b('item', {fr:'LE PLUME', en:'Gâteau au fromage blanc allégé', price:'9,5 €'}),
-    b('item', {fr:'DS LIGHT « RÉÉDITION »', sg:true, veg:true, en:'Mousse au lait d’amande, coulis de fruits rouges*', price:'8,5 €'}),
-    b('item', {fr:'MOELLEUX AU CHOCOLAT', en:'Crème anglaise', price:'8 €'}),
-    b('item', {fr:'CAKE DU MOMENT', en:'Cake myrtille, glaçage citron ou cake aux pépites de chocolat', price:'5,5 €'}),
-    b('item', {fr:'CRÊPE AU SUCRE*', en:'Supplément Nutella, crème sucrée ou chocolat maison +1 €', price:'5,5 €'}),
-    b('item', {fr:'COOKIE', en:'Chocolat-noix de pécan ou matcha-chocolat blanc', price:'5,5 €'}),
-    b('item', {fr:'AÇAÏ BOWL', veg:true, en:'Açaï BIO*, banane, muesli, coco râpée, myrtille', price:'12 €'}),
-    b('item', {fr:'CAFÉ GOURMAND', en:'DS light, cake du moment, mousse au chocolat', price:'10 €'}),
+    b('item', {fr:'PÊCHE FAÇON MELBA', en:'Chantilly végétale, coulis de fruits rouges, amandes effilées', price:'8.5'}),
+    b('item', {fr:'MOUSSE AU CHOCOLAT NOIR', en:'', price:'8.5'}),
+    b('item', {fr:'CRUMBLE POMMES', en:'', price:'8.5'}),
+    b('item', {fr:'LE PLUME', en:'Gâteau au fromage blanc allégé', price:'9.5'}),
+    b('item', {fr:'DS LIGHT « RÉÉDITION »', sg:true, veg:true, en:'Mousse au lait d’amande, coulis de fruits rouges*', price:'8.5'}),
+    b('item', {fr:'MOELLEUX AU CHOCOLAT', en:'Crème anglaise', price:'8'}),
+    b('item', {fr:'CAKE DU MOMENT', en:'Cake myrtille, glaçage citron ou cake aux pépites de chocolat', price:'5.5'}),
+    b('item', {fr:'CRÊPE AU SUCRE*', en:'Supplément Nutella, crème sucrée ou chocolat maison +1 €', price:'5.5'}),
+    b('item', {fr:'COOKIE', en:'Chocolat-noix de pécan ou matcha-chocolat blanc', price:'5.5'}),
+    b('item', {fr:'AÇAÏ BOWL', veg:true, en:'Açaï BIO*, banane, muesli, coco râpée, myrtille', price:'12'}),
+    b('item', {fr:'CAFÉ GOURMAND', en:'DS light, cake du moment, mousse au chocolat', price:'10'}),
 
-    b('section', {fr:'FROZEN YOGURT', veg:true, en:'(avec 2 toppings au choix)', big:true}),
-    b('formule', {text:'9,5 € · Topping supplémentaire +1 €'}),
+    b('section', {fr:'FROZEN YOGURT', veg:true, en:'(avec 2 toppings au choix)', big:true, price:'9.5'}),
+    b('formule', {text:'Topping supplémentaire +1 €'}),
     b('item', {fr:'Glace au yaourt nature basse calorie', en:'Toppings : banane, myrtille, caramel beurré salé*, miel, noix de pécan, muesli, amandes, Nutella, sirop d’érable', price:''}),
 
     b('section', {fr:'BOISSONS CHAUDES', en:null, big:true}),
-    b('item', {fr:'CAFÉ EXPRESSO, DÉCAFÉINÉ', en:'', price:'2,8 €'}),
-    b('item', {fr:'CAFÉ NOISETTE', en:'', price:'3,2 €'}),
-    b('item', {fr:'DOUBLE EXPRESSO, CAFÉ CRÈME', en:'', price:'5,5 €'}),
-    b('item', {fr:'GRANDE LATTE MACCHIATO, CAPPUCCINO', en:'', price:'6 €'}),
-    b('item', {fr:'CHOCOLAT CHAUD', en:'', price:'6 €'}),
-    b('item', {fr:'GREEN MATCHA LATTE', en:'', price:'7 €'}),
-    b('item', {fr:'THÉS BIO & INFUSION PAR L’INFUSEUR', en:'Sencha, thé vert menthe, thé vert gingembre, Earl Grey, Rooibos vanille · Infusion détox : cassis, hibiscus, citronnelle', price:'6 €'}),
-    b('note', {text:'Boissons lactées au lait végétal +1 € · Sirop vanille ou caramel +0,5 € · Supplément collagène « Day+ » +2 €'}),
+    b('item', {fr:'CAFÉ EXPRESSO, DÉCAFÉINÉ', en:'', price:'2.8'}),
+    b('item', {fr:'CAFÉ NOISETTE', en:'', price:'3.2'}),
+    b('item', {fr:'DOUBLE EXPRESSO, CAFÉ CRÈME', en:'', price:'5.5'}),
+    b('item', {fr:'GRANDE LATTE MACCHIATO, CAPPUCCINO', en:'', price:'6'}),
+    b('item', {fr:'CHOCOLAT CHAUD', en:'', price:'6'}),
+    b('item', {fr:'GREEN MATCHA LATTE', en:'', price:'7'}),
+    b('item', {fr:'THÉS BIO & INFUSION PAR L’INFUSEUR', en:'Sencha, thé vert menthe, thé vert gingembre, Earl Grey, Rooibos vanille · Infusion détox : cassis, hibiscus, citronnelle', price:'6'}),
+    b('note', {text:'Boissons lactées au lait végétal +1 € · Sirop vanille ou caramel +0.5 € · Supplément collagène « Day+ » +2 €'}),
 
-    b('section', {fr:'LES LATTE', en:'de la Main Noire', big:true}),
-    b('formule', {text:'7 €'}),
+    b('section', {fr:'LES LATTE', en:'de la Main Noire', big:true, price:'7'}),
     b('item', {fr:'GOLDEN LATTE BIO', en:'Curcuma, gingembre, poivre noir, muscade, cardamome, sucre de betterave', price:''}),
     b('item', {fr:'BLUE LATTE BIO', en:'Spiruline bleue, coco, gingembre, sumac, sucre de betterave', price:''}),
     b('item', {fr:'CHAI LATTE BIO', en:'Thé noir Rukeri AOP, poivre noir, gingembre, cannelle, cardamome, clou de girofle, sucre de betterave', price:''}),
@@ -124,7 +122,7 @@ function defaultDoc(){
       d1t:'BOISSON AU CHOIX — 25 CL',
       d1b:'Au choix : Green Juice ou Wake Up ou orange pressée ou jus de pomme pressé<br>(ou Mimosa 12 cl +6 €)',
       d2t:'BOISSON CHAUDE OU THÉ GLACÉ',
-      d2b:'Au choix : café, chocolat chaud, thé ou infusion L’Infuseur<br>(Cappuccino, Macchiato ou lait végétal +1 € · Latte au choix +1,50 €)',
+      d2b:'Au choix : café, chocolat chaud, thé ou infusion L’Infuseur<br>(Cappuccino, Macchiato ou lait végétal +1 € · Latte au choix +1.50 €)',
       d3t:'ASSIETTE BRUNCH',
       d3b:'Pain brioché artisanal multigrains*, cheddar, œufs pochés, sauce hollandaise*, avocat, salade de pommes de terre, salade verte<br>+ au choix : poulet, saumon fumé ou pastrami',
       d4t:'DESSERT',
@@ -132,58 +130,58 @@ function defaultDoc(){
     }),
 
     b('section', {fr:'BUNS', en:null, big:true}),
-    b('note', {text:'Pain brioché artisanal multigrains* · Supplément cheddar +1,5 €'}),
-    b('item', {fr:'BROOKLYN', en:'Pastrami de bœuf, cornichons, émincé de chou, mayonnaise Savora, salade de pommes de terre, salade verte', price:'19 €'}),
-    b('item', {fr:'OSLO', en:'Saumon fumé, concombre, yaourt aux herbes, salade de pommes de terre, salade verte', price:'18,5 €'}),
-    b('item', {fr:'CALIFORNIEN', en:'Poulet, tomate, romaine, œuf dur, mayonnaise Savora, salade de pommes de terre, salade verte', price:'16,5 €'}),
+    b('note', {text:'Pain brioché artisanal multigrains* · Supplément cheddar +1.5 €'}),
+    b('item', {fr:'BROOKLYN', en:'Pastrami de bœuf, cornichons, émincé de chou, mayonnaise Savora, salade de pommes de terre, salade verte', price:'19'}),
+    b('item', {fr:'OSLO', en:'Saumon fumé, concombre, yaourt aux herbes, salade de pommes de terre, salade verte', price:'18.5'}),
+    b('item', {fr:'CALIFORNIEN', en:'Poulet, tomate, romaine, œuf dur, mayonnaise Savora, salade de pommes de terre, salade verte', price:'16.5'}),
 
     b('colbreak', {}),
 
     /* ---------- Volet 2 : salades, plats chauds, petits plus ---------- */
     b('section', {fr:'SALADES GOURMANDES', en:null, big:true}),
-    b('item', {fr:'SALADE GRECQUE', sg:true, veg:true, en:'Salade romaine, concombre, tomate cerise, féta, olives Kalamata, pickles, menthe, vinaigrette balsamique', price:'17 €'}),
-    b('item', {fr:'GREEN GLOW', sg:true, en:'Saumon cuit mariné soja-sésame, fromage blanc, haricots verts, concombre, edamame, pois gourmands, roquette, pignons de pin & graines de courge, sauce au collagène', price:'22 €'}),
-    b('item', {fr:'MIDDLE EAST', veg:true, en:'Taboulé de quinoa, halloumi, courgette grillée, salade romaine, houmous, olives Kalamata, crackers, huile d’olive-citron-miel', price:'18 €'}),
-    b('item', {fr:'TAI CHI', en:'Salade romaine, chou chinois, chou rouge, julienne de carotte, pousses de soja, poulet, spaghettis de konjac, radis, cacahuète, menthe, coriandre, sauce soja-sésame', price:'18 €'}),
-    b('item', {fr:'CHICKEN QUINOA BOWL', en:'Émincé de poulet, quinoa, avocat, concombre, grenade, pousses d’épinard, chèvre frais, amandes, basilic, salade romaine, sauce huile d’olive-citron-miel', price:'19 €'}),
-    b('item', {fr:'MUM TO BE', en:'Saumon cuit mariné soja-sésame, haricots verts, edamame*, champignons sautés, patate douce, fromage Grana Padano, graines de lin, amandes, huile d’olive-citron-miel', price:'20,5 €'}),
-    b('item', {fr:'CRISPY QUINOA', en:'Pousses d’épinard, salade romaine, quinoa, émincé de poulet, avocat, oignons crispy, sauce au miel', price:'18 €'}),
-    b('item', {fr:'CAESAR', en:'Salade romaine, émincé de poulet, champignons, tomates cerise, fromage Grana Padano, oignons crispy, sauce caesar', price:'18 €'}),
-    b('item', {fr:'SWEET NIÇOISE', sg:true, en:'Salade romaine, pousses d’épinard, filet de thon de Tarifa, œuf poché, haricots verts, patates douces, tomates cerise, pickles, olives Kalamata, huile d’olive-citron-miel', price:'21,5 €'}),
+    b('item', {fr:'SALADE GRECQUE', sg:true, veg:true, en:'Salade romaine, concombre, tomate cerise, féta, olives Kalamata, pickles, menthe, vinaigrette balsamique', price:'17'}),
+    b('item', {fr:'GREEN GLOW', sg:true, en:'Saumon cuit mariné soja-sésame, fromage blanc, haricots verts, concombre, edamame, pois gourmands, roquette, pignons de pin & graines de courge, sauce au collagène', price:'22'}),
+    b('item', {fr:'MIDDLE EAST', veg:true, en:'Taboulé de quinoa, halloumi, courgette grillée, salade romaine, houmous, olives Kalamata, crackers, huile d’olive-citron-miel', price:'18'}),
+    b('item', {fr:'TAI CHI', en:'Salade romaine, chou chinois, chou rouge, julienne de carotte, pousses de soja, poulet, spaghettis de konjac, radis, cacahuète, menthe, coriandre, sauce soja-sésame', price:'18'}),
+    b('item', {fr:'CHICKEN QUINOA BOWL', en:'Émincé de poulet, quinoa, avocat, concombre, grenade, pousses d’épinard, chèvre frais, amandes, basilic, salade romaine, sauce huile d’olive-citron-miel', price:'19'}),
+    b('item', {fr:'MUM TO BE', en:'Saumon cuit mariné soja-sésame, haricots verts, edamame*, champignons sautés, patate douce, fromage Grana Padano, graines de lin, amandes, huile d’olive-citron-miel', price:'20.5'}),
+    b('item', {fr:'CRISPY QUINOA', en:'Pousses d’épinard, salade romaine, quinoa, émincé de poulet, avocat, oignons crispy, sauce au miel', price:'18'}),
+    b('item', {fr:'CAESAR', en:'Salade romaine, émincé de poulet, champignons, tomates cerise, fromage Grana Padano, oignons crispy, sauce caesar', price:'18'}),
+    b('item', {fr:'SWEET NIÇOISE', sg:true, en:'Salade romaine, pousses d’épinard, filet de thon de Tarifa, œuf poché, haricots verts, patates douces, tomates cerise, pickles, olives Kalamata, huile d’olive-citron-miel', price:'21.5'}),
     b('note', {text:'Toutes nos salades sont disponibles en version VEGGIE avec notre aiguillette végétale BIO*'}),
 
     b('section', {fr:'PLATS CHAUDS', en:null, big:true}),
-    b('item', {fr:'AUBERGINE À LA PARMIGGIANA', veg:true, en:'Fiore di latte, coulis de tomate, roquette', price:'18 €'}),
-    b('item', {fr:'CABILLAUD MISO', sg:true, en:'Cabillaud mariné au miso blanc, purée de haricots verts, brocoli bimi, coriandre', price:'24 €'}),
-    b('item', {fr:'PAVÉ DE SAUMON MI-CUIT SOJA SÉSAME', sg:true, en:'Riz curcuma, haricots verts & champignons sautés', price:'23 €'}),
-    b('item', {fr:'AIGUILLETTES DE POULET', sg:true, en:'Marinées au gingembre & citron confit, patate douce rôtie, haricots verts', price:'22 €'}),
-    b('item', {fr:'CURRY DE POULET AU LAIT DE COCO', en:'Riz curcuma, coriandre, julienne de carotte & courgette grillée', price:'18 €'}),
+    b('item', {fr:'AUBERGINE À LA PARMIGGIANA', veg:true, en:'Fiore di latte, coulis de tomate, roquette', price:'18'}),
+    b('item', {fr:'CABILLAUD MISO', sg:true, en:'Cabillaud mariné au miso blanc, purée de haricots verts, brocoli bimi, coriandre', price:'24'}),
+    b('item', {fr:'PAVÉ DE SAUMON MI-CUIT SOJA SÉSAME', sg:true, en:'Riz curcuma, haricots verts & champignons sautés', price:'23'}),
+    b('item', {fr:'AIGUILLETTES DE POULET', sg:true, en:'Marinées au gingembre & citron confit, patate douce rôtie, haricots verts', price:'22'}),
+    b('item', {fr:'CURRY DE POULET AU LAIT DE COCO', en:'Riz curcuma, coriandre, julienne de carotte & courgette grillée', price:'18'}),
 
     b('section', {fr:'PETITS PLUS', en:null, big:true}),
-    b('item', {fr:'ŒUF POCHÉ', en:'', price:'2,5 €'}),
-    b('item', {fr:'DEMI AVOCAT', en:'', price:'3 €'}),
-    b('item', {fr:'HALLOUMI GRILLÉ', en:'', price:'5 €'}),
-    b('item', {fr:'CHAMPIGNONS SAUTÉS · HARICOTS VERTS', en:'', price:'5 €'}),
-    b('item', {fr:'SALADE VERTE · RIZ CURCUMA · SALADE DE POMMES DE TERRE', en:'', price:'5 €'}),
-    b('item', {fr:'SAUMON FUMÉ · SAUMON CUIT MARINÉ', en:'', price:'5 €'}),
+    b('item', {fr:'ŒUF POCHÉ', en:'', price:'2.5', half:true}),
+    b('item', {fr:'DEMI AVOCAT', en:'', price:'3', half:true}),
+    b('item', {fr:'HALLOUMI GRILLÉ', en:'', price:'5', half:true}),
+    b('item', {fr:'CHAMPIGNONS SAUTÉS · HARICOTS VERTS', en:'', price:'5', half:true}),
+    b('item', {fr:'SALADE VERTE · RIZ CURCUMA · SALADE DE POMMES DE TERRE', en:'', price:'5', half:true}),
+    b('item', {fr:'SAUMON FUMÉ · SAUMON CUIT MARINÉ', en:'', price:'5', half:true}),
 
     b('colbreak', {}),
 
     /* ---------- Volet 3 : piadinas, clubs, toasts, menu enfant ---------- */
     b('section', {fr:'PIADINAS', en:'Galette de blé non levée légèrement toastée', big:true}),
-    b('item', {fr:'PIADINA VEGGIE', en:'Pesto, courgettes & poivrons grillés, tomates confites, fromage fiore di latte, salade verte', price:'18 €'}),
-    b('item', {fr:'PIADINA POULET', en:'Pesto rosso, tomates confites, fromage fiore di latte, salade verte', price:'18 €'}),
-    b('item', {fr:'PIADINA THON', en:'Tomates confites, miettes de thon, œuf poché, fiore di latte, salade verte', price:'18 €'}),
+    b('item', {fr:'PIADINA VEGGIE', en:'Pesto, courgettes & poivrons grillés, tomates confites, fromage fiore di latte, salade verte', price:'18'}),
+    b('item', {fr:'PIADINA POULET', en:'Pesto rosso, tomates confites, fromage fiore di latte, salade verte', price:'18'}),
+    b('item', {fr:'PIADINA THON', en:'Tomates confites, miettes de thon, œuf poché, fiore di latte, salade verte', price:'18'}),
 
     b('section', {fr:'CLUBS SANDWICHS', en:null, big:true}),
-    b('item', {fr:'CLUB POULET', en:'Poulet, tomate, salade romaine, œuf dur, mayonnaise Savora, salade de pommes de terre, salade verte', price:'17 €'}),
-    b('item', {fr:'CLUB TUNA', en:'Rillette de thon à l’aneth, tomate, avocat, salade de pommes de terre, salade verte', price:'16 €'}),
-    b('item', {fr:'CLUB SAUMON', en:'Saumon fumé, fromage à la crème, avocat, salade de pommes de terre, salade verte', price:'18 €'}),
-    b('item', {fr:'CLUB PASTRAMI', en:'Pastrami de bœuf, cornichons, émincé de chou, mayonnaise Savora, salade de pommes de terre, salade verte', price:'19 €'}),
+    b('item', {fr:'CLUB POULET', en:'Poulet, tomate, salade romaine, œuf dur, mayonnaise Savora, salade de pommes de terre, salade verte', price:'17'}),
+    b('item', {fr:'CLUB TUNA', en:'Rillette de thon à l’aneth, tomate, avocat, salade de pommes de terre, salade verte', price:'16'}),
+    b('item', {fr:'CLUB SAUMON', en:'Saumon fumé, fromage à la crème, avocat, salade de pommes de terre, salade verte', price:'18'}),
+    b('item', {fr:'CLUB PASTRAMI', en:'Pastrami de bœuf, cornichons, émincé de chou, mayonnaise Savora, salade de pommes de terre, salade verte', price:'19'}),
 
     b('section', {fr:'TOASTS', en:null, big:true}),
-    b('item', {fr:'AVOCADO TOAST', en:'Pain nordique BIO, avocat slicé, féta, œuf poché, grenade, sésame, salade verte', price:'17 €'}),
-    b('item', {fr:'TARTINE CAPRESE', en:'Pain nordique BIO, tomate, mozzarella di bufala, câpres, crème de balsamique, roquette', price:'15 €'}),
+    b('item', {fr:'AVOCADO TOAST', en:'Pain nordique BIO, avocat slicé, féta, œuf poché, grenade, sésame, salade verte', price:'17'}),
+    b('item', {fr:'TARTINE CAPRESE', en:'Pain nordique BIO, tomate, mozzarella di bufala, câpres, crème de balsamique, roquette', price:'15'}),
     b('note', {text:'Avec du saumon fumé +5 €'}),
 
     b('enfant', {
@@ -198,7 +196,7 @@ function defaultDoc(){
 
 const BLOCK_LIBRARY = [
   {type:'section', ttl:'Titre de section', desc:'Ex : « DESSERTS » ; « FROZEN YOGURT / V »', make:()=>({fr:'NOUVELLE SECTION', en:null})},
-  {type:'item', ttl:'Plat', desc:'Nom, description, prix', make:()=>({fr:'NOUVEAU PLAT', en:'Description', price:'0 €'})},
+  {type:'item', ttl:'Plat', desc:'Nom, description, prix', make:()=>({fr:'NOUVEAU PLAT', en:'Description', price:'0'})},
   {type:'formule', ttl:'Ligne formule', desc:'Texte en vert (ex. prix partagé)', make:()=>({text:'NOUVELLE FORMULE'})},
   {type:'note', ttl:'Note / mention', desc:'Petit texte italique', make:()=>({text:'Note...'})},
   {type:'divider', ttl:'Séparateur', desc:'Ligne fine de séparation', make:()=>({})},
@@ -406,6 +404,7 @@ function renderBlockInner(blk){
         <div class="panel-caption">${ed(blk.id,'caption',esc(blk.caption))}</div>`;
     case 'brunch':
       return `
+        <img class="frame-bg" src="assets/brunch.png" alt="" draggable="false">
         <div class="brunch-inner">
           <div class="brunch-title">${ed(blk.id,'title',esc(blk.title),'','div')}</div>
           <div class="brunch-sub">${ed(blk.id,'subtitle',esc(blk.subtitle),'','div')}</div>
@@ -425,13 +424,14 @@ function renderBlockInner(blk){
         </div>`;
     case 'enfant':
       return `
+        <img class="frame-bg" src="assets/enfant.png" alt="" draggable="false">
         <div class="enfant-inner">
           <div class="enfant-title">${ed(blk.id,'title',esc(blk.title),'','div')}</div>
           <div class="enfant-offer">${ed(blk.id,'offer',esc(blk.offer),'','div')}</div>
           <div class="enfant-b">${ed(blk.id,'body',blk.body,'','div')}</div>
         </div>`;
     case 'section':
-      return `<h2>${ed(blk.id,'fr',esc(blk.fr))}${dietIcons(blk)}${blk.en != null ? ' <span class="en">'+ed(blk.id,'en',esc(blk.en))+'</span>' : ''}</h2>`;
+      return `<h2>${ed(blk.id,'fr',esc(blk.fr))}${dietIcons(blk)}${blk.en != null ? ' <span class="en">'+ed(blk.id,'en',esc(blk.en))+'</span>' : ''}${blk.price != null ? '<span class="sec-price">'+ed(blk.id,'price',esc(blk.price))+'</span>' : ''}</h2>`;
     case 'item': {
       if(blk.cols){
         let cells = '';
@@ -842,6 +842,9 @@ document.getElementById('appearanceReset').addEventListener('click', () => {
 applyStyle();
 render();
 resetHistory();
+
+/* Mode aperçu propre (?print) : masque toute l'UI d'édition (comme l'export) */
+if(/[?&]print\b/.test(location.search)) document.body.classList.add('exporting');
 
 window.addEventListener('load', checkOverflow);
 if(document.fonts && document.fonts.ready) document.fonts.ready.then(checkOverflow);
