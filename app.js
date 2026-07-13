@@ -12,7 +12,7 @@ function defaultDoc(){
     /* ===================== PLANCHE 1 (boissons & desserts) ===================== */
 
     /* Éléments décoratifs (positionnés en absolu, déplaçables) */
-    b('deco', {img:'assets/deco-stamp.png', x:352, y:214, w:82, rot:0}),
+    b('deco', {img:'assets/deco-stamp.png', x:300, y:214, w:82, rot:0}),
     b('deco', {img:'assets/deco-flower.png', x:758, y:742, w:80, rot:0}),
 
     /* ---------- Volet 1 : cocktails, boissons fraîches, vins, champagnes ---------- */
@@ -40,7 +40,7 @@ function defaultDoc(){
     b('section', {fr:'BOISSONS FRAÎCHES', en:null}),
     b('item', {fr:'EAU AQUACHIARA', en:'Plate ou gazeuse 75 cl', price:'5', inline:true}),
     b('item', {fr:'EAU DÉTOX', en:'Concombre & menthe 75 cl', price:'5.5', inline:true}),
-    b('item', {fr:'THÉ GLACÉ MAISON : INFUSION PAR L’INFUSEUR', en:'Cassis, hibiscus, citronnelle · Infusion « Détox »', price:'6'}),
+    b('item', {fr:'THÉ GLACÉ MAISON : INFUSION PAR L’INFUSEUR', en:'Cassis, hibiscus, citronnelle. Infusion "Détox"', price:'6'}),
     b('item', {fr:'COCA COLA, COCA COLA SANS SUCRE', en:'33 cl', price:'5.5', inline:true}),
     b('item', {fr:'FUZE TEA', en:'Pêche 25 cl', price:'5', inline:true}),
     b('item', {fr:'PERRIER', en:'33 cl', price:'5.5', inline:true}),
@@ -51,22 +51,22 @@ function defaultDoc(){
     b('section', {fr:'VINS', en:null}),
     b('pricehead', {cols:3, h1:'VERRE\n14 cl', h2:'VERRE\n25 cl', h3:'BTL\n75 cl'}),
     b('formule', {text:'ROUGES', heading:true}),
-    b('item', {fr:'Côtes du Rhône Amour de Fruits — Domaine Dieu le Fit BIO', en:'', cols:3, p1:'6', p2:'9', p3:'29'}),
-    b('item', {fr:'Saint Nicolas de Bourgueil AOP — Domaine des Pins', en:'', cols:3, p1:'6', p2:'9', p3:'29'}),
-    b('item', {fr:'Graves AOP — Château les Majureaux', en:'', cols:3, p1:'—', p2:'—', p3:'35'}),
+    b('item', {fr:'Côtes du Rhone Amour de Fruits - Domaine Dieu le Fit BIO', en:'', cols:3, p1:'6', p2:'9', p3:'29'}),
+    b('item', {fr:'Saint Nicolas de Bourgueil AOP - Domaine des Pins', en:'', cols:3, p1:'6', p2:'9', p3:'29'}),
+    b('item', {fr:'Graves AOP - Château les Majureaux', en:'', cols:3, p1:'—', p2:'—', p3:'35'}),
     b('formule', {text:'BLANCS', heading:true}),
-    b('item', {fr:'IGP Côtes de Gascogne Sauvignon Gros-Manseng — Famille Dufour', en:'demi sec', cols:3, p1:'6', p2:'9', p3:'29'}),
-    b('item', {fr:'IGP d’Oc Chardonnay — Cellier du Pic', en:'', cols:3, p1:'6', p2:'9', p3:'29'}),
-    b('item', {fr:'Petit Chablis — Domaine du Chardonnay', en:'', cols:3, p1:'9', p2:'—', p3:'45'}),
+    b('item', {fr:'IGP Côtes de Gascogne Sauvignon Gros-Manseng - Famille Dufour', en:'demi sec', cols:3, p1:'6', p2:'9', p3:'29'}),
+    b('item', {fr:'IGP D’OC Chardonnay - Cellier du Pic', en:'', cols:3, p1:'6', p2:'9', p3:'29'}),
+    b('item', {fr:'Petit Chablis - Domaine du Chardonnay', en:'', cols:3, p1:'9', p2:'—', p3:'45'}),
     b('formule', {text:'ROSÉ', heading:true}),
-    b('item', {fr:'Vin de France Gris de Gris Les Oliviers — Domaine des Captives BIO', en:'', cols:3, p1:'6', p2:'9', p3:'29'}),
+    b('item', {fr:'Vin de France Gris de Gris Les Oliviers - Domaine des Captives BIO', en:'', cols:3, p1:'6', p2:'9', p3:'29'}),
 
     b('section', {fr:'CHAMPAGNES', en:null}),
     b('pricehead', {cols:2, h1:'VERRE\n12 cl', h2:'BTL\n75 cl'}),
-    b('item', {fr:'Grande Réserve Brut — Pierre Domi', en:'local', cols:2, p1:'9.5', p2:'—'}),
-    b('item', {fr:'Blanc de Blancs — Pierre Domi', en:'local', cols:2, p1:'—', p2:'60'}),
-    b('item', {fr:'Cuvée Royale Brut — Joseph Perrier', en:'', cols:2, p1:'12', p2:'65'}),
-    b('item', {fr:'« R » de Ruinart Brut — Ruinart', en:'', cols:2, p1:'—', p2:'90'}),
+    b('item', {fr:'Grande Réserve Brut - Pierre Domi', en:'local', cols:2, p1:'9.5', p2:'—'}),
+    b('item', {fr:'Blanc de Blancs - Pierre Domi', en:'local', cols:2, p1:'—', p2:'60'}),
+    b('item', {fr:'Cuvée Royale Brut - Joseph Perrier', en:'', cols:2, p1:'12', p2:'65'}),
+    b('item', {fr:'« R » de Ruinart Brut - Ruinart', en:'', cols:2, p1:'—', p2:'90'}),
     b('note', {text:'AOP : Appellation d’Origine Protégée, IGP : Indication Géographique Protégée.  L’abus d’alcool est dangereux pour la santé. Toute boisson alcoolisée doit être accompagnée d’un plat.', center:true}),
 
     b('colbreak', {}),
@@ -97,8 +97,10 @@ function defaultDoc(){
     b('item', {fr:'GRANDE LATTE MACCHIATO, CAPPUCCINO', en:'', price:'6'}),
     b('item', {fr:'CHOCOLAT CHAUD', en:'', price:'6'}),
     b('item', {fr:'GREEN MATCHA LATTE', en:'', price:'7'}),
-    b('item', {fr:'THÉS BIO & INFUSION PAR L’INFUSEUR', en:'Sencha, thé vert menthe, thé vert gingembre, Earl Grey, Rooibos vanille · Infusion détox : cassis, hibiscus, citronnelle', price:'6'}),
-    b('note', {text:'Boissons lactées au lait végétal +1€ · Sirop vanille ou caramel +0.5€ · Supplément collagène « Day+ » +2€'}),
+    b('item', {fr:'THÉS BIO & INFUSION PAR L’INFUSEUR', en:'Thé vert Sencha, thé vert menthe, thé vert gingembre, thé Earl grey, Roiboos vanille. Infusion détox : cassis, hibiscus, citronnelle', price:'6'}),
+    b('note', {text:'Les boissons lactées peuvent être servies au lait végétal +1€'}),
+    b('note', {text:'Sirop de vanille ou de caramel +0.5€'}),
+    b('note', {text:'Supplément collagène "Day+" +2€'}),
 
     b('section', {fr:'LES LATTE', en:'de la Main Noire', big:true, price:'7'}),
     b('item', {fr:'GOLDEN LATTE BIO', en:'Curcuma, gingembre, poivre noir, muscade, cardamome, sucre de betterave', price:''}),
@@ -119,13 +121,13 @@ function defaultDoc(){
     b('brunch', {
       title:'LE<br>BRUNCH',
       subtitle:'Samedi, Dimanche & jours fériés',
-      offer:'ASSIETTE BRUNCH 24<br>FORMULE 32',
+      offer:'ASSIETTE BRUNCH <i>24</i><br>FORMULE <i>32</i>',
       d1t:'BOISSON AU CHOIX - 25 CL',
-      d1b:'Au choix : Green juice ou Wake up ou orange pressée ou jus de pomme pressé<br>(ou Mimosa 12 cl +6€)',
+      d1b:'Au choix : Green juice <i>ou</i> Wake up <i>ou</i> orange pressée <i>ou</i> jus de pomme pressé<br>(ou Mimosa 12 cl +6€)',
       d2t:'BOISSON CHAUDE OU THÉ GLACÉ',
-      d2b:'Au choix : Café, chocolat chaud, thé ou infusion L’Infuseur<br>(Cappuccino, Macchiato, ou lait végétal +1€ · Latte au choix +1.50€)',
+      d2b:'Au choix : Café, chocolat chaud, thé <i>ou</i> infusion L’Infuseur.<br>(Cappuccino, Macchiato, ou lait végétal +1€)<br>(Latte au choix +1.50€)',
       d3t:'ASSIETTE BRUNCH',
-      d3b:'Pain brioché artisanal multigrains*, cheddar, œufs pochés, sauce hollandaise*, avocat, salade de pommes de terre, salade verte<br>+ au choix : poulet, saumon fumé ou pastrami',
+      d3b:'Pain brioché artisanal multigrains*, cheddar, œufs pochés, sauce hollandaise*, avocat, salade de pommes de terre, salade verte<br>+ au choix : poulet, saumon fumé <i>ou</i> pastrami',
       d4t:'DESSERT',
       d4b:'Pancakes, bananes, caramel beurre salé & noix de pécan<br>ou fromage blanc 0 %, muesli & miel',
     }),
@@ -156,16 +158,16 @@ function defaultDoc(){
     b('item', {fr:'AUBERGINE À LA PARMIGGIANA', veg:true, en:'Fiore di latte, coulis de tomate, roquette', price:'18'}),
     b('item', {fr:'CABILLAUD MISO', sg:true, en:'Cabillaud mariné au miso blanc, purée de haricots verts, brocoli bimi, coriandre', price:'24'}),
     b('item', {fr:'PAVÉ DE SAUMON MI-CUIT SOJA SÉSAME', sg:true, en:'Riz curcuma, haricots verts & champignons sautés', price:'23'}),
-    b('item', {fr:'AIGUILLETTES DE POULET', sg:true, en:'Marinées au gingembre & citron confit, patate douce rôtie, haricots verts', price:'22'}),
+    b('item', {fr:'AIGUILLETTES DE POULET', sg:true, en:'Aiguillettes de poulet marinées au gingembre & citron confit, patate douce rôtie, haricots verts', price:'22'}),
     b('item', {fr:'CURRY DE POULET AU LAIT DE COCO', en:'Riz curcuma, coriandre, julienne de carotte & courgette grillée', price:'18'}),
 
     b('section', {fr:'PETITS PLUS', en:null, big:true}),
     b('item', {fr:'ŒUF POCHÉ', en:'', price:'2.5', half:true}),
     b('item', {fr:'DEMI AVOCAT', en:'', price:'3', half:true}),
     b('item', {fr:'HALLOUMI GRILLÉ', en:'', price:'5', half:true}),
-    b('item', {fr:'CHAMPIGNONS SAUTÉS · HARICOTS VERTS', en:'', price:'5', half:true}),
-    b('item', {fr:'SALADE VERTE · RIZ CURCUMA · SALADE DE POMMES DE TERRE', en:'', price:'5', half:true}),
-    b('item', {fr:'SAUMON FUMÉ · SAUMON CUIT MARINÉ', en:'', price:'5', half:true}),
+    b('item', {fr:'CHAMPIGNONS SAUTÉS - HARICOTS VERTS', en:'', price:'5', half:true}),
+    b('item', {fr:'SALADE VERTE - RIZ CURCUMA - SALADE DE POMMES DE TERRE', en:'', price:'5', half:true}),
+    b('item', {fr:'SAUMON FUMÉ - SAUMON CUIT MARINE', en:'', price:'5', half:true}),
 
     b('colbreak', {}),
 
@@ -189,8 +191,8 @@ function defaultDoc(){
 
     b('enfant', {
       title:'Menu Enfant',
-      offer:'PLAT · BOISSON · DESSERT   10',
-      body:'Demi pavé de saumon, ou Mini club poulet ou thon, salade de pommes de terre<br>Sirop à l’eau ou jus de pomme pressé<br>Crêpe au sucre ou Nutella, ou Cake du moment',
+      offer:'PLAT • BOISSON • DESSERT <i>10</i>',
+      body:'Demi pavé de saumon, <i>ou</i> Mini club poulet <i>ou</i> thon, salade de pommes de terre<br>Sirop à l’eau <i>ou</i> jus de pomme pressé<br>Crêpe au sucre <i>ou</i> Nutella, <i>ou</i> Cake du moment',
     }),
 
     b('note', {text:'Paiements acceptés : Espèces, Tickets restaurant, CB, American Express. Prix nets en euros, service et TVA inclus. * Produit surgelé. DOP = dénomination d’origine protégée. Carafe d’eau potable gratuite sur demande. Liste des allergènes sur demande.', center:true, legend:true}),
@@ -225,7 +227,7 @@ const MULTILINE_FIELDS = new Set(['insta','wifi','d1b','d2b','d3b','d4b','body']
 
 const FONT_CHOICES = {
   title: [
-    {name:'Playfair Display', gq:'Playfair+Display:wght@700;800'},
+    {name:'Playfair Display', gq:'Playfair+Display:wght@400;700;800'},
     {name:'Cormorant Garamond', gq:'Cormorant+Garamond:wght@600;700'},
     {name:'DM Serif Display', gq:'DM+Serif+Display'},
     {name:'Libre Baskerville', gq:'Libre+Baskerville:wght@400;700'},
@@ -437,11 +439,11 @@ function renderBlockInner(blk){
         <img class="frame-bg" src="assets/enfant.png" alt="" draggable="false">
         <div class="enfant-inner">
           <div class="enfant-title">${ed(blk.id,'title',esc(blk.title),'','div')}</div>
-          <div class="enfant-offer">${ed(blk.id,'offer',esc(blk.offer),'','div')}</div>
+          <div class="enfant-offer">${ed(blk.id,'offer',blk.offer,'','div')}</div>
           <div class="enfant-b">${ed(blk.id,'body',blk.body,'','div')}</div>
         </div>`;
     case 'section':
-      return `<h2>${ed(blk.id,'fr',esc(blk.fr))}${dietIcons(blk)}${blk.en != null ? ' <span class="en'+(/^\(\s*\d+\s*cl\s*\)$/.test(blk.en)?' unit':'')+'">'+ed(blk.id,'en',esc(blk.en))+'</span>' : ''}${blk.price != null ? '<span class="sec-price">'+ed(blk.id,'price',esc(blk.price))+'</span>' : ''}</h2>`;
+      return `<h2>${ed(blk.id,'fr',esc(blk.fr))}${blk.en != null ? ' <span class="en'+(/^\(\s*\d+\s*cl\s*\)$/.test(blk.en)?' unit':'')+'">'+ed(blk.id,'en',esc(blk.en))+'</span>' : ''}${dietIcons(blk)}${blk.price != null ? '<span class="sec-price">'+ed(blk.id,'price',esc(blk.price))+'</span>' : ''}</h2>`;
     case 'item': {
       if(blk.cols){
         let cells = '';
