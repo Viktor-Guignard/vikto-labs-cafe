@@ -12,8 +12,8 @@ function defaultDoc(){
     /* ===================== PLANCHE 1 (boissons & desserts) ===================== */
 
     /* Éléments décoratifs (positionnés en absolu, déplaçables) */
-    b('deco', {img:'assets/deco-stamp.png', x:356, y:230, w:104, rot:0}),
-    b('deco', {img:'assets/deco-flower.png', x:792, y:660, w:82, rot:0}),
+    b('deco', {img:'assets/deco-stamp.png', x:342, y:196, w:100, rot:0}),
+    b('deco', {img:'assets/deco-flower.png', x:758, y:742, w:80, rot:0}),
 
     /* ---------- Volet 1 : cocktails, boissons fraîches, vins, champagnes ---------- */
     b('section', {fr:'COCKTAILS FRAIS PRESSÉS', en:'(40 cl)', price:'8'}),
@@ -490,6 +490,7 @@ function blockClass(blk){
   if(blk.type==='section' && blk.big) c += ' big';
   if(blk.type==='note' && blk.center) c += ' center';
   if(blk.type==='item' && blk.inline) c += ' inline';
+  if(blk.type==='item' && blk.cols) c += ' wine';
   return c;
 }
 
@@ -520,26 +521,46 @@ function render(){
 
   newSheet();
 
-  let gridEl = null;   // conteneur 2 sous-colonnes pour les items « half »
+  let gridEl = null;    // conteneur 2 sous-colonnes pour les items « half »
+  let groupEl = null;   // groupe « section + ses lignes » (pour répartir l'espace)
+  const ensureGroup = () => {
+    if(!groupEl){ groupEl = document.createElement('div'); groupEl.className = 'section-group'; voletEl.appendChild(groupEl); }
+    return groupEl;
+  };
+
   state.doc.forEach((blk, idx) => {
     // Éléments décoratifs : positionnés en absolu sur la planche, hors flux
-    if(blk.type === 'deco'){
-      sheetEl.appendChild(buildDecoEl(blk));
+    if(blk.type === 'deco'){ sheetEl.appendChild(buildDecoEl(blk)); return; }
+
+    // Marqueurs de colonne / planche : au niveau du volet, hors groupe
+    if(blk.type === 'colbreak' || blk.type === 'pagebreak'){
+      gridEl = null; groupEl = null;
+      voletEl.appendChild(buildInsertBar(idx - 1));
+      voletEl.appendChild(buildBlockEl(blk));
+      if(blk.type === 'pagebreak') newSheet(); else newVolet();
       return;
     }
-    // Items marqués « half » (ex. cocktails, shots) → regroupés en 2 colonnes
+    // Panneau vert : occupe tout le volet, hors groupe
+    if(blk.type === 'panel'){
+      gridEl = null; groupEl = null;
+      voletEl.appendChild(buildInsertBar(idx - 1));
+      voletEl.appendChild(buildBlockEl(blk));
+      return;
+    }
+    // Nouvelle section / bloc autonome → nouveau groupe (pour la répartition)
+    if(blk.type === 'section' || blk.type === 'brunch' || blk.type === 'enfant') groupEl = null;
+    const g = ensureGroup();
+
+    // Items « half » (cocktails, shots, petits plus) → 2 sous-colonnes
     if(blk.type === 'item' && blk.half){
-      if(!gridEl){ gridEl = document.createElement('div'); gridEl.className = 'item-grid'; voletEl.appendChild(gridEl); }
+      if(!gridEl){ gridEl = document.createElement('div'); gridEl.className = 'item-grid'; g.appendChild(gridEl); }
       gridEl.appendChild(buildBlockEl(blk));
       return;
     }
     gridEl = null;
-    voletEl.appendChild(buildInsertBar(idx - 1));
-    voletEl.appendChild(buildBlockEl(blk));
-    if(blk.type === 'pagebreak'){ newSheet(); gridEl = null; }
-    else if(blk.type === 'colbreak'){ newVolet(); gridEl = null; }
+    g.appendChild(buildInsertBar(idx - 1));
+    g.appendChild(buildBlockEl(blk));
   });
-  voletEl.appendChild(buildInsertBar(state.doc.length - 1));
 
   requestAnimationFrame(checkOverflow);
 }

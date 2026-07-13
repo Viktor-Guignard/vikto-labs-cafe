@@ -11,9 +11,9 @@
   --shadow:0 6px 26px rgba(58,73,45,.16);
   /* Planche paysage 3 volets — dimensions du dépliant imprimé (1 pt = 1 px, 1325 × 852 pt) */
   --sheet-w:1325px;
-  --sheet-h:950px;        /* largeur 1325 = imprimé ; hauteur ajustée aux polices libres (plus hautes) */
+  --sheet-h:980px;        /* largeur 1325 = imprimé ; hauteur ajustée aux polices libres (plus hautes) */
   --sheet-pad:30px;
-  --volet-h:890px;        /* --sheet-h - 2*--sheet-pad ; volets ~410px comme l'imprimé */
+  --volet-h:920px;        /* --sheet-h - 2*--sheet-pad ; volets ~410px comme l'imprimé */
   /* Apparence personnalisable (modale 🎨) */
   --font-title:'Playfair Display', serif;
   --font-body:'EB Garamond', serif;
@@ -93,8 +93,11 @@ body{
 /* ---------- Volet (colonne) ---------- */
 .volet{
   flex:1 1 0; min-width:0; height:var(--volet-h);
-  display:flex; flex-direction:column; overflow:visible;
+  display:flex; flex-direction:column; justify-content:space-between; overflow:visible;
 }
+/* groupe « section + ses lignes » — l'espace libre se répartit entre les groupes */
+.section-group{display:flex; flex-direction:column; flex:0 0 auto;}
+.section-group + .section-group{margin-top:2px;}
 
 /* ---------- Blocks (generic) ---------- */
 .block{
@@ -163,10 +166,11 @@ body.placing-block, body.placing-block *{cursor:crosshair !important;}
 .blk-section:first-child h2{margin-top:0;}
 
 /* ---------- Item row ---------- */
-.blk-item{display:flex; align-items:flex-start; gap:6px; padding:0 3px; margin-bottom:1.5px; line-height:.98;}
+.blk-item{display:flex; align-items:flex-start; gap:6px; padding:0 3px; margin-bottom:4.5px; line-height:1.0;}
+.blk-item.inline, .blk-item.wine{margin-bottom:1.5px;}
 .blk-item .txt{flex:1 1 auto; min-width:0;}
-.blk-item .fr{font-family:var(--font-name); font-size:10.5px; font-weight:600; color:var(--title-color); letter-spacing:.005em; line-height:1.0;}
-.blk-item .en{font-size:9.5px; font-style:normal; color:#4c4c44; margin-top:0; line-height:1.0;}
+.blk-item .fr{font-family:var(--font-name); font-size:10.5px; font-weight:600; color:var(--title-color); letter-spacing:.005em; line-height:1.05;}
+.blk-item .en{font-size:9.5px; font-style:normal; color:#4c4c44; margin-top:1px; line-height:1.08;}
 .blk-item .en:empty{display:none;}
 /* Item « inline » : qualificatif court sur la même ligne que le nom (ex. « 33 cl ») */
 .blk-item.inline .fr{display:inline;}
@@ -189,13 +193,17 @@ body.leaders-off .blk-item .leader{display:none;}
 .diet-legend{display:inline-flex; align-items:center; gap:2px; margin-left:6px; white-space:nowrap;}
 .diet-legend .diet{margin-left:1px;}
 
-/* Colonnes de prix (vins / champagnes) alignées */
+/* Colonnes de prix (vins / champagnes) — valeurs centrées + filets verticaux, façon imprimé */
 .pcols{flex:none; display:flex; align-self:flex-start;}
-.pcell{width:34px; text-align:right; font-style:italic; font-size:9.5px; color:var(--ink);}
+.pcell{width:38px; text-align:center; font-style:italic; font-size:9.5px; color:var(--ink);}
+.blk-item.wine .pcols .pcell + .pcell{border-left:1px solid #c7c1b2;}
+/* nom de vin : serif régulier (pas gras sans) comme l'imprimé */
+.blk-item.wine .fr{font-family:var(--font-body); font-weight:400; color:var(--ink); text-transform:none; letter-spacing:0; font-size:9.5px;}
+.blk-item.wine .en{font-size:8px; font-style:italic;}
 .blk-pricehead{display:flex; align-items:flex-end; margin:2px 0 1px;}
 .blk-pricehead .ph-spacer{flex:1 1 auto;}
-.pcell.head{width:34px; font-style:normal; font-size:7px; line-height:1.06; color:var(--grey);
-  text-transform:uppercase; letter-spacing:.01em; white-space:normal; text-align:right;}
+.pcell.head{width:38px; font-style:normal; font-size:7px; line-height:1.05; color:var(--grey);
+  text-transform:uppercase; letter-spacing:.01em; white-space:normal; text-align:center;}
 
 /* Éléments décoratifs (déplaçables) */
 .blk-deco{position:absolute; cursor:move; z-index:4; line-height:0; padding:0; margin:0;}
@@ -232,12 +240,12 @@ body.leaders-off .blk-item .leader{display:none;}
 /* ---------- Panneau vert DS (volet 3, planche 1) ---------- */
 .blk-panel{
   height:100%; display:flex; flex-direction:column;
-  align-items:center; justify-content:center; gap:16px;
+  align-items:center; justify-content:flex-start; gap:14px;
   padding:0; margin:0;
 }
 .blk-panel:hover{background:transparent;}
-.panel-img{width:96%; cursor:pointer; line-height:0;}
-.panel-img img{width:100%; height:auto; display:block; filter:drop-shadow(0 6px 18px rgba(58,73,45,.18));}
+.panel-img{width:100%; cursor:pointer; line-height:0;}
+.panel-img img{width:100%; height:auto; display:block; filter:drop-shadow(0 5px 16px rgba(58,73,45,.16));}
 .panel-caption{
   font-family:var(--font-title); font-style:italic; font-weight:600;
   font-size:23px; color:var(--accent); text-align:center; line-height:1.2; padding:0 10px;
