@@ -11,9 +11,9 @@
   --shadow:0 6px 26px rgba(58,73,45,.16);
   /* Planche paysage 3 volets — dimensions du dépliant imprimé (1 pt = 1 px, 1325 × 852 pt) */
   --sheet-w:1325px;
-  --sheet-h:888px;
+  --sheet-h:924px;
   --sheet-pad:42px;
-  --volet-h:804px;        /* --sheet-h - 2*--sheet-pad */
+  --volet-h:840px;        /* --sheet-h - 2*--sheet-pad */
   /* Apparence personnalisable (modale 🎨) */
   --font-title:'Playfair Display', serif;
   --font-body:'EB Garamond', serif;
@@ -157,6 +157,31 @@ body.leaders-off .blk-item .leader{display:none;}
 .item-grid .blk-item{break-inside:avoid; margin-bottom:3px;}
 .item-grid .blk-item .leader,
 .item-grid .blk-item .price{display:none;}
+
+/* Pictos régime (sans gluten / végétarien) */
+.diet{height:10px; width:auto; vertical-align:-1px; margin-left:3px;}
+.blk-section h2 .diet{height:13px; vertical-align:-1px;}
+.diet-legend{display:inline-flex; align-items:center; gap:2px; margin-left:6px; white-space:nowrap;}
+.diet-legend .diet{margin-left:1px;}
+
+/* Colonnes de prix (vins / champagnes) alignées */
+.pcols{flex:none; display:flex; align-self:flex-start;}
+.pcell{width:34px; text-align:right; font-style:italic; font-size:10px; color:var(--ink);}
+.blk-pricehead{display:flex; align-items:flex-end; margin:2px 0 1px;}
+.blk-pricehead .ph-spacer{flex:1 1 auto;}
+.pcell.head{width:34px; font-style:normal; font-size:6.5px; line-height:1.06; color:var(--grey);
+  text-transform:uppercase; letter-spacing:.01em; white-space:normal; text-align:right;}
+
+/* Éléments décoratifs (déplaçables) */
+.blk-deco{position:absolute; cursor:move; z-index:4; line-height:0; padding:0; margin:0;}
+.blk-deco:hover{background:transparent; outline:1px dashed rgba(58,73,45,.35);}
+.blk-deco.selected{outline:1.5px dashed var(--teal);}
+.deco-img{width:100%; height:auto; display:block; pointer-events:none; user-select:none;}
+.deco-controls{position:absolute; top:-11px; right:-6px; display:flex; gap:3px; opacity:0; transition:opacity .12s;}
+.blk-deco:hover .deco-controls, .blk-deco.selected .deco-controls{opacity:1;}
+.deco-resize{position:absolute; right:-6px; bottom:-6px; width:12px; height:12px; border-radius:50%;
+  background:var(--teal); border:2px solid #fff; cursor:nwse-resize; opacity:0; transition:opacity .12s;}
+.blk-deco:hover .deco-resize, .blk-deco.selected .deco-resize{opacity:1;}
 
 /* ---------- Formule ---------- */
 .blk-formule{color:var(--accent); font-weight:500; font-size:10px; line-height:1.25; font-style:italic;}
@@ -351,9 +376,12 @@ body.exporting .sheet-label,
 body.exporting .blk-colbreak,
 body.exporting .blk-pagebreak,
 body.exporting .page-empty-hint,
+body.exporting .deco-controls,
+body.exporting .deco-resize,
 body.exporting .sheet-overflow-warning{display:none !important;}
 body.exporting .block{background:transparent !important;}
 body.exporting .block.selected{outline:none !important;}
+body.exporting .blk-deco{outline:none !important;}
 body.exporting .sheet.overflowing{outline:none !important;}
 
 /* ---------- Vue étroite : volets empilés ---------- */

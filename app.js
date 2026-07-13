@@ -11,8 +11,12 @@ function defaultDoc(){
   return [
     /* ===================== PLANCHE 1 (boissons & desserts) ===================== */
 
+    /* Éléments décoratifs (positionnés en absolu, déplaçables) */
+    b('deco', {img:'assets/deco-stamp.png', x:352, y:292, w:106, rot:0}),
+    b('deco', {img:'assets/deco-flower.png', x:648, y:650, w:84, rot:0}),
+
     /* ---------- Volet 1 : cocktails, boissons fraîches, vins, champagnes ---------- */
-    b('section', {fr:'COCKTAILS FRAIS PRESSÉS', en:'40 cl'}),
+    b('section', {fr:'COCKTAILS FRAIS PRESSÉS', en:'(40 cl)'}),
     b('formule', {text:'8 € · Supplément collagène « Day+ » +2 €'}),
     b('item', {fr:'GINGER ADDICT', en:'Pomme, citron, gingembre', price:'', half:true}),
     b('item', {fr:'FRESH', en:'Ananas, pomme, menthe fraîche', price:'', half:true}),
@@ -24,12 +28,12 @@ function defaultDoc(){
     b('item', {fr:'GREEN JUICE', en:'Concombre, pomme, gingembre', price:'', half:true}),
     b('item', {fr:'GOOD MOOD', en:'Pomme, kiwi, citron', price:'', half:true}),
 
-    b('section', {fr:'SHOTS', en:'7 cl'}),
+    b('section', {fr:'SHOTS', en:'(7 cl)'}),
     b('formule', {text:'3,5 €'}),
     b('item', {fr:'LEMON SHOT', en:'Citron, gingembre', price:'', half:true}),
     b('item', {fr:'GINGER SHOT', en:'Pomme, gingembre', price:'', half:true}),
 
-    b('section', {fr:'COCKTAILS CLASSIQUES', en:'27 cl'}),
+    b('section', {fr:'COCKTAILS CLASSIQUES', en:'(27 cl)'}),
     b('item', {fr:'MOJITO ORIGINAL', en:'Rhum Havana 3 ans 4 cl, citron vert, menthe fraîche, cassonnade, eau gazeuse', price:'9 €'}),
     b('item', {fr:'APÉROL SPRITZ', en:'Apérol 6 cl, Prosecco, eau gazeuse', price:'9 €'}),
     b('item', {fr:'UGO SPRITZ', en:'Liqueur St Germain 6 cl, Prosecco, eau gazeuse', price:'11 €'}),
@@ -46,24 +50,24 @@ function defaultDoc(){
     b('item', {fr:'BIÈRE GRIMBERGEN ROUGE', en:'25 cl / 50 cl', price:'6,5 / 8,5 €', inline:true}),
 
     b('section', {fr:'VINS', en:null}),
-    b('note', {text:'Verre 14 cl · Verre 25 cl · Bouteille 75 cl'}),
+    b('pricehead', {cols:3, h1:'Verre 14 cl', h2:'Verre 25 cl', h3:'Btl 75 cl'}),
     b('formule', {text:'ROUGES', heading:true}),
-    b('item', {fr:'Côtes du Rhône Amour de Fruits — Domaine Dieu le Fit BIO', en:'', price:'6 · 9 · 29'}),
-    b('item', {fr:'Saint Nicolas de Bourgueil AOP — Domaine des Pins', en:'', price:'6 · 9 · 29'}),
-    b('item', {fr:'Graves AOP — Château les Majureaux', en:'', price:'— · — · 35'}),
+    b('item', {fr:'Côtes du Rhône Amour de Fruits — Domaine Dieu le Fit BIO', en:'', cols:3, p1:'6', p2:'9', p3:'29'}),
+    b('item', {fr:'Saint Nicolas de Bourgueil AOP — Domaine des Pins', en:'', cols:3, p1:'6', p2:'9', p3:'29'}),
+    b('item', {fr:'Graves AOP — Château les Majureaux', en:'', cols:3, p1:'—', p2:'—', p3:'35'}),
     b('formule', {text:'BLANCS', heading:true}),
-    b('item', {fr:'IGP Côtes de Gascogne Sauvignon Gros-Manseng — Famille Dufour', en:'Demi-sec', price:'6 · 9 · 29'}),
-    b('item', {fr:'IGP d’Oc Chardonnay — Cellier du Pic', en:'', price:'6 · 9 · 29'}),
-    b('item', {fr:'Petit Chablis — Domaine du Chardonnay', en:'', price:'9 · — · 45'}),
+    b('item', {fr:'IGP Côtes de Gascogne Sauvignon Gros-Manseng — Famille Dufour', en:'Demi-sec', cols:3, p1:'6', p2:'9', p3:'29'}),
+    b('item', {fr:'IGP d’Oc Chardonnay — Cellier du Pic', en:'', cols:3, p1:'6', p2:'9', p3:'29'}),
+    b('item', {fr:'Petit Chablis — Domaine du Chardonnay', en:'', cols:3, p1:'9', p2:'—', p3:'45'}),
     b('formule', {text:'ROSÉ', heading:true}),
-    b('item', {fr:'Vin de France Gris de Gris Les Oliviers — Domaine des Captives BIO', en:'', price:'6 · 9 · 29'}),
+    b('item', {fr:'Vin de France Gris de Gris Les Oliviers — Domaine des Captives BIO', en:'', cols:3, p1:'6', p2:'9', p3:'29'}),
 
     b('section', {fr:'CHAMPAGNES', en:null}),
-    b('note', {text:'Verre 12 cl · Bouteille 75 cl'}),
-    b('item', {fr:'Grande Réserve Brut — Pierre Domi', en:'Local', price:'9,5 · —'}),
-    b('item', {fr:'Blanc de Blancs — Pierre Domi', en:'Local', price:'— · 60'}),
-    b('item', {fr:'Cuvée Royale Brut — Joseph Perrier', en:'', price:'12 · 65'}),
-    b('item', {fr:'« R » de Ruinart Brut — Ruinart', en:'', price:'— · 90'}),
+    b('pricehead', {cols:2, h1:'Verre 12 cl', h2:'Btl 75 cl'}),
+    b('item', {fr:'Grande Réserve Brut — Pierre Domi', en:'Local', cols:2, p1:'9,5', p2:'—'}),
+    b('item', {fr:'Blanc de Blancs — Pierre Domi', en:'Local', cols:2, p1:'—', p2:'60'}),
+    b('item', {fr:'Cuvée Royale Brut — Joseph Perrier', en:'', cols:2, p1:'12', p2:'65'}),
+    b('item', {fr:'« R » de Ruinart Brut — Ruinart', en:'', cols:2, p1:'—', p2:'90'}),
     b('note', {text:'AOP : Appellation d’Origine Protégée · IGP : Indication Géographique Protégée.  L’abus d’alcool est dangereux pour la santé. Toute boisson alcoolisée doit être accompagnée d’un plat.', center:true}),
 
     b('colbreak', {}),
@@ -74,15 +78,15 @@ function defaultDoc(){
     b('item', {fr:'MOUSSE AU CHOCOLAT NOIR', en:'', price:'8,5 €'}),
     b('item', {fr:'CRUMBLE POMMES', en:'', price:'8,5 €'}),
     b('item', {fr:'LE PLUME', en:'Gâteau au fromage blanc allégé', price:'9,5 €'}),
-    b('item', {fr:'DS LIGHT « RÉÉDITION » (SG · V)', en:'Mousse au lait d’amande, coulis de fruits rouges*', price:'8,5 €'}),
+    b('item', {fr:'DS LIGHT « RÉÉDITION »', sg:true, veg:true, en:'Mousse au lait d’amande, coulis de fruits rouges*', price:'8,5 €'}),
     b('item', {fr:'MOELLEUX AU CHOCOLAT', en:'Crème anglaise', price:'8 €'}),
     b('item', {fr:'CAKE DU MOMENT', en:'Cake myrtille, glaçage citron ou cake aux pépites de chocolat', price:'5,5 €'}),
     b('item', {fr:'CRÊPE AU SUCRE*', en:'Supplément Nutella, crème sucrée ou chocolat maison +1 €', price:'5,5 €'}),
     b('item', {fr:'COOKIE', en:'Chocolat-noix de pécan ou matcha-chocolat blanc', price:'5,5 €'}),
-    b('item', {fr:'AÇAÏ BOWL (V)', en:'Açaï BIO*, banane, muesli, coco râpée, myrtille', price:'12 €'}),
+    b('item', {fr:'AÇAÏ BOWL', veg:true, en:'Açaï BIO*, banane, muesli, coco râpée, myrtille', price:'12 €'}),
     b('item', {fr:'CAFÉ GOURMAND', en:'DS light, cake du moment, mousse au chocolat', price:'10 €'}),
 
-    b('section', {fr:'FROZEN YOGURT', en:'avec 2 toppings au choix · V', big:true}),
+    b('section', {fr:'FROZEN YOGURT', veg:true, en:'(avec 2 toppings au choix)', big:true}),
     b('formule', {text:'9,5 € · Topping supplémentaire +1 €'}),
     b('item', {fr:'Glace au yaourt nature basse calorie', en:'Toppings : banane, myrtille, caramel beurré salé*, miel, noix de pécan, muesli, amandes, Nutella, sirop d’érable', price:''}),
 
@@ -137,22 +141,22 @@ function defaultDoc(){
 
     /* ---------- Volet 2 : salades, plats chauds, petits plus ---------- */
     b('section', {fr:'SALADES GOURMANDES', en:null, big:true}),
-    b('item', {fr:'SALADE GRECQUE (SG · V)', en:'Salade romaine, concombre, tomate cerise, féta, olives Kalamata, pickles, menthe, vinaigrette balsamique', price:'17 €'}),
-    b('item', {fr:'GREEN GLOW (SG)', en:'Saumon cuit mariné soja-sésame, fromage blanc, haricots verts, concombre, edamame, pois gourmands, roquette, pignons de pin & graines de courge, sauce au collagène', price:'22 €'}),
-    b('item', {fr:'MIDDLE EAST (V)', en:'Taboulé de quinoa, halloumi, courgette grillée, salade romaine, houmous, olives Kalamata, crackers, huile d’olive-citron-miel', price:'18 €'}),
+    b('item', {fr:'SALADE GRECQUE', sg:true, veg:true, en:'Salade romaine, concombre, tomate cerise, féta, olives Kalamata, pickles, menthe, vinaigrette balsamique', price:'17 €'}),
+    b('item', {fr:'GREEN GLOW', sg:true, en:'Saumon cuit mariné soja-sésame, fromage blanc, haricots verts, concombre, edamame, pois gourmands, roquette, pignons de pin & graines de courge, sauce au collagène', price:'22 €'}),
+    b('item', {fr:'MIDDLE EAST', veg:true, en:'Taboulé de quinoa, halloumi, courgette grillée, salade romaine, houmous, olives Kalamata, crackers, huile d’olive-citron-miel', price:'18 €'}),
     b('item', {fr:'TAI CHI', en:'Salade romaine, chou chinois, chou rouge, julienne de carotte, pousses de soja, poulet, spaghettis de konjac, radis, cacahuète, menthe, coriandre, sauce soja-sésame', price:'18 €'}),
     b('item', {fr:'CHICKEN QUINOA BOWL', en:'Émincé de poulet, quinoa, avocat, concombre, grenade, pousses d’épinard, chèvre frais, amandes, basilic, salade romaine, sauce huile d’olive-citron-miel', price:'19 €'}),
     b('item', {fr:'MUM TO BE', en:'Saumon cuit mariné soja-sésame, haricots verts, edamame*, champignons sautés, patate douce, fromage Grana Padano, graines de lin, amandes, huile d’olive-citron-miel', price:'20,5 €'}),
     b('item', {fr:'CRISPY QUINOA', en:'Pousses d’épinard, salade romaine, quinoa, émincé de poulet, avocat, oignons crispy, sauce au miel', price:'18 €'}),
     b('item', {fr:'CAESAR', en:'Salade romaine, émincé de poulet, champignons, tomates cerise, fromage Grana Padano, oignons crispy, sauce caesar', price:'18 €'}),
-    b('item', {fr:'SWEET NIÇOISE (SG)', en:'Salade romaine, pousses d’épinard, filet de thon de Tarifa, œuf poché, haricots verts, patates douces, tomates cerise, pickles, olives Kalamata, huile d’olive-citron-miel', price:'21,5 €'}),
+    b('item', {fr:'SWEET NIÇOISE', sg:true, en:'Salade romaine, pousses d’épinard, filet de thon de Tarifa, œuf poché, haricots verts, patates douces, tomates cerise, pickles, olives Kalamata, huile d’olive-citron-miel', price:'21,5 €'}),
     b('note', {text:'Toutes nos salades sont disponibles en version VEGGIE avec notre aiguillette végétale BIO*'}),
 
     b('section', {fr:'PLATS CHAUDS', en:null, big:true}),
-    b('item', {fr:'AUBERGINE À LA PARMIGGIANA (V)', en:'Fiore di latte, coulis de tomate, roquette', price:'18 €'}),
-    b('item', {fr:'CABILLAUD MISO (SG)', en:'Cabillaud mariné au miso blanc, purée de haricots verts, brocoli bimi, coriandre', price:'24 €'}),
-    b('item', {fr:'PAVÉ DE SAUMON MI-CUIT SOJA SÉSAME (SG)', en:'Riz curcuma, haricots verts & champignons sautés', price:'23 €'}),
-    b('item', {fr:'AIGUILLETTES DE POULET (SG)', en:'Marinées au gingembre & citron confit, patate douce rôtie, haricots verts', price:'22 €'}),
+    b('item', {fr:'AUBERGINE À LA PARMIGGIANA', veg:true, en:'Fiore di latte, coulis de tomate, roquette', price:'18 €'}),
+    b('item', {fr:'CABILLAUD MISO', sg:true, en:'Cabillaud mariné au miso blanc, purée de haricots verts, brocoli bimi, coriandre', price:'24 €'}),
+    b('item', {fr:'PAVÉ DE SAUMON MI-CUIT SOJA SÉSAME', sg:true, en:'Riz curcuma, haricots verts & champignons sautés', price:'23 €'}),
+    b('item', {fr:'AIGUILLETTES DE POULET', sg:true, en:'Marinées au gingembre & citron confit, patate douce rôtie, haricots verts', price:'22 €'}),
     b('item', {fr:'CURRY DE POULET AU LAIT DE COCO', en:'Riz curcuma, coriandre, julienne de carotte & courgette grillée', price:'18 €'}),
 
     b('section', {fr:'PETITS PLUS', en:null, big:true}),
@@ -188,7 +192,7 @@ function defaultDoc(){
       body:'Demi pavé de saumon, ou mini club poulet ou thon, salade de pommes de terre<br>Sirop à l’eau ou jus de pomme pressé<br>Crêpe au sucre ou Nutella, ou cake du moment',
     }),
 
-    b('note', {text:'Paiements acceptés : Espèces, Tickets restaurant, CB, American Express. Prix nets en euros, service et TVA inclus. * Produit surgelé. DOP = dénomination d’origine protégée. Carafe d’eau potable gratuite sur demande. Liste des allergènes sur demande.  SG = sans gluten · V = végétarien.', center:true}),
+    b('note', {text:'Paiements acceptés : Espèces, Tickets restaurant, CB, American Express. Prix nets en euros, service et TVA inclus. * Produit surgelé. DOP = dénomination d’origine protégée. Carafe d’eau potable gratuite sur demande. Liste des allergènes sur demande.', center:true, legend:true}),
   ];
 }
 
@@ -200,6 +204,9 @@ const BLOCK_LIBRARY = [
   {type:'divider', ttl:'Séparateur', desc:'Ligne fine de séparation', make:()=>({})},
   {type:'colbreak', ttl:'Nouvelle colonne', desc:'Passe au volet suivant de la planche', make:()=>({})},
   {type:'pagebreak', ttl:'Nouvelle planche', desc:'Démarre une nouvelle planche (PDF)', make:()=>({})},
+  {type:'deco', ttl:'Déco — tampon', desc:'Motif « good food good mood » (déplaçable)', make:()=>({img:'assets/deco-stamp.png', x:120, y:120, w:120, rot:0})},
+  {type:'deco', ttl:'Déco — fleur', desc:'Fleur-tasse DS (déplaçable)', make:()=>({img:'assets/deco-flower.png', x:150, y:150, w:90, rot:0})},
+  {type:'deco', ttl:'Déco — image…', desc:'Votre propre illustration (déplaçable)', make:()=>({img:'assets/deco-stamp.png', x:130, y:130, w:120, rot:0})},
 ];
 
 /* Champs mono-lignes : Entrée = valider, pas de retour à la ligne.
@@ -376,6 +383,19 @@ function ed(id, field, value, extraClass, tag){
   return `<${tag} class="${extraClass||''}" contenteditable="true" data-id="${id}" data-field="${field}">${value||''}</${tag}>`;
 }
 
+/* Pictos régime (sans gluten / végétarien) affichés après un nom */
+function dietIcons(blk){
+  let s = '';
+  if(blk.sg)  s += '<img class="diet" src="assets/icon-sg.png" alt="sans gluten">';
+  if(blk.veg) s += '<img class="diet" src="assets/icon-veg.png" alt="végétarien">';
+  return s;
+}
+/* Légende des pictos, avec les icônes */
+function dietLegend(){
+  return `<span class="diet-legend"><img class="diet" src="assets/icon-sg.png"> = sans gluten` +
+         `&nbsp;&nbsp;<img class="diet" src="assets/icon-veg.png"> = végétarien</span>`;
+}
+
 function renderBlockInner(blk){
   switch(blk.type){
     case 'panel':
@@ -411,19 +431,39 @@ function renderBlockInner(blk){
           <div class="enfant-b">${ed(blk.id,'body',blk.body,'','div')}</div>
         </div>`;
     case 'section':
-      return `<h2>${ed(blk.id,'fr',esc(blk.fr))}${blk.en != null ? ' <span class="en">/ '+ed(blk.id,'en',esc(blk.en))+'</span>' : ''}</h2>`;
-    case 'item':
+      return `<h2>${ed(blk.id,'fr',esc(blk.fr))}${dietIcons(blk)}${blk.en != null ? ' <span class="en">'+ed(blk.id,'en',esc(blk.en))+'</span>' : ''}</h2>`;
+    case 'item': {
+      if(blk.cols){
+        let cells = '';
+        for(let i=1;i<=blk.cols;i++) cells += `<span class="pcell">${ed(blk.id,'p'+i,esc(blk['p'+i]))}</span>`;
+        return `
+          <div class="txt">
+            <div class="fr">${ed(blk.id,'fr',esc(blk.fr))}${dietIcons(blk)}</div>
+            <div class="en">${ed(blk.id,'en',esc(blk.en))}</div>
+          </div>
+          <div class="pcols">${cells}</div>`;
+      }
       return `
         <div class="txt">
-          <div class="fr">${ed(blk.id,'fr',esc(blk.fr))}</div>
+          <div class="fr">${ed(blk.id,'fr',esc(blk.fr))}${dietIcons(blk)}</div>
           <div class="en">${ed(blk.id,'en',esc(blk.en))}</div>
         </div>
         <div class="leader"></div>
         <div class="price">${ed(blk.id,'price',esc(blk.price))}</div>`;
+    }
+    case 'pricehead': {
+      let cells = '';
+      for(let i=1;i<=(blk.cols||3);i++) cells += `<span class="pcell head">${ed(blk.id,'h'+i,esc(blk['h'+i]))}</span>`;
+      return `<div class="ph-spacer"></div><div class="pcols">${cells}</div>`;
+    }
+    case 'deco':
+      return `
+        <img class="deco-img" src="${blk.img || 'assets/deco-stamp.png'}" alt="décor" draggable="false">
+        <div class="deco-resize" title="Redimensionner"></div>`;
     case 'formule':
       return ed(blk.id,'text',esc(blk.text),'', 'div');
     case 'note':
-      return ed(blk.id,'text',esc(blk.text),'', 'div');
+      return ed(blk.id,'text',esc(blk.text),'', 'div') + (blk.legend ? dietLegend() : '');
     case 'divider':
       return '';
     case 'colbreak':
@@ -436,7 +476,7 @@ function renderBlockInner(blk){
 }
 
 function blockClass(blk){
-  const map = {section:'blk-section', item:'blk-item', formule:'blk-formule', note:'blk-note', divider:'blk-divider', pagebreak:'blk-pagebreak', colbreak:'blk-colbreak', panel:'blk-panel', brunch:'blk-brunch', enfant:'blk-enfant'};
+  const map = {section:'blk-section', item:'blk-item', formule:'blk-formule', note:'blk-note', divider:'blk-divider', pagebreak:'blk-pagebreak', colbreak:'blk-colbreak', panel:'blk-panel', brunch:'blk-brunch', enfant:'blk-enfant', pricehead:'blk-pricehead', deco:'blk-deco'};
   let c = map[blk.type] || '';
   if(blk.type==='formule' && blk.italic) c += ' italic';
   if(blk.type==='formule' && blk.heading) c += ' heading';
@@ -475,6 +515,11 @@ function render(){
 
   let gridEl = null;   // conteneur 2 sous-colonnes pour les items « half »
   state.doc.forEach((blk, idx) => {
+    // Éléments décoratifs : positionnés en absolu sur la planche, hors flux
+    if(blk.type === 'deco'){
+      sheetEl.appendChild(buildDecoEl(blk));
+      return;
+    }
     // Items marqués « half » (ex. cocktails, shots) → regroupés en 2 colonnes
     if(blk.type === 'item' && blk.half){
       if(!gridEl){ gridEl = document.createElement('div'); gridEl.className = 'item-grid'; voletEl.appendChild(gridEl); }
@@ -571,6 +616,58 @@ function buildBlockEl(blk){
   });
 
   return wrap;
+}
+
+/* Élément décoratif : positionné en absolu, déplaçable / redimensionnable / pivotable */
+function buildDecoEl(blk){
+  const el = document.createElement('div');
+  el.className = 'block blk-deco' + (state.selectedId===blk.id ? ' selected' : '');
+  el.dataset.blockId = blk.id;
+  el.style.left = (blk.x||40) + 'px';
+  el.style.top = (blk.y||40) + 'px';
+  el.style.width = (blk.w||120) + 'px';
+  if(blk.rot) el.style.transform = 'rotate(' + blk.rot + 'deg)';
+  el.innerHTML = renderBlockInner(blk);
+
+  const controls = document.createElement('div');
+  controls.className = 'deco-controls';
+  controls.innerHTML = `
+    <button class="rctrl del" data-act="del" title="Supprimer">✕</button>
+    <button class="rctrl" data-act="img" title="Changer l'image">🖼</button>
+    <button class="rctrl" data-act="rot" title="Pivoter">⟳</button>`;
+  el.appendChild(controls);
+  controls.addEventListener('mousedown', e=> e.stopPropagation());
+  controls.addEventListener('click', (e)=>{
+    const act = e.target.dataset.act; if(!act) return;
+    e.stopPropagation();
+    const idx = state.doc.findIndex(x=>x.id===blk.id); if(idx<0) return;
+    if(act==='del'){ if(state.selectedId===blk.id) state.selectedId=null; state.doc.splice(idx,1); markDirty(); render(); toast('Déco supprimée','Annuler',undo); }
+    if(act==='img'){ triggerImageUpload(blk.id,'img'); }
+    if(act==='rot'){ blk.rot = ((blk.rot||0) + 15) % 360; el.style.transform='rotate('+blk.rot+'deg)'; markDirty(); }
+  });
+
+  el.addEventListener('mousedown', (e)=>{
+    if(e.target.closest('.deco-controls') || e.target.closest('.deco-resize')) return;
+    e.preventDefault();
+    state.selectedId = blk.id;
+    document.querySelectorAll('.blk-deco.selected').forEach(d=>d.classList.remove('selected'));
+    el.classList.add('selected');
+    const sx=e.clientX, sy=e.clientY, ox=blk.x||40, oy=blk.y||40;
+    const move=(ev)=>{ blk.x = Math.round(ox + (ev.clientX-sx)); blk.y = Math.round(oy + (ev.clientY-sy)); el.style.left=blk.x+'px'; el.style.top=blk.y+'px'; };
+    const up=()=>{ document.removeEventListener('mousemove',move); document.removeEventListener('mouseup',up); markDirty(); };
+    document.addEventListener('mousemove',move); document.addEventListener('mouseup',up);
+  });
+
+  const handle = el.querySelector('.deco-resize');
+  if(handle) handle.addEventListener('mousedown', (e)=>{
+    e.preventDefault(); e.stopPropagation();
+    const sx=e.clientX, ow=blk.w||120;
+    const move=(ev)=>{ blk.w = Math.max(24, Math.round(ow + (ev.clientX-sx))); el.style.width=blk.w+'px'; };
+    const up=()=>{ document.removeEventListener('mousemove',move); document.removeEventListener('mouseup',up); markDirty(); };
+    document.addEventListener('mousemove',move); document.addEventListener('mouseup',up);
+  });
+
+  return el;
 }
 
 function triggerImageUpload(blockId, field){
