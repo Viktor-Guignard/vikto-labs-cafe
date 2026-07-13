@@ -1,15 +1,16 @@
 # DS Café — Éditeur de carte
 
 Éditeur de carte en ligne pour **DS Café** (menu Été 2026, Reims).
+Reproduit fidèlement le **dépliant imprimé 3 volets** (2 planches paysage), tout en restant entièrement éditable.
 Application web statique, sans build ni serveur : elle s'héberge telle quelle sur **GitHub Pages**.
 
 ## Ce que fait le site
 
-- **Édition en direct** : cliquez sur n'importe quel texte de la carte pour le modifier. Ajoutez, dupliquez, déplacez ou supprimez des blocs (sections, plats, formules, notes, séparateurs, sauts de page).
+- **Édition en direct** : cliquez sur n'importe quel texte de la carte pour le modifier. Ajoutez, dupliquez, déplacez ou supprimez des blocs (sections, plats, formules, notes, séparateurs, **nouvelle colonne / volet**, nouvelle planche). Blocs spéciaux : panneau vert DS, cadre « Brunch », pastille « Menu Enfant ».
 - **Apparence** (🎨) : polices et couleurs de la carte (vert forêt DS Café / crème par défaut).
 - **Enregistrement cloud** (💾) : chaque enregistrement crée une **version horodatée** stockée dans ce dépôt (dossier `versions/`), sans jamais écraser les précédentes. La plus récente se recharge automatiquement à l'ouverture.
 - **Versions** (🕑) : consulter, charger ou supprimer les versions enregistrées.
-- **Export PDF** (⬇️) : une page A4 par « page » de la carte.
+- **Export PDF** (⬇️) : une planche paysage (3 volets) par page.
 - **Brouillon local** de sécurité (auto-sauvegarde dans le navigateur).
 
 ## Structure
@@ -17,11 +18,13 @@ Application web statique, sans build ni serveur : elle s'héberge telle quelle s
 | Fichier | Rôle |
 |---|---|
 | `index.html` | Page + fenêtres modales |
-| `styles.css` | Thème DS Café (couleurs, mise en page A4) |
+| `styles.css` | Thème DS Café (couleurs, mise en page paysage 3 volets) |
 | `app.js` | Modèle de données, contenu par défaut de la carte, rendu, édition |
 | `storage.js` | Sauvegarde des versions dans le dépôt via l'API GitHub |
-| `pdf-export.js` | Export PDF (html2canvas + jsPDF) |
-| `assets/logo.png` | Visuel du panneau vert DS Café (en-tête) |
+| `pdf-export.js` | Export PDF paysage (html2canvas + jsPDF) |
+| `assets/logo.png` | Panneau vert botanique DS Café (volet 3, planche 1) |
+| `assets/brunch.png` | Cadre botanique du « Brunch » (motif extrait du PDF) |
+| `assets/enfant.png` | Pastille « Menu Enfant » + poisson (motif extrait du PDF) |
 | `versions/` | Versions enregistrées de la carte (`.json`) |
 
 ## Activer l'enregistrement sur un ordinateur

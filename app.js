@@ -3,79 +3,73 @@
 let uidCounter = 1;
 function newId(){ return 'b' + (uidCounter++) + '_' + Math.random().toString(36).slice(2,7); }
 
+/* Carte DS Café — reproduction du dépliant 3 volets (2 planches paysage).
+   Chaque planche = 3 volets, séparés par des blocs `colbreak` ;
+   `pagebreak` démarre la planche suivante. */
 function defaultDoc(){
   const b = (type, fields) => ({ id: newId(), type, ...fields });
   return [
-    b('header', {
-      line1:'La Carte', line2:'Été 2026',
-      chef:'Chez nous, happiness is homemade',
-      insta:'Good food · Good mood<br>Reims',
-      wifi:'', logoImg:null, qrImg:null
-    }),
+    /* ===================== PLANCHE 1 (boissons & desserts) ===================== */
 
-    /* ---------------- PAGE 1 — Boissons ---------------- */
-    b('section', {fr:'COCKTAILS FRAIS PRESSÉS (40 cl)', en:null}),
+    /* ---------- Volet 1 : cocktails, boissons fraîches, vins, champagnes ---------- */
+    b('section', {fr:'COCKTAILS FRAIS PRESSÉS', en:'40 cl'}),
     b('formule', {text:'8 € · Supplément collagène « Day+ » +2 €'}),
-    b('item', {fr:'GINGER ADDICT', en:'Pomme, citron, gingembre', price:''}),
-    b('item', {fr:'FRESH', en:'Ananas, pomme, menthe fraîche', price:''}),
-    b('item', {fr:'IPANEMA', en:'Baies d’açaï BIO*, banane, myrtille, pomme', price:''}),
-    b('item', {fr:'LEMONANA', en:'Citron, menthe, limonade', price:''}),
-    b('item', {fr:'SWEET TROPICAL', en:'Lait de coco, banane, purée de mangue*', price:''}),
-    b('item', {fr:'CELERY KISS', en:'Pomme, citron, épinard, céleri', price:''}),
-    b('item', {fr:'WAKE UP', en:'Carotte, pomme, gingembre', price:''}),
-    b('item', {fr:'GREEN JUICE', en:'Concombre, pomme, gingembre', price:''}),
-    b('item', {fr:'GOOD MOOD', en:'Pomme, kiwi, citron', price:''}),
+    b('item', {fr:'GINGER ADDICT', en:'Pomme, citron, gingembre', price:'', half:true}),
+    b('item', {fr:'FRESH', en:'Ananas, pomme, menthe fraîche', price:'', half:true}),
+    b('item', {fr:'IPANEMA', en:'Baies d’açaï BIO*, banane, myrtille, pomme', price:'', half:true}),
+    b('item', {fr:'LEMONANA', en:'Citron, menthe, limonade', price:'', half:true}),
+    b('item', {fr:'SWEET TROPICAL', en:'Lait de coco, banane, purée de mangue*', price:'', half:true}),
+    b('item', {fr:'CELERY KISS', en:'Pomme, citron, épinard, céleri', price:'', half:true}),
+    b('item', {fr:'WAKE UP', en:'Carotte, pomme, gingembre', price:'', half:true}),
+    b('item', {fr:'GREEN JUICE', en:'Concombre, pomme, gingembre', price:'', half:true}),
+    b('item', {fr:'GOOD MOOD', en:'Pomme, kiwi, citron', price:'', half:true}),
 
-    b('section', {fr:'SHOTS (7 cl)', en:null}),
+    b('section', {fr:'SHOTS', en:'7 cl'}),
     b('formule', {text:'3,5 €'}),
-    b('item', {fr:'LEMON SHOT', en:'Citron, gingembre', price:''}),
-    b('item', {fr:'GINGER SHOT', en:'Pomme, gingembre', price:''}),
+    b('item', {fr:'LEMON SHOT', en:'Citron, gingembre', price:'', half:true}),
+    b('item', {fr:'GINGER SHOT', en:'Pomme, gingembre', price:'', half:true}),
 
-    b('pagebreak', {}),
-
-    b('section', {fr:'COCKTAILS CLASSIQUES (27 cl)', en:null}),
+    b('section', {fr:'COCKTAILS CLASSIQUES', en:'27 cl'}),
     b('item', {fr:'MOJITO ORIGINAL', en:'Rhum Havana 3 ans 4 cl, citron vert, menthe fraîche, cassonnade, eau gazeuse', price:'9 €'}),
     b('item', {fr:'APÉROL SPRITZ', en:'Apérol 6 cl, Prosecco, eau gazeuse', price:'9 €'}),
     b('item', {fr:'UGO SPRITZ', en:'Liqueur St Germain 6 cl, Prosecco, eau gazeuse', price:'11 €'}),
 
     b('section', {fr:'BOISSONS FRAÎCHES', en:null}),
-    b('item', {fr:'EAU AQUACHIARA', en:'Plate ou gazeuse 75 cl', price:'5 €'}),
-    b('item', {fr:'EAU DÉTOX', en:'Concombre & menthe 75 cl', price:'5,5 €'}),
-    b('item', {fr:'THÉ GLACÉ MAISON — INFUSION PAR L’INFUSEUR', en:'Cassis, hibiscus, citronnelle · Infusion « Détox »', price:'6 €'}),
-    b('item', {fr:'COCA COLA, COCA COLA SANS SUCRE', en:'33 cl', price:'5,5 €'}),
-    b('item', {fr:'FUZE TEA', en:'Pêche 25 cl', price:'5 €'}),
-    b('item', {fr:'PERRIER', en:'33 cl', price:'5,5 €'}),
-    b('item', {fr:'BIÈRE 1664 BLONDE', en:'25 cl / 50 cl', price:'5,9 / 8,5 €'}),
-    b('item', {fr:'BIÈRE 1664 BLANCHE', en:'25 cl / 50 cl', price:'6,2 / 9 €'}),
-    b('item', {fr:'BIÈRE GRIMBERGEN ROUGE', en:'25 cl / 50 cl', price:'6,5 / 8,5 €'}),
-
-    b('pagebreak', {}),
+    b('item', {fr:'EAU AQUACHIARA', en:'Plate ou gazeuse 75 cl', price:'5 €', inline:true}),
+    b('item', {fr:'EAU DÉTOX', en:'Concombre & menthe 75 cl', price:'5,5 €', inline:true}),
+    b('item', {fr:'THÉ GLACÉ MAISON', en:'Infusion par l’Infuseur : cassis, hibiscus, citronnelle · « Détox »', price:'6 €'}),
+    b('item', {fr:'COCA COLA, COCA COLA SANS SUCRE', en:'33 cl', price:'5,5 €', inline:true}),
+    b('item', {fr:'FUZE TEA', en:'Pêche 25 cl', price:'5 €', inline:true}),
+    b('item', {fr:'PERRIER', en:'33 cl', price:'5,5 €', inline:true}),
+    b('item', {fr:'BIÈRE 1664 BLONDE', en:'25 cl / 50 cl', price:'5,9 / 8,5 €', inline:true}),
+    b('item', {fr:'BIÈRE 1664 BLANCHE', en:'25 cl / 50 cl', price:'6,2 / 9 €', inline:true}),
+    b('item', {fr:'BIÈRE GRIMBERGEN ROUGE', en:'25 cl / 50 cl', price:'6,5 / 8,5 €', inline:true}),
 
     b('section', {fr:'VINS', en:null}),
     b('note', {text:'Verre 14 cl · Verre 25 cl · Bouteille 75 cl'}),
     b('formule', {text:'ROUGES', heading:true}),
-    b('item', {fr:'Côtes du Rhône Amour de Fruits — Domaine Dieu le Fit BIO', en:'', price:'6 · 9 · 29 €'}),
-    b('item', {fr:'Saint Nicolas de Bourgueil AOP — Domaine des Pins', en:'', price:'6 · 9 · 29 €'}),
-    b('item', {fr:'Graves AOP — Château les Majureaux', en:'', price:'— · — · 35 €'}),
+    b('item', {fr:'Côtes du Rhône Amour de Fruits — Domaine Dieu le Fit BIO', en:'', price:'6 · 9 · 29'}),
+    b('item', {fr:'Saint Nicolas de Bourgueil AOP — Domaine des Pins', en:'', price:'6 · 9 · 29'}),
+    b('item', {fr:'Graves AOP — Château les Majureaux', en:'', price:'— · — · 35'}),
     b('formule', {text:'BLANCS', heading:true}),
-    b('item', {fr:'IGP Côtes de Gascogne Sauvignon Gros-Manseng — Famille Dufour', en:'Demi-sec', price:'6 · 9 · 29 €'}),
-    b('item', {fr:'IGP d’Oc Chardonnay — Cellier du Pic', en:'', price:'6 · 9 · 29 €'}),
-    b('item', {fr:'Petit Chablis — Domaine du Chardonnay', en:'', price:'9 · — · 45 €'}),
+    b('item', {fr:'IGP Côtes de Gascogne Sauvignon Gros-Manseng — Famille Dufour', en:'Demi-sec', price:'6 · 9 · 29'}),
+    b('item', {fr:'IGP d’Oc Chardonnay — Cellier du Pic', en:'', price:'6 · 9 · 29'}),
+    b('item', {fr:'Petit Chablis — Domaine du Chardonnay', en:'', price:'9 · — · 45'}),
     b('formule', {text:'ROSÉ', heading:true}),
-    b('item', {fr:'Vin de France Gris de Gris Les Oliviers — Domaine des Captives BIO', en:'', price:'6 · 9 · 29 €'}),
+    b('item', {fr:'Vin de France Gris de Gris Les Oliviers — Domaine des Captives BIO', en:'', price:'6 · 9 · 29'}),
 
     b('section', {fr:'CHAMPAGNES', en:null}),
     b('note', {text:'Verre 12 cl · Bouteille 75 cl'}),
-    b('item', {fr:'Grande Réserve Brut — Pierre Domi', en:'Local', price:'9,5 · — €'}),
-    b('item', {fr:'Blanc de Blancs — Pierre Domi', en:'Local', price:'— · 60 €'}),
-    b('item', {fr:'Cuvée Royale Brut — Joseph Perrier', en:'', price:'12 · 65 €'}),
-    b('item', {fr:'« R » de Ruinart Brut — Ruinart', en:'', price:'— · 90 €'}),
-    b('note', {text:'AOP : Appellation d’Origine Protégée · IGP : Indication Géographique Protégée. L’abus d’alcool est dangereux pour la santé. Toute boisson alcoolisée doit être accompagnée d’un plat.'}),
+    b('item', {fr:'Grande Réserve Brut — Pierre Domi', en:'Local', price:'9,5 · —'}),
+    b('item', {fr:'Blanc de Blancs — Pierre Domi', en:'Local', price:'— · 60'}),
+    b('item', {fr:'Cuvée Royale Brut — Joseph Perrier', en:'', price:'12 · 65'}),
+    b('item', {fr:'« R » de Ruinart Brut — Ruinart', en:'', price:'— · 90'}),
+    b('note', {text:'AOP : Appellation d’Origine Protégée · IGP : Indication Géographique Protégée.  L’abus d’alcool est dangereux pour la santé. Toute boisson alcoolisée doit être accompagnée d’un plat.', center:true}),
 
-    b('pagebreak', {}),
+    b('colbreak', {}),
 
-    /* ---------------- PAGE 2 — Desserts & boissons chaudes ---------------- */
-    b('section', {fr:'DESSERTS', en:null}),
+    /* ---------- Volet 2 : desserts, boissons chaudes, lattes ---------- */
+    b('section', {fr:'DESSERTS', en:null, big:true}),
     b('item', {fr:'PÊCHE FAÇON MELBA', en:'Chantilly végétale, coulis de fruits rouges, amandes effilées', price:'8,5 €'}),
     b('item', {fr:'MOUSSE AU CHOCOLAT NOIR', en:'', price:'8,5 €'}),
     b('item', {fr:'CRUMBLE POMMES', en:'', price:'8,5 €'}),
@@ -88,49 +82,61 @@ function defaultDoc(){
     b('item', {fr:'AÇAÏ BOWL (V)', en:'Açaï BIO*, banane, muesli, coco râpée, myrtille', price:'12 €'}),
     b('item', {fr:'CAFÉ GOURMAND', en:'DS light, cake du moment, mousse au chocolat', price:'10 €'}),
 
-    b('section', {fr:'FROZEN YOGURT', en:'avec 2 toppings au choix'}),
-    b('formule', {text:'9,5 € · Végétarien · Topping supplémentaire +1 €'}),
+    b('section', {fr:'FROZEN YOGURT', en:'avec 2 toppings au choix · V', big:true}),
+    b('formule', {text:'9,5 € · Topping supplémentaire +1 €'}),
     b('item', {fr:'Glace au yaourt nature basse calorie', en:'Toppings : banane, myrtille, caramel beurré salé*, miel, noix de pécan, muesli, amandes, Nutella, sirop d’érable', price:''}),
 
-    b('pagebreak', {}),
-
-    b('section', {fr:'BOISSONS CHAUDES', en:null}),
+    b('section', {fr:'BOISSONS CHAUDES', en:null, big:true}),
     b('item', {fr:'CAFÉ EXPRESSO, DÉCAFÉINÉ', en:'', price:'2,8 €'}),
     b('item', {fr:'CAFÉ NOISETTE', en:'', price:'3,2 €'}),
     b('item', {fr:'DOUBLE EXPRESSO, CAFÉ CRÈME', en:'', price:'5,5 €'}),
     b('item', {fr:'GRANDE LATTE MACCHIATO, CAPPUCCINO', en:'', price:'6 €'}),
     b('item', {fr:'CHOCOLAT CHAUD', en:'', price:'6 €'}),
     b('item', {fr:'GREEN MATCHA LATTE', en:'', price:'7 €'}),
-    b('item', {fr:'THÉS BIO & INFUSION PAR L’INFUSEUR', en:'Thé vert Sencha, thé vert menthe, thé vert gingembre, thé Earl Grey, Rooibos vanille · Infusion détox : cassis, hibiscus, citronnelle', price:'6 €'}),
-    b('note', {text:'Les boissons lactées peuvent être servies au lait végétal +1 € · Sirop de vanille ou de caramel +0,5 € · Supplément collagène « Day+ » +2 €'}),
+    b('item', {fr:'THÉS BIO & INFUSION PAR L’INFUSEUR', en:'Sencha, thé vert menthe, thé vert gingembre, Earl Grey, Rooibos vanille · Infusion détox : cassis, hibiscus, citronnelle', price:'6 €'}),
+    b('note', {text:'Boissons lactées au lait végétal +1 € · Sirop vanille ou caramel +0,5 € · Supplément collagène « Day+ » +2 €'}),
 
-    b('section', {fr:'LES LATTE', en:'de la Main Noire'}),
+    b('section', {fr:'LES LATTE', en:'de la Main Noire', big:true}),
     b('formule', {text:'7 €'}),
     b('item', {fr:'GOLDEN LATTE BIO', en:'Curcuma, gingembre, poivre noir, muscade, cardamome, sucre de betterave', price:''}),
     b('item', {fr:'BLUE LATTE BIO', en:'Spiruline bleue, coco, gingembre, sumac, sucre de betterave', price:''}),
     b('item', {fr:'CHAI LATTE BIO', en:'Thé noir Rukeri AOP, poivre noir, gingembre, cannelle, cardamome, clou de girofle, sucre de betterave', price:''}),
     b('item', {fr:'UBE LATTE', en:'Patate douce violette, ube violet, sucre de betterave, vanille Bourbon de Madagascar', price:''}),
 
+    b('colbreak', {}),
+
+    /* ---------- Volet 3 : panneau vert DS Café ---------- */
+    b('panel', {img:null, caption:'Chez nous, happiness is homemade'}),
+
     b('pagebreak', {}),
 
-    /* ---------------- PAGE 3 — Le Brunch & Buns ---------------- */
-    b('section', {fr:'LE BRUNCH', en:'Samedi, dimanche & jours fériés'}),
-    b('formule', {text:'ASSIETTE BRUNCH 24 € · FORMULE 32 €', heading:true}),
-    b('note', {text:'Boisson au choix (25 cl) : Green Juice, Wake Up, orange pressée ou jus de pomme pressé (ou Mimosa 12 cl +6 €)'}),
-    b('note', {text:'Boisson chaude ou thé glacé au choix : café, chocolat chaud, thé ou infusion L’Infuseur (Cappuccino, Macchiato ou lait végétal +1 € · Latte au choix +1,50 €)'}),
-    b('item', {fr:'ASSIETTE BRUNCH', en:'Pain brioché artisanal multigrains*, cheddar, œufs pochés, sauce hollandaise*, avocat, salade de pommes de terre, salade verte + au choix : poulet, saumon fumé ou pastrami', price:''}),
-    b('item', {fr:'DESSERT', en:'Pancakes, bananes, caramel beurre salé & noix de pécan ou fromage blanc 0 %, muesli & miel', price:''}),
+    /* ===================== PLANCHE 2 (brunch & food) ===================== */
 
-    b('section', {fr:'BUNS', en:null}),
+    /* ---------- Volet 1 : le brunch + buns ---------- */
+    b('brunch', {
+      title:'LE BRUNCH',
+      subtitle:'Samedi, dimanche & jours fériés',
+      offer:'ASSIETTE BRUNCH 24  ·  FORMULE 32',
+      d1t:'BOISSON AU CHOIX — 25 CL',
+      d1b:'Au choix : Green Juice ou Wake Up ou orange pressée ou jus de pomme pressé<br>(ou Mimosa 12 cl +6 €)',
+      d2t:'BOISSON CHAUDE OU THÉ GLACÉ',
+      d2b:'Au choix : café, chocolat chaud, thé ou infusion L’Infuseur<br>(Cappuccino, Macchiato ou lait végétal +1 € · Latte au choix +1,50 €)',
+      d3t:'ASSIETTE BRUNCH',
+      d3b:'Pain brioché artisanal multigrains*, cheddar, œufs pochés, sauce hollandaise*, avocat, salade de pommes de terre, salade verte<br>+ au choix : poulet, saumon fumé ou pastrami',
+      d4t:'DESSERT',
+      d4b:'Pancakes, bananes, caramel beurre salé & noix de pécan<br>ou fromage blanc 0 %, muesli & miel',
+    }),
+
+    b('section', {fr:'BUNS', en:null, big:true}),
     b('note', {text:'Pain brioché artisanal multigrains* · Supplément cheddar +1,5 €'}),
     b('item', {fr:'BROOKLYN', en:'Pastrami de bœuf, cornichons, émincé de chou, mayonnaise Savora, salade de pommes de terre, salade verte', price:'19 €'}),
     b('item', {fr:'OSLO', en:'Saumon fumé, concombre, yaourt aux herbes, salade de pommes de terre, salade verte', price:'18,5 €'}),
     b('item', {fr:'CALIFORNIEN', en:'Poulet, tomate, romaine, œuf dur, mayonnaise Savora, salade de pommes de terre, salade verte', price:'16,5 €'}),
 
-    b('pagebreak', {}),
+    b('colbreak', {}),
 
-    /* ---------------- PAGE 4 — Salades, plats chauds & petits plus ---------------- */
-    b('section', {fr:'SALADES GOURMANDES', en:null}),
+    /* ---------- Volet 2 : salades, plats chauds, petits plus ---------- */
+    b('section', {fr:'SALADES GOURMANDES', en:null, big:true}),
     b('item', {fr:'SALADE GRECQUE (SG · V)', en:'Salade romaine, concombre, tomate cerise, féta, olives Kalamata, pickles, menthe, vinaigrette balsamique', price:'17 €'}),
     b('item', {fr:'GREEN GLOW (SG)', en:'Saumon cuit mariné soja-sésame, fromage blanc, haricots verts, concombre, edamame, pois gourmands, roquette, pignons de pin & graines de courge, sauce au collagène', price:'22 €'}),
     b('item', {fr:'MIDDLE EAST (V)', en:'Taboulé de quinoa, halloumi, courgette grillée, salade romaine, houmous, olives Kalamata, crackers, huile d’olive-citron-miel', price:'18 €'}),
@@ -140,18 +146,16 @@ function defaultDoc(){
     b('item', {fr:'CRISPY QUINOA', en:'Pousses d’épinard, salade romaine, quinoa, émincé de poulet, avocat, oignons crispy, sauce au miel', price:'18 €'}),
     b('item', {fr:'CAESAR', en:'Salade romaine, émincé de poulet, champignons, tomates cerise, fromage Grana Padano, oignons crispy, sauce caesar', price:'18 €'}),
     b('item', {fr:'SWEET NIÇOISE (SG)', en:'Salade romaine, pousses d’épinard, filet de thon de Tarifa, œuf poché, haricots verts, patates douces, tomates cerise, pickles, olives Kalamata, huile d’olive-citron-miel', price:'21,5 €'}),
-    b('note', {text:'Toutes nos salades sont désormais disponibles en version VEGGIE avec notre aiguillette végétale BIO*'}),
+    b('note', {text:'Toutes nos salades sont disponibles en version VEGGIE avec notre aiguillette végétale BIO*'}),
 
-    b('pagebreak', {}),
-
-    b('section', {fr:'PLATS CHAUDS', en:null}),
+    b('section', {fr:'PLATS CHAUDS', en:null, big:true}),
     b('item', {fr:'AUBERGINE À LA PARMIGGIANA (V)', en:'Fiore di latte, coulis de tomate, roquette', price:'18 €'}),
     b('item', {fr:'CABILLAUD MISO (SG)', en:'Cabillaud mariné au miso blanc, purée de haricots verts, brocoli bimi, coriandre', price:'24 €'}),
     b('item', {fr:'PAVÉ DE SAUMON MI-CUIT SOJA SÉSAME (SG)', en:'Riz curcuma, haricots verts & champignons sautés', price:'23 €'}),
-    b('item', {fr:'AIGUILLETTES DE POULET (SG)', en:'Aiguillettes de poulet marinées au gingembre & citron confit, patate douce rôtie, haricots verts', price:'22 €'}),
+    b('item', {fr:'AIGUILLETTES DE POULET (SG)', en:'Marinées au gingembre & citron confit, patate douce rôtie, haricots verts', price:'22 €'}),
     b('item', {fr:'CURRY DE POULET AU LAIT DE COCO', en:'Riz curcuma, coriandre, julienne de carotte & courgette grillée', price:'18 €'}),
 
-    b('section', {fr:'PETITS PLUS', en:null}),
+    b('section', {fr:'PETITS PLUS', en:null, big:true}),
     b('item', {fr:'ŒUF POCHÉ', en:'', price:'2,5 €'}),
     b('item', {fr:'DEMI AVOCAT', en:'', price:'3 €'}),
     b('item', {fr:'HALLOUMI GRILLÉ', en:'', price:'5 €'}),
@@ -159,45 +163,48 @@ function defaultDoc(){
     b('item', {fr:'SALADE VERTE · RIZ CURCUMA · SALADE DE POMMES DE TERRE', en:'', price:'5 €'}),
     b('item', {fr:'SAUMON FUMÉ · SAUMON CUIT MARINÉ', en:'', price:'5 €'}),
 
-    b('pagebreak', {}),
+    b('colbreak', {}),
 
-    /* ---------------- PAGE 5 — Piadinas, clubs, toasts & menu enfant ---------------- */
-    b('section', {fr:'PIADINAS', en:'Galette de blé non levée légèrement toastée'}),
+    /* ---------- Volet 3 : piadinas, clubs, toasts, menu enfant ---------- */
+    b('section', {fr:'PIADINAS', en:'Galette de blé non levée légèrement toastée', big:true}),
     b('item', {fr:'PIADINA VEGGIE', en:'Pesto, courgettes & poivrons grillés, tomates confites, fromage fiore di latte, salade verte', price:'18 €'}),
     b('item', {fr:'PIADINA POULET', en:'Pesto rosso, tomates confites, fromage fiore di latte, salade verte', price:'18 €'}),
     b('item', {fr:'PIADINA THON', en:'Tomates confites, miettes de thon, œuf poché, fiore di latte, salade verte', price:'18 €'}),
 
-    b('section', {fr:'CLUBS SANDWICHS', en:null}),
+    b('section', {fr:'CLUBS SANDWICHS', en:null, big:true}),
     b('item', {fr:'CLUB POULET', en:'Poulet, tomate, salade romaine, œuf dur, mayonnaise Savora, salade de pommes de terre, salade verte', price:'17 €'}),
     b('item', {fr:'CLUB TUNA', en:'Rillette de thon à l’aneth, tomate, avocat, salade de pommes de terre, salade verte', price:'16 €'}),
     b('item', {fr:'CLUB SAUMON', en:'Saumon fumé, fromage à la crème, avocat, salade de pommes de terre, salade verte', price:'18 €'}),
     b('item', {fr:'CLUB PASTRAMI', en:'Pastrami de bœuf, cornichons, émincé de chou, mayonnaise Savora, salade de pommes de terre, salade verte', price:'19 €'}),
 
-    b('section', {fr:'TOASTS', en:null}),
+    b('section', {fr:'TOASTS', en:null, big:true}),
     b('item', {fr:'AVOCADO TOAST', en:'Pain nordique BIO, avocat slicé, féta, œuf poché, grenade, sésame, salade verte', price:'17 €'}),
     b('item', {fr:'TARTINE CAPRESE', en:'Pain nordique BIO, tomate, mozzarella di bufala, câpres, crème de balsamique, roquette', price:'15 €'}),
     b('note', {text:'Avec du saumon fumé +5 €'}),
 
-    b('section', {fr:'MENU ENFANT', en:null}),
-    b('formule', {text:'Plat + Boisson + Dessert — 10 €', heading:true}),
-    b('note', {text:'Plat : demi pavé de saumon, ou mini club poulet ou thon, salade de pommes de terre · Boisson : sirop à l’eau ou jus de pomme pressé · Dessert : crêpe au sucre ou Nutella, ou cake du moment'}),
+    b('enfant', {
+      title:'Menu Enfant',
+      offer:'PLAT · BOISSON · DESSERT   10',
+      body:'Demi pavé de saumon, ou mini club poulet ou thon, salade de pommes de terre<br>Sirop à l’eau ou jus de pomme pressé<br>Crêpe au sucre ou Nutella, ou cake du moment',
+    }),
 
-    b('divider', {}),
-    b('note', {text:'Paiements acceptés : Espèces, Tickets restaurant, CB, American Express. Prix nets en euros, service et TVA inclus. * Produit surgelé. DOP = dénomination d’origine protégée. Une carafe d’eau potable sera mise à votre disposition gratuitement sur demande. Liste des allergènes sur demande.  SG = sans gluten · V = végétarien.'}),
+    b('note', {text:'Paiements acceptés : Espèces, Tickets restaurant, CB, American Express. Prix nets en euros, service et TVA inclus. * Produit surgelé. DOP = dénomination d’origine protégée. Carafe d’eau potable gratuite sur demande. Liste des allergènes sur demande.  SG = sans gluten · V = végétarien.', center:true}),
   ];
 }
 
 const BLOCK_LIBRARY = [
-  {type:'section', ttl:'Titre de section', desc:'Ex : « ENTRÉES / Starters »', make:()=>({fr:'NOUVELLE SECTION', en:'New section'})},
-  {type:'item', ttl:'Plat', desc:'Nom FR, nom EN, prix', make:()=>({fr:'NOUVEAU PLAT', en:'New dish', price:'0€'})},
-  {type:'formule', ttl:'Ligne formule', desc:'Texte en couleur (ex. prix menu)', make:()=>({text:'NOUVELLE FORMULE'})},
-  {type:'note', ttl:'Note / mention', desc:'Petit texte italique gris', make:()=>({text:'Note...'})},
+  {type:'section', ttl:'Titre de section', desc:'Ex : « DESSERTS » ; « FROZEN YOGURT / V »', make:()=>({fr:'NOUVELLE SECTION', en:null})},
+  {type:'item', ttl:'Plat', desc:'Nom, description, prix', make:()=>({fr:'NOUVEAU PLAT', en:'Description', price:'0 €'})},
+  {type:'formule', ttl:'Ligne formule', desc:'Texte en vert (ex. prix partagé)', make:()=>({text:'NOUVELLE FORMULE'})},
+  {type:'note', ttl:'Note / mention', desc:'Petit texte italique', make:()=>({text:'Note...'})},
   {type:'divider', ttl:'Séparateur', desc:'Ligne fine de séparation', make:()=>({})},
-  {type:'pagebreak', ttl:'Saut de page', desc:'Démarre une nouvelle page PDF', make:()=>({})},
+  {type:'colbreak', ttl:'Nouvelle colonne', desc:'Passe au volet suivant de la planche', make:()=>({})},
+  {type:'pagebreak', ttl:'Nouvelle planche', desc:'Démarre une nouvelle planche (PDF)', make:()=>({})},
 ];
 
-/* Champs mono-lignes : Entrée = valider, pas de retour à la ligne */
-const MULTILINE_FIELDS = new Set(['insta','wifi']);
+/* Champs mono-lignes : Entrée = valider, pas de retour à la ligne.
+   Les champs multilignes gardent les <br>. */
+const MULTILINE_FIELDS = new Set(['insta','wifi','d1b','d2b','d3b','d4b','body']);
 
 /* ===================== Apparence (polices & couleurs) ===================== */
 
@@ -207,16 +214,14 @@ const FONT_CHOICES = {
     {name:'Cormorant Garamond', gq:'Cormorant+Garamond:wght@600;700'},
     {name:'DM Serif Display', gq:'DM+Serif+Display'},
     {name:'Libre Baskerville', gq:'Libre+Baskerville:wght@400;700'},
-    {name:'Oswald', gq:'Oswald:wght@500;600'},
     {name:'Marcellus', gq:'Marcellus'},
   ],
   body: [
+    {name:'EB Garamond', gq:'EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500'},
+    {name:'Cormorant Garamond', gq:'Cormorant+Garamond:ital,wght@0,500;0,600;1,500'},
     {name:'Poppins', gq:'Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500'},
-    {name:'Jost', gq:'Jost:ital,wght@0,400;0,500;0,600;1,400'},
     {name:'Lato', gq:'Lato:ital,wght@0,400;0,700;1,400'},
-    {name:'Montserrat', gq:'Montserrat:ital,wght@0,400;0,600;0,700;1,400'},
     {name:'Source Sans 3', gq:'Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400'},
-    {name:'EB Garamond', gq:'EB+Garamond:ital,wght@0,400;0,600;1,400'},
   ],
 };
 
@@ -235,7 +240,7 @@ function applyStyle(){
   const st = state.style;
   const root = document.documentElement;
   root.style.setProperty('--font-title', `'${st.titleFont}', serif`);
-  root.style.setProperty('--font-body', `'${st.bodyFont}', sans-serif`);
+  root.style.setProperty('--font-body', `'${st.bodyFont}', serif`);
   root.style.setProperty('--title-color', st.titleColor);
   root.style.setProperty('--accent', st.accent);
   root.style.setProperty('--page-bg', st.pageBg);
@@ -267,8 +272,8 @@ const state = {
   doc: defaultDoc(),
   style: defaultStyle(),
   selectedId: null,
-  dirty: false,           // modifications non enregistrées dans le cloud
-  baseVersion: null,      // nom de la version cloud dont on est parti (détection de conflit)
+  dirty: false,
+  baseVersion: null,
 };
 
 /* ===================== Historique (annuler / rétablir) ===================== */
@@ -296,7 +301,6 @@ function restoreFromHistory(){
   state.selectedId = null;
   applyStyle();
   render();
-  // sauvegarde du brouillon sans nouvel élément d'historique
   state.dirty = true;
   updateSyncStatus();
   clearTimeout(draftTimer);
@@ -315,19 +319,18 @@ function updateHistoryButtons(){
 
 /* ===================== Brouillon local (sécurité) ===================== */
 
-const DRAFT_KEY = 'carte_ds_draft_v1';
+const DRAFT_KEY = 'carte_ds_draft_v2';
 
 function saveDraft(){
   try{
     localStorage.setItem(DRAFT_KEY, JSON.stringify({ts: new Date().toISOString(), doc: state.doc, style: state.style}));
-  }catch(e){ /* stockage plein : tant pis, le brouillon est un filet de sécurité */ }
+  }catch(e){ /* stockage plein : le brouillon est un filet de sécurité */ }
 }
 function clearDraft(){ localStorage.removeItem(DRAFT_KEY); state.dirty = false; updateSyncStatus(); }
 function getDraft(){
   try{
     const raw = localStorage.getItem(DRAFT_KEY);
     const d = raw ? JSON.parse(raw) : null;
-    // un brouillon vide (tout supprimé) ne vaut rien : on l'ignore et on le purge
     if(d && (!Array.isArray(d.doc) || d.doc.length === 0)){ localStorage.removeItem(DRAFT_KEY); return null; }
     return d;
   }catch(e){ return null; }
@@ -358,10 +361,9 @@ function updateSyncStatus(){
   }
 }
 
-/* ===================== Rendu ===================== */
+/* ===================== Rendu (planches 3 volets) ===================== */
 
 const canvasWrap = document.getElementById('canvasWrap');
-const PAGE_H = 1123; // hauteur A4 en px (96 dpi)
 
 function esc(s){
   const d = document.createElement('div');
@@ -376,15 +378,37 @@ function ed(id, field, value, extraClass, tag){
 
 function renderBlockInner(blk){
   switch(blk.type){
-    case 'header':
+    case 'panel':
       return `
-        <div class="titles">
-          <h1>${ed(blk.id,'line1',esc(blk.line1))}<br>${ed(blk.id,'line2',esc(blk.line2))}</h1>
-          <div class="tagline">${ed(blk.id,'chef',esc(blk.chef))}</div>
-          <div class="welcome">${ed(blk.id,'insta',blk.insta)}</div>
+        <div class="panel-img img-slot" data-id="${blk.id}" data-field="img" title="Cliquer pour remplacer le visuel">
+          <img src="${blk.img || 'assets/logo.png'}" alt="DS Café">
         </div>
-        <div class="hero img-slot" data-id="${blk.id}" data-field="logoImg" title="Cliquer pour remplacer le visuel">
-          <img src="${blk.logoImg || 'assets/logo.png'}" alt="DS Café">
+        <div class="panel-caption">${ed(blk.id,'caption',esc(blk.caption))}</div>`;
+    case 'brunch':
+      return `
+        <div class="brunch-inner">
+          <div class="brunch-title">${ed(blk.id,'title',esc(blk.title),'','div')}</div>
+          <div class="brunch-sub">${ed(blk.id,'subtitle',esc(blk.subtitle),'','div')}</div>
+          <div class="brunch-offer">${ed(blk.id,'offer',esc(blk.offer),'','div')}</div>
+          <div class="brunch-sep">—</div>
+          <div class="brunch-h">${ed(blk.id,'d1t',esc(blk.d1t),'','div')}</div>
+          <div class="brunch-b">${ed(blk.id,'d1b',blk.d1b,'','div')}</div>
+          <div class="brunch-sep">—</div>
+          <div class="brunch-h">${ed(blk.id,'d2t',esc(blk.d2t),'','div')}</div>
+          <div class="brunch-b">${ed(blk.id,'d2b',blk.d2b,'','div')}</div>
+          <div class="brunch-sep">—</div>
+          <div class="brunch-h">${ed(blk.id,'d3t',esc(blk.d3t),'','div')}</div>
+          <div class="brunch-b">${ed(blk.id,'d3b',blk.d3b,'','div')}</div>
+          <div class="brunch-sep">—</div>
+          <div class="brunch-h">${ed(blk.id,'d4t',esc(blk.d4t),'','div')}</div>
+          <div class="brunch-b">${ed(blk.id,'d4b',blk.d4b,'','div')}</div>
+        </div>`;
+    case 'enfant':
+      return `
+        <div class="enfant-inner">
+          <div class="enfant-title">${ed(blk.id,'title',esc(blk.title),'','div')}</div>
+          <div class="enfant-offer">${ed(blk.id,'offer',esc(blk.offer),'','div')}</div>
+          <div class="enfant-b">${ed(blk.id,'body',blk.body,'','div')}</div>
         </div>`;
     case 'section':
       return `<h2>${ed(blk.id,'fr',esc(blk.fr))}${blk.en != null ? ' <span class="en">/ '+ed(blk.id,'en',esc(blk.en))+'</span>' : ''}</h2>`;
@@ -402,76 +426,84 @@ function renderBlockInner(blk){
       return ed(blk.id,'text',esc(blk.text),'', 'div');
     case 'divider':
       return '';
+    case 'colbreak':
+      return '⇥ Nouvelle colonne';
     case 'pagebreak':
-      return '↴ Nouvelle page (PDF)';
+      return '↴ Nouvelle planche (PDF)';
     default:
       return '';
   }
 }
 
 function blockClass(blk){
-  const map = {header:'blk-header', section:'blk-section', item:'blk-item', formule:'blk-formule', note:'blk-note', divider:'blk-divider', pagebreak:'blk-pagebreak'};
+  const map = {section:'blk-section', item:'blk-item', formule:'blk-formule', note:'blk-note', divider:'blk-divider', pagebreak:'blk-pagebreak', colbreak:'blk-colbreak', panel:'blk-panel', brunch:'blk-brunch', enfant:'blk-enfant'};
   let c = map[blk.type] || '';
   if(blk.type==='formule' && blk.italic) c += ' italic';
   if(blk.type==='formule' && blk.heading) c += ' heading';
+  if(blk.type==='section' && blk.big) c += ' big';
+  if(blk.type==='note' && blk.center) c += ' center';
+  if(blk.type==='item' && blk.inline) c += ' inline';
   return c;
 }
 
 function render(){
   canvasWrap.innerHTML = '';
-  let pageBlocks = [];
-  let pageNum = 1;
+  let sheetEl = null, voletEl = null, sheetNum = 0;
 
-  const flushPage = () => {
-    const pageEl = document.createElement('div');
-    pageEl.className = 'pdf-page';
+  const newVolet = () => {
+    voletEl = document.createElement('div');
+    voletEl.className = 'volet';
+    sheetEl.insertBefore(voletEl, sheetEl.querySelector('.sheet-overflow-warning'));
+  };
+  const newSheet = () => {
+    sheetNum++;
+    sheetEl = document.createElement('div');
+    sheetEl.className = 'sheet';
     const label = document.createElement('div');
-    label.className = 'page-label';
-    label.textContent = 'Page ' + pageNum;
-    pageEl.appendChild(label);
-    if(pageBlocks.length === 0){
-      const hint = document.createElement('div');
-      hint.className = 'page-empty-hint';
-      hint.textContent = 'Page vide — ajoutez un bloc';
-      pageEl.appendChild(hint);
-    }
-    pageBlocks.forEach(blk => {
-      pageEl.appendChild(buildInsertBar(state.doc.indexOf(blk) - 1));
-      pageEl.appendChild(buildBlockEl(blk));
-    });
-    if(pageBlocks.length > 0){
-      pageEl.appendChild(buildInsertBar(state.doc.indexOf(pageBlocks[pageBlocks.length-1])));
-    }
+    label.className = 'sheet-label';
+    label.textContent = 'Planche ' + sheetNum;
+    sheetEl.appendChild(label);
     const warn = document.createElement('div');
-    warn.className = 'page-overflow-warning';
-    warn.textContent = '⚠️ Le contenu dépasse la page A4 — déplacez des blocs ou ajoutez un saut de page';
-    pageEl.appendChild(warn);
-    canvasWrap.appendChild(pageEl);
-    pageNum++;
-    pageBlocks = [];
+    warn.className = 'sheet-overflow-warning';
+    warn.textContent = '⚠️ Une colonne dépasse la hauteur de la planche — déplacez ou retirez des blocs';
+    sheetEl.appendChild(warn);
+    canvasWrap.appendChild(sheetEl);
+    newVolet();
   };
 
-  state.doc.forEach(blk => {
-    pageBlocks.push(blk);
-    if(blk.type === 'pagebreak') flushPage();
+  newSheet();
+
+  let gridEl = null;   // conteneur 2 sous-colonnes pour les items « half »
+  state.doc.forEach((blk, idx) => {
+    // Items marqués « half » (ex. cocktails, shots) → regroupés en 2 colonnes
+    if(blk.type === 'item' && blk.half){
+      if(!gridEl){ gridEl = document.createElement('div'); gridEl.className = 'item-grid'; voletEl.appendChild(gridEl); }
+      gridEl.appendChild(buildBlockEl(blk));
+      return;
+    }
+    gridEl = null;
+    voletEl.appendChild(buildInsertBar(idx - 1));
+    voletEl.appendChild(buildBlockEl(blk));
+    if(blk.type === 'pagebreak'){ newSheet(); gridEl = null; }
+    else if(blk.type === 'colbreak'){ newVolet(); gridEl = null; }
   });
-  flushPage();
+  voletEl.appendChild(buildInsertBar(state.doc.length - 1));
 
   requestAnimationFrame(checkOverflow);
 }
 
 function checkOverflow(){
-  // Mesure valable uniquement en mise en page A4 (pas en vue mobile,
-  // ni quand la fenêtre n'est pas encore dimensionnée)
-  if(!window.innerWidth || matchMedia('(max-width:900px)').matches){
-    document.querySelectorAll('.pdf-page').forEach(p => p.classList.remove('overflowing'));
+  if(!window.innerWidth || matchMedia('(max-width:1100px)').matches){
+    document.querySelectorAll('.sheet').forEach(s => s.classList.remove('overflowing'));
     return;
   }
-  document.querySelectorAll('.pdf-page').forEach(page => {
-    // retirer d'abord la classe : le bandeau d'avertissement (30px sous la page)
-    // gonflerait scrollHeight et rendrait l'état collant
-    page.classList.remove('overflowing');
-    page.classList.toggle('overflowing', page.scrollHeight > PAGE_H + 2);
+  document.querySelectorAll('.sheet').forEach(sheet => {
+    sheet.classList.remove('overflowing');
+    let over = false;
+    sheet.querySelectorAll('.volet').forEach(v => {
+      if(v.scrollHeight > v.clientHeight + 2) over = true;
+    });
+    sheet.classList.toggle('overflowing', over);
   });
 }
 
@@ -562,7 +594,6 @@ function triggerImageUpload(blockId, field){
 
 /* ===================== Édition inline ===================== */
 
-/* Validation à la sortie du champ */
 canvasWrap.addEventListener('blur', (e) => {
   const el = e.target;
   if(!el.matches || !el.matches('[contenteditable="true"]')) return;
@@ -578,7 +609,6 @@ canvasWrap.addEventListener('blur', (e) => {
   }
 }, true);
 
-/* Entrée = valider (sauf champs multilignes) ; Échap = valider aussi */
 canvasWrap.addEventListener('keydown', (e) => {
   const el = e.target;
   if(!el.matches || !el.matches('[contenteditable="true"]')) return;
@@ -589,7 +619,6 @@ canvasWrap.addEventListener('keydown', (e) => {
   }
 });
 
-/* Coller en texte brut (évite d'importer du gras/couleurs de Word etc.) */
 canvasWrap.addEventListener('paste', (e) => {
   const el = e.target;
   if(!el.matches || !el.closest('[contenteditable="true"]')) return;
@@ -652,7 +681,6 @@ function toast(msg, actionLabel, actionFn){
 document.getElementById('undoBtn').addEventListener('click', undo);
 document.getElementById('redoBtn').addEventListener('click', redo);
 document.addEventListener('keydown', (e) => {
-  // dans un champ en cours d'édition, laisser l'annulation native du texte
   const el = document.activeElement;
   if(el && el.isContentEditable) return;
   const mod = e.metaKey || e.ctrlKey;
@@ -718,7 +746,6 @@ applyStyle();
 render();
 resetHistory();
 
-/* La mesure de débordement n'est fiable qu'une fois styles + polices chargés */
 window.addEventListener('load', checkOverflow);
 if(document.fonts && document.fonts.ready) document.fonts.ready.then(checkOverflow);
 let resizeTimer = null;

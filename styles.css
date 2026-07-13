@@ -7,13 +7,17 @@
   --line:#e7e3da;
   --bg:#efeae0;
   --danger:#b5503f;
-  --shadow:0 4px 18px rgba(58,73,45,.12);
-  /* A4 à 96 dpi */
-  --page-w:794px;
-  --page-h:1123px;
+  --peach:#fef1e7;
+  --shadow:0 6px 26px rgba(58,73,45,.16);
+  /* Planche paysage 3 volets — dimensions du dépliant imprimé (1 pt = 1 px, 1325 × 852 pt) */
+  --sheet-w:1325px;
+  --sheet-h:888px;
+  --sheet-pad:42px;
+  --volet-h:804px;        /* --sheet-h - 2*--sheet-pad */
   /* Apparence personnalisable (modale 🎨) */
   --font-title:'Playfair Display', serif;
   --font-body:'EB Garamond', serif;
+  --font-name:'Poppins', sans-serif;   /* noms de plats (façon imprimé) */
   --title-color:#3a492d;
   --accent:#3a492d;
   --page-bg:#fefbf8;
@@ -27,6 +31,7 @@ body{
   color:var(--ink);
   padding-top:74px;
   min-height:100vh;
+  overflow-x:auto;
 }
 
 /* ---------- Toolbar ---------- */
@@ -61,133 +66,179 @@ body{
 #syncStatus.ok .dot{background:var(--teal);}
 #syncStatus.warn .dot{background:#e0a33d;}
 
-/* ---------- Canvas / pages ---------- */
+/* ---------- Canvas / planches ---------- */
 #canvasWrap{
-  max-width:980px; margin:32px auto 120px; padding:0 16px;
-  display:flex; flex-direction:column; align-items:center; gap:40px;
+  display:flex; flex-direction:column; align-items:center; gap:58px;
+  padding:44px 40px 130px; min-width:min-content;
 }
-.pdf-page{
-  background:var(--page-bg); width:var(--page-w); height:var(--page-h);
-  box-shadow:var(--shadow); position:relative;
-  padding:44px 52px 52px;
+.sheet{
+  background:var(--page-bg); width:var(--sheet-w); height:var(--sheet-h);
+  box-shadow:var(--shadow); position:relative; flex:none;
+  padding:var(--sheet-pad);
+  display:flex; gap:22px;
   font-family:var(--font-body);
-  flex:none;
 }
-.page-label{
+.sheet-label{
   position:absolute; top:-26px; left:0; font-size:11px; color:var(--grey);
   letter-spacing:.06em; text-transform:uppercase;
 }
-.page-overflow-warning{
+.sheet-overflow-warning{
   position:absolute; left:0; right:0; bottom:-30px;
   display:none; align-items:center; justify-content:center; gap:8px;
   color:var(--danger); font-size:12px; font-weight:600;
 }
-.pdf-page.overflowing{outline:2px dashed var(--danger);}
-.pdf-page.overflowing .page-overflow-warning{display:flex;}
+.sheet.overflowing{outline:2px dashed var(--danger);}
+.sheet.overflowing .sheet-overflow-warning{display:flex;}
+
+/* ---------- Volet (colonne) ---------- */
+.volet{
+  flex:1 1 0; min-width:0; height:var(--volet-h);
+  display:flex; flex-direction:column; overflow:visible;
+}
 
 /* ---------- Blocks (generic) ---------- */
 .block{
-  position:relative; margin-bottom:4px; border-radius:4px;
-  padding:2px 4px; transition:background .12s;
+  position:relative; margin-bottom:0; border-radius:4px;
+  padding:0 3px; transition:background .12s;
 }
-.block:hover{background:rgba(47,158,151,.06);}
+.block:hover{background:rgba(58,73,45,.06);}
 .block.selected{outline:2px dashed var(--teal);}
 
 /* Contrôles en bout de ligne */
 .row-controls{
-  position:absolute; right:-6px; top:50%;
+  position:absolute; right:-4px; top:50%;
   transform:translate(100%,-50%);
-  display:flex; align-items:center; gap:3px;
+  display:flex; align-items:center; gap:3px; z-index:6;
 }
 .rctrl{
-  width:24px;height:24px; border-radius:6px; border:1px solid var(--line);
-  background:#fff; cursor:pointer; font-size:12px; line-height:1;
+  width:22px;height:22px; border-radius:6px; border:1px solid var(--line);
+  background:#fff; cursor:pointer; font-size:11px; line-height:1;
   display:flex; align-items:center; justify-content:center;
   box-shadow:0 1px 4px rgba(0,0,0,.08);
   opacity:0; transition:opacity .12s, background .12s;
   color:#444; padding:0;
 }
 .rctrl:hover{background:#f2f2f2;}
-/* La croix de suppression reste toujours visible, discrète */
-.rctrl.del{opacity:.30; color:var(--danger); font-weight:700;}
+.rctrl.del{opacity:.28; color:var(--danger); font-weight:700;}
 .rctrl.del:hover{background:#fdeaea; opacity:1;}
 .block:hover .rctrl{opacity:1;}
 .block:hover .rctrl.del{opacity:1;}
 
 [contenteditable="true"]{outline:none; cursor:text; border-radius:3px;}
-[contenteditable="true"]:hover{background:rgba(47,158,151,.08);}
-[contenteditable="true"]:focus{background:rgba(47,158,151,.14); box-shadow:0 0 0 2px var(--teal) inset;}
-
-/* ---------- Header block (DS Café) ---------- */
-.blk-header{display:flex; justify-content:space-between; align-items:center; gap:30px; margin-bottom:16px;}
-.blk-header .titles{flex:1; min-width:0;}
-.blk-header h1{
-  font-family:var(--font-title); font-weight:800; font-size:56px;
-  line-height:.98; margin:0; color:var(--title-color);
-}
-.blk-header .tagline{
-  font-family:var(--font-title); font-style:italic; font-weight:600;
-  font-size:20px; color:var(--accent); margin-top:14px;
-}
-.blk-header .welcome{
-  font-size:12px; color:var(--grey); margin-top:10px; line-height:1.6;
-  letter-spacing:.14em; text-transform:uppercase;
-}
-.blk-header .hero{flex:none; width:198px;}
-.blk-header .hero img{
-  width:100%; height:auto; display:block;
-  filter:drop-shadow(0 6px 18px rgba(58,73,45,.20));
-}
-.img-slot{cursor:pointer; position:relative;}
-.img-slot:hover::after{
-  content:'changer l\2019image'; position:absolute; inset:auto 0 -16px 0;
-  font-size:9px; color:var(--teal-dark); text-align:center; font-weight:600;
-}
+[contenteditable="true"]:hover{background:rgba(58,73,45,.08);}
+[contenteditable="true"]:focus{background:rgba(58,73,45,.13); box-shadow:0 0 0 2px var(--teal) inset;}
 
 /* ---------- Section title ---------- */
 .blk-section h2{
-  font-family:var(--font-title); font-weight:800; font-size:21px; color:var(--title-color);
-  margin:16px 0 6px; text-transform:uppercase; letter-spacing:.01em;
-  border-bottom:2px solid var(--title-color); padding-bottom:4px;
+  font-family:var(--font-title); font-weight:800; font-size:15px; color:var(--title-color);
+  margin:4px 0 1px; line-height:1.0; text-transform:uppercase; letter-spacing:.01em;
+  border-bottom:1.4px solid var(--title-color); padding-bottom:1px;
 }
-.blk-section h2 .en{font-family:var(--font-body); font-style:italic; font-weight:400; text-transform:none; color:var(--grey); font-size:15px;}
+.blk-section.big h2{font-size:16.5px; letter-spacing:0;}
+.blk-section h2 .en{font-family:var(--font-body); font-style:italic; font-weight:400; text-transform:none; color:var(--grey); font-size:11.5px; letter-spacing:0;}
+.blk-section:first-child h2{margin-top:0;}
 
 /* ---------- Item row ---------- */
-.blk-item{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; padding:3px 4px;}
-.blk-item .txt{flex:0 1 auto; max-width:80%;}
-.blk-item .fr{font-size:14px; font-weight:600; color:var(--title-color); letter-spacing:.02em; line-height:1.25;}
-.blk-item .en{font-size:13px; font-style:italic; color:#57574f; margin-top:1px; line-height:1.28;}
-.blk-item .price{font-size:14px; font-style:italic; font-weight:500; color:var(--ink); white-space:nowrap; min-width:52px; text-align:right;}
-.blk-item .leader{flex:1; min-width:18px; align-self:flex-start; height:15px; border-bottom:1.5px dotted #cfc9bb; margin:0 2px;}
-body.leaders-off .blk-item .leader{border-bottom:none;}
+.blk-item{display:flex; align-items:flex-start; gap:6px; padding:0 3px; margin-bottom:0; line-height:1.1;}
+.blk-item .txt{flex:1 1 auto; min-width:0;}
+.blk-item .fr{font-family:var(--font-name); font-size:9px; font-weight:600; color:var(--title-color); letter-spacing:.01em; line-height:1.12;}
+.blk-item .en{font-size:8.5px; font-style:italic; color:#4c4c44; margin-top:0; line-height:1.12;}
+.blk-item .en:empty{display:none;}
+/* Item « inline » : qualificatif court sur la même ligne que le nom (ex. « 33 cl ») */
+.blk-item.inline .fr{display:inline;}
+.blk-item.inline .en{display:inline; margin-left:5px;}
+.blk-item .price{flex:none; font-size:10px; font-style:italic; font-weight:500; color:var(--ink); white-space:nowrap; text-align:right; margin-left:8px; line-height:1.12;}
+/* Meneur de pointillés (désactivé par défaut pour DS — l'imprimé n'en a pas) */
+.blk-item .leader{flex:1 1 auto; align-self:flex-start; height:12px; border-bottom:1.4px dotted #cfc9bb; margin:0 2px;}
+body.leaders-off .blk-item .leader{display:none;}
+
+/* Items « half » (cocktails, shots) répartis en 2 sous-colonnes, façon dépliant */
+.item-grid{column-count:2; column-gap:18px; margin:2px 0 3px;}
+.item-grid .blk-item{break-inside:avoid; margin-bottom:3px;}
+.item-grid .blk-item .leader,
+.item-grid .blk-item .price{display:none;}
 
 /* ---------- Formule ---------- */
-.blk-formule{color:var(--accent); font-weight:600; font-size:14.5px; line-height:1.5;}
-.blk-formule.italic{font-style:italic; font-weight:500;}
-.blk-formule.heading{font-weight:700; letter-spacing:.06em; text-transform:uppercase; font-size:13.5px;}
+.blk-formule{color:var(--accent); font-weight:500; font-size:10px; line-height:1.25; font-style:italic;}
+.blk-formule.heading{font-family:var(--font-name); font-style:normal; font-weight:700; letter-spacing:.07em; text-transform:uppercase; font-size:9.5px; margin-top:2px;}
 
 /* ---------- Note ---------- */
-.blk-note{font-size:12px; font-style:italic; color:var(--grey); line-height:1.4;}
+.blk-note{font-size:8.5px; font-style:italic; color:var(--grey); line-height:1.25; margin:1px 0;}
+.blk-note.center{text-align:center; margin-top:5px;}
 
 /* ---------- Divider ---------- */
-.blk-divider{height:1px; background:var(--line); margin:10px 0;}
+.blk-divider{height:1px; background:var(--line); margin:8px 0;}
 
-/* ---------- Page break marker ---------- */
-.blk-pagebreak{
-  display:flex; align-items:center; gap:10px; color:var(--accent);
-  font-size:11px; text-transform:uppercase; letter-spacing:.08em; margin:12px 0 0;
+/* ---------- Marqueurs colonne / planche ---------- */
+.blk-colbreak, .blk-pagebreak{
+  display:flex; align-items:center; gap:8px; color:var(--accent);
+  font-family:'Poppins',sans-serif; font-size:9px; text-transform:uppercase; letter-spacing:.12em;
+  margin:6px 0 2px; opacity:.6;
 }
-.blk-pagebreak::before,.blk-pagebreak::after{content:''; flex:1; height:1px; background:var(--teal); opacity:.4;}
+.blk-colbreak::before,.blk-colbreak::after,
+.blk-pagebreak::before,.blk-pagebreak::after{content:''; flex:1; height:1px; background:var(--teal); opacity:.35;}
+.blk-pagebreak{margin-top:auto;}
 
-/* ---------- Empty page hint ---------- */
+/* ---------- Panneau vert DS (volet 3, planche 1) ---------- */
+.blk-panel{
+  height:100%; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:16px;
+  padding:0; margin:0;
+}
+.blk-panel:hover{background:transparent;}
+.panel-img{width:96%; cursor:pointer; line-height:0;}
+.panel-img img{width:100%; height:auto; display:block; filter:drop-shadow(0 6px 18px rgba(58,73,45,.18));}
+.panel-caption{
+  font-family:var(--font-title); font-style:italic; font-weight:600;
+  font-size:19px; color:var(--accent); text-align:center; line-height:1.25; padding:0 10px;
+}
+
+/* ---------- Bloc Brunch (cadre botanique) ---------- */
+.blk-brunch{
+  position:relative; width:100%;
+  aspect-ratio:2060/2610;
+  background:url('assets/brunch.png') center/100% 100% no-repeat;
+  margin-bottom:6px; padding:0;
+}
+.blk-brunch:hover{background:url('assets/brunch.png') center/100% 100% no-repeat;}
+.brunch-inner{
+  position:absolute; inset:6% 12% 5% 12%;
+  display:flex; flex-direction:column; align-items:center; text-align:center;
+  color:var(--title-color);
+}
+.brunch-title{font-family:var(--font-title); font-weight:800; font-size:40px; line-height:.92; letter-spacing:.01em;}
+.brunch-sub{font-family:var(--font-body); font-style:italic; font-size:13px; margin-top:6px; color:var(--title-color);}
+.brunch-offer{font-family:var(--font-title); font-weight:700; font-size:15px; letter-spacing:.04em; margin-top:12px; text-transform:uppercase;}
+.brunch-sep{color:var(--accent); font-size:11px; margin:5px 0;}
+.brunch-h{font-family:var(--font-name); font-weight:700; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--title-color);}
+.brunch-b{font-family:var(--font-body); font-size:10.5px; font-style:italic; color:#43433c; line-height:1.3; margin-top:2px;}
+
+/* ---------- Bloc Menu Enfant (pastille poisson) ---------- */
+.blk-enfant{
+  position:relative; width:100%;
+  aspect-ratio:2214/1158;
+  background:url('assets/enfant.png') center/100% 100% no-repeat;
+  margin:8px 0 6px; padding:0;
+}
+.blk-enfant:hover{background:url('assets/enfant.png') center/100% 100% no-repeat;}
+.enfant-inner{
+  position:absolute; inset:14% 5% 12% 30%;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+  color:var(--title-color);
+}
+.enfant-title{font-family:var(--font-title); font-weight:800; font-size:30px; line-height:.95;}
+.enfant-offer{font-family:var(--font-name); font-weight:700; font-size:10px; letter-spacing:.08em; text-transform:uppercase; margin-top:6px;}
+.enfant-b{font-family:var(--font-body); font-size:10.5px; font-style:italic; color:#43433c; line-height:1.35; margin-top:4px;}
+
+/* ---------- Empty hint ---------- */
 .page-empty-hint{color:var(--grey); font-size:13px; text-align:center; padding:40px 0; border:1px dashed var(--line); border-radius:8px;}
 
 /* ---------- Insert-here bar ---------- */
-.insert-bar{height:12px; margin:-6px 0; display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity .12s; position:relative; z-index:5;}
+.insert-bar{height:0; margin:0; display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity .12s; position:relative; z-index:5; overflow:visible;}
 .insert-bar:hover{opacity:1;}
 .insert-bar button{
-  font-size:11px; background:var(--teal); color:#fff; border:none; border-radius:20px;
-  padding:2px 10px; cursor:pointer;
+  font-size:10px; background:var(--teal); color:#fff; border:none; border-radius:20px;
+  padding:1px 9px; cursor:pointer; font-family:'Poppins',sans-serif;
 }
 
 /* ---------- Reprise de brouillon ---------- */
@@ -221,7 +272,7 @@ body.leaders-off .blk-item .leader{border-bottom:none;}
   text-align:left; background:#fafafa; transition:border-color .12s, background .12s;
   font-family:'Poppins',sans-serif;
 }
-.block-opt:hover{border-color:var(--teal); background:#f2fbfa;}
+.block-opt:hover{border-color:var(--teal); background:#f2f7f2;}
 .block-opt .ttl{font-weight:700; font-size:13.5px; margin-bottom:3px;}
 .block-opt .desc{font-size:11.5px; color:var(--grey);}
 
@@ -254,7 +305,7 @@ body.leaders-off .blk-item .leader{border-bottom:none;}
 
 /* ---------- Lien magique ---------- */
 #magicLinkBox{
-  margin-top:16px; padding:14px; border:1px dashed var(--teal); border-radius:10px; background:#f2fbfa;
+  margin-top:16px; padding:14px; border:1px dashed var(--teal); border-radius:10px; background:#f2f7f2;
 }
 #magicLinkBox .ttl{font-weight:700; font-size:13px; margin-bottom:4px; color:var(--teal-dark);}
 #magicLinkBox p{margin:0 0 10px; font-size:12px; color:#333; line-height:1.5;}
@@ -293,27 +344,24 @@ body.leaders-off .blk-item .leader{border-bottom:none;}
   font-size:12px; font-weight:700; cursor:pointer; font-family:'Poppins',sans-serif;
 }
 
-/* ---------- Export (html2canvas) : masquer toute l'UI d'édition ---------- */
+/* ---------- Export (html2canvas) : masquer l'UI d'édition ---------- */
 body.exporting .row-controls,
 body.exporting .insert-bar,
-body.exporting .page-label,
+body.exporting .sheet-label,
+body.exporting .blk-colbreak,
 body.exporting .blk-pagebreak,
 body.exporting .page-empty-hint,
-body.exporting .page-overflow-warning{display:none !important;}
+body.exporting .sheet-overflow-warning{display:none !important;}
 body.exporting .block{background:transparent !important;}
 body.exporting .block.selected{outline:none !important;}
-body.exporting .pdf-page.overflowing{outline:none !important;}
+body.exporting .sheet.overflowing{outline:none !important;}
 
-/* ---------- Print (secours) ---------- */
-@media print{
-  body{padding-top:0; background:#fff;}
-  #toolbar,.row-controls,.insert-bar,.modal-backdrop,#toast,#draftBanner{display:none !important;}
-  .pdf-page{box-shadow:none; margin:0; page-break-after:always;}
-  #canvasWrap{margin:0; padding:0; gap:0;}
-  .page-label,.page-overflow-warning{display:none;}
-}
-
-@media (max-width:900px){
-  .pdf-page{width:100%; height:auto; min-height:60vh; padding:30px 22px;}
-  .row-controls{position:static; transform:none; justify-content:flex-end;}
+/* ---------- Vue étroite : volets empilés ---------- */
+@media (max-width:1100px){
+  body{overflow-x:hidden;}
+  #canvasWrap{padding:24px 14px 100px;}
+  .sheet{width:100%; height:auto; flex-direction:column; gap:26px;}
+  .volet{height:auto;}
+  .row-controls{position:static; transform:none; justify-content:flex-end; margin-top:4px;}
+  .blk-pagebreak{margin-top:6px;}
 }
