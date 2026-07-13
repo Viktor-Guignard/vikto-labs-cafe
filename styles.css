@@ -1,0 +1,319 @@
+:root{
+  --ink:#1d1d1b;
+  --teal:#3a492d;         /* vert forêt DS Café (chrome + accents UI) */
+  --teal-dark:#2c3823;
+  --grey:#7a7a72;
+  --paper:#ffffff;
+  --line:#e7e3da;
+  --bg:#efeae0;
+  --danger:#b5503f;
+  --shadow:0 4px 18px rgba(58,73,45,.12);
+  /* A4 à 96 dpi */
+  --page-w:794px;
+  --page-h:1123px;
+  /* Apparence personnalisable (modale 🎨) */
+  --font-title:'Playfair Display', serif;
+  --font-body:'EB Garamond', serif;
+  --title-color:#3a492d;
+  --accent:#3a492d;
+  --page-bg:#fefbf8;
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--bg);
+  font-family:'Poppins',sans-serif;
+  color:var(--ink);
+  padding-top:74px;
+  min-height:100vh;
+}
+
+/* ---------- Toolbar ---------- */
+#toolbar{
+  position:fixed; top:0; left:0; right:0; height:64px;
+  background:var(--paper); border-bottom:1px solid var(--line);
+  display:flex; align-items:center; gap:10px;
+  padding:0 18px; z-index:200; box-shadow:var(--shadow);
+}
+#toolbar .brand{
+  font-family:'Playfair Display', serif; font-weight:700; font-size:20px;
+  margin-right:auto; white-space:nowrap; color:var(--ink);
+}
+#toolbar .brand small{display:block; font-size:10px; font-weight:400; color:var(--grey); font-family:'Poppins',sans-serif;}
+.tbtn{
+  display:inline-flex; align-items:center; gap:6px;
+  background:var(--ink); color:#fff; border:none; border-radius:8px;
+  padding:9px 14px; font-size:13px; font-weight:600; cursor:pointer;
+  font-family:'Poppins',sans-serif; white-space:nowrap;
+  transition:transform .1s, opacity .15s;
+}
+.tbtn:hover{opacity:.85;}
+.tbtn:active{transform:scale(.97);}
+.tbtn.secondary{background:#fff; color:var(--ink); border:1px solid var(--line);}
+.tbtn.teal{background:var(--teal);}
+.tbtn.teal:hover{background:var(--teal-dark); opacity:1;}
+.tbtn:disabled{opacity:.4; cursor:not-allowed;}
+#syncStatus{font-size:12px; color:var(--grey); display:flex; align-items:center; gap:6px; max-width:220px;}
+#syncStatus.ok{color:var(--teal-dark); font-weight:600;}
+#syncStatus.warn{color:#b0782a; font-weight:600;}
+.dot{width:8px;height:8px;border-radius:50%;background:#c9a54b;display:inline-block;flex:none;}
+#syncStatus.ok .dot{background:var(--teal);}
+#syncStatus.warn .dot{background:#e0a33d;}
+
+/* ---------- Canvas / pages ---------- */
+#canvasWrap{
+  max-width:980px; margin:32px auto 120px; padding:0 16px;
+  display:flex; flex-direction:column; align-items:center; gap:40px;
+}
+.pdf-page{
+  background:var(--page-bg); width:var(--page-w); height:var(--page-h);
+  box-shadow:var(--shadow); position:relative;
+  padding:44px 52px 52px;
+  font-family:var(--font-body);
+  flex:none;
+}
+.page-label{
+  position:absolute; top:-26px; left:0; font-size:11px; color:var(--grey);
+  letter-spacing:.06em; text-transform:uppercase;
+}
+.page-overflow-warning{
+  position:absolute; left:0; right:0; bottom:-30px;
+  display:none; align-items:center; justify-content:center; gap:8px;
+  color:var(--danger); font-size:12px; font-weight:600;
+}
+.pdf-page.overflowing{outline:2px dashed var(--danger);}
+.pdf-page.overflowing .page-overflow-warning{display:flex;}
+
+/* ---------- Blocks (generic) ---------- */
+.block{
+  position:relative; margin-bottom:4px; border-radius:4px;
+  padding:2px 4px; transition:background .12s;
+}
+.block:hover{background:rgba(47,158,151,.06);}
+.block.selected{outline:2px dashed var(--teal);}
+
+/* Contrôles en bout de ligne */
+.row-controls{
+  position:absolute; right:-6px; top:50%;
+  transform:translate(100%,-50%);
+  display:flex; align-items:center; gap:3px;
+}
+.rctrl{
+  width:24px;height:24px; border-radius:6px; border:1px solid var(--line);
+  background:#fff; cursor:pointer; font-size:12px; line-height:1;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 1px 4px rgba(0,0,0,.08);
+  opacity:0; transition:opacity .12s, background .12s;
+  color:#444; padding:0;
+}
+.rctrl:hover{background:#f2f2f2;}
+/* La croix de suppression reste toujours visible, discrète */
+.rctrl.del{opacity:.30; color:var(--danger); font-weight:700;}
+.rctrl.del:hover{background:#fdeaea; opacity:1;}
+.block:hover .rctrl{opacity:1;}
+.block:hover .rctrl.del{opacity:1;}
+
+[contenteditable="true"]{outline:none; cursor:text; border-radius:3px;}
+[contenteditable="true"]:hover{background:rgba(47,158,151,.08);}
+[contenteditable="true"]:focus{background:rgba(47,158,151,.14); box-shadow:0 0 0 2px var(--teal) inset;}
+
+/* ---------- Header block (DS Café) ---------- */
+.blk-header{display:flex; justify-content:space-between; align-items:center; gap:30px; margin-bottom:16px;}
+.blk-header .titles{flex:1; min-width:0;}
+.blk-header h1{
+  font-family:var(--font-title); font-weight:800; font-size:56px;
+  line-height:.98; margin:0; color:var(--title-color);
+}
+.blk-header .tagline{
+  font-family:var(--font-title); font-style:italic; font-weight:600;
+  font-size:20px; color:var(--accent); margin-top:14px;
+}
+.blk-header .welcome{
+  font-size:12px; color:var(--grey); margin-top:10px; line-height:1.6;
+  letter-spacing:.14em; text-transform:uppercase;
+}
+.blk-header .hero{flex:none; width:198px;}
+.blk-header .hero img{
+  width:100%; height:auto; display:block;
+  filter:drop-shadow(0 6px 18px rgba(58,73,45,.20));
+}
+.img-slot{cursor:pointer; position:relative;}
+.img-slot:hover::after{
+  content:'changer l\2019image'; position:absolute; inset:auto 0 -16px 0;
+  font-size:9px; color:var(--teal-dark); text-align:center; font-weight:600;
+}
+
+/* ---------- Section title ---------- */
+.blk-section h2{
+  font-family:var(--font-title); font-weight:800; font-size:21px; color:var(--title-color);
+  margin:16px 0 6px; text-transform:uppercase; letter-spacing:.01em;
+  border-bottom:2px solid var(--title-color); padding-bottom:4px;
+}
+.blk-section h2 .en{font-family:var(--font-body); font-style:italic; font-weight:400; text-transform:none; color:var(--grey); font-size:15px;}
+
+/* ---------- Item row ---------- */
+.blk-item{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; padding:3px 4px;}
+.blk-item .txt{flex:0 1 auto; max-width:80%;}
+.blk-item .fr{font-size:14px; font-weight:600; color:var(--title-color); letter-spacing:.02em; line-height:1.25;}
+.blk-item .en{font-size:13px; font-style:italic; color:#57574f; margin-top:1px; line-height:1.28;}
+.blk-item .price{font-size:14px; font-style:italic; font-weight:500; color:var(--ink); white-space:nowrap; min-width:52px; text-align:right;}
+.blk-item .leader{flex:1; min-width:18px; align-self:flex-start; height:15px; border-bottom:1.5px dotted #cfc9bb; margin:0 2px;}
+body.leaders-off .blk-item .leader{border-bottom:none;}
+
+/* ---------- Formule ---------- */
+.blk-formule{color:var(--accent); font-weight:600; font-size:14.5px; line-height:1.5;}
+.blk-formule.italic{font-style:italic; font-weight:500;}
+.blk-formule.heading{font-weight:700; letter-spacing:.06em; text-transform:uppercase; font-size:13.5px;}
+
+/* ---------- Note ---------- */
+.blk-note{font-size:12px; font-style:italic; color:var(--grey); line-height:1.4;}
+
+/* ---------- Divider ---------- */
+.blk-divider{height:1px; background:var(--line); margin:10px 0;}
+
+/* ---------- Page break marker ---------- */
+.blk-pagebreak{
+  display:flex; align-items:center; gap:10px; color:var(--accent);
+  font-size:11px; text-transform:uppercase; letter-spacing:.08em; margin:12px 0 0;
+}
+.blk-pagebreak::before,.blk-pagebreak::after{content:''; flex:1; height:1px; background:var(--teal); opacity:.4;}
+
+/* ---------- Empty page hint ---------- */
+.page-empty-hint{color:var(--grey); font-size:13px; text-align:center; padding:40px 0; border:1px dashed var(--line); border-radius:8px;}
+
+/* ---------- Insert-here bar ---------- */
+.insert-bar{height:12px; margin:-6px 0; display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity .12s; position:relative; z-index:5;}
+.insert-bar:hover{opacity:1;}
+.insert-bar button{
+  font-size:11px; background:var(--teal); color:#fff; border:none; border-radius:20px;
+  padding:2px 10px; cursor:pointer;
+}
+
+/* ---------- Reprise de brouillon ---------- */
+#draftBanner{
+  display:none; position:fixed; top:64px; left:0; right:0; z-index:190;
+  background:#fff7e8; border-bottom:1px solid #eeddb8; color:#7a5b1e;
+  padding:10px 18px; font-size:13px; text-align:center;
+}
+#draftBanner.show{display:block;}
+#draftBanner button{margin-left:10px; font-size:12px; padding:4px 12px; border-radius:6px; border:1px solid #d8c08a; background:#fff; cursor:pointer; font-weight:600;}
+#draftBanner button.primary{background:#7a5b1e; border-color:#7a5b1e; color:#fff;}
+
+/* ---------- Modals ---------- */
+.modal-backdrop{
+  position:fixed; inset:0; background:rgba(20,20,20,.45); display:none;
+  align-items:center; justify-content:center; z-index:500;
+}
+.modal-backdrop.open{display:flex;}
+.modal{
+  background:#fff; border-radius:14px; width:min(580px,92vw); max-height:82vh; overflow:auto;
+  padding:26px 26px 22px; box-shadow:0 20px 60px rgba(0,0,0,.3);
+  position:relative;
+}
+.modal h3{margin:0 0 4px; font-family:'Playfair Display',serif; font-size:22px;}
+.modal p.sub{margin:0 0 18px; color:var(--grey); font-size:13px;}
+.modal-close{position:absolute; top:16px; right:20px; cursor:pointer; font-size:20px; color:var(--grey); background:none; border:none;}
+
+.block-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:10px;}
+.block-opt{
+  border:1px solid var(--line); border-radius:10px; padding:14px 12px; cursor:pointer;
+  text-align:left; background:#fafafa; transition:border-color .12s, background .12s;
+  font-family:'Poppins',sans-serif;
+}
+.block-opt:hover{border-color:var(--teal); background:#f2fbfa;}
+.block-opt .ttl{font-weight:700; font-size:13.5px; margin-bottom:3px;}
+.block-opt .desc{font-size:11.5px; color:var(--grey);}
+
+.field{margin-bottom:14px;}
+.field label{display:block; font-size:12px; font-weight:600; margin-bottom:5px; color:#333;}
+.field input{
+  width:100%; padding:9px 11px; border:1px solid var(--line); border-radius:8px; font-size:13px;
+  font-family:'Poppins',sans-serif;
+}
+.field input:focus{outline:none; border-color:var(--teal);}
+.field .hint{font-size:11px; color:var(--grey); margin-top:4px; line-height:1.5;}
+.modal-actions{display:flex; gap:8px; justify-content:flex-end; margin-top:18px;}
+.steps{font-size:12.5px; color:#333; line-height:1.7; padding-left:18px; margin:0 0 14px;}
+.steps a{color:var(--teal-dark);}
+
+/* ---------- Modale Apparence ---------- */
+.appearance-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px 18px;}
+.appearance-grid .field{margin-bottom:0;}
+.field select{
+  width:100%; padding:9px 11px; border:1px solid var(--line); border-radius:8px; font-size:13px;
+  font-family:'Poppins',sans-serif; background:#fff;
+}
+.field select:focus{outline:none; border-color:var(--teal);}
+.field input[type="color"]{
+  width:100%; height:38px; padding:3px; border:1px solid var(--line); border-radius:8px; background:#fff; cursor:pointer;
+}
+.field.checkbox{display:flex; align-items:center; gap:8px;}
+.field.checkbox label{margin:0;}
+.field.checkbox input{width:auto;}
+
+/* ---------- Lien magique ---------- */
+#magicLinkBox{
+  margin-top:16px; padding:14px; border:1px dashed var(--teal); border-radius:10px; background:#f2fbfa;
+}
+#magicLinkBox .ttl{font-weight:700; font-size:13px; margin-bottom:4px; color:var(--teal-dark);}
+#magicLinkBox p{margin:0 0 10px; font-size:12px; color:#333; line-height:1.5;}
+#magicLinkText{display:none; width:100%; margin-top:8px; padding:8px; font-size:11px; border:1px solid var(--line); border-radius:6px;}
+
+.version-list{display:flex; flex-direction:column; gap:8px; margin-top:6px;}
+.version-row{
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  border:1px solid var(--line); border-radius:9px; padding:10px 12px; font-size:13px;
+}
+.version-row .vname{font-weight:600;}
+.version-row .vmeta{font-size:11px; color:var(--grey);}
+.version-row .tag{font-size:10px; background:var(--teal); color:#fff; border-radius:10px; padding:1px 8px; margin-left:6px; vertical-align:middle;}
+.version-row .vactions{display:flex; gap:6px;}
+.version-row button{
+  font-size:11.5px; border:1px solid var(--line); background:#fff; border-radius:6px; padding:5px 9px; cursor:pointer;
+  font-family:'Poppins',sans-serif;
+}
+.version-row button.load{border-color:var(--teal); color:var(--teal-dark); font-weight:600;}
+.version-row button.load:hover{background:var(--teal); color:#fff;}
+.version-row button.delete{color:var(--danger);}
+.version-row button.delete:hover{background:#fdeaea; border-color:var(--danger);}
+.version-row button:disabled{opacity:.4; cursor:not-allowed;}
+.empty-state{color:var(--grey); font-size:13px; text-align:center; padding:24px 0;}
+
+/* ---------- Toast ---------- */
+#toast{
+  position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px);
+  background:var(--ink); color:#fff; padding:11px 20px; border-radius:30px; font-size:13px;
+  opacity:0; pointer-events:none; transition:opacity .2s, transform .2s; z-index:600;
+  display:flex; align-items:center; gap:12px;
+}
+#toast.show{opacity:1; pointer-events:auto; transform:translateX(-50%) translateY(0);}
+#toast button{
+  background:#fff; color:var(--ink); border:none; border-radius:16px; padding:4px 12px;
+  font-size:12px; font-weight:700; cursor:pointer; font-family:'Poppins',sans-serif;
+}
+
+/* ---------- Export (html2canvas) : masquer toute l'UI d'édition ---------- */
+body.exporting .row-controls,
+body.exporting .insert-bar,
+body.exporting .page-label,
+body.exporting .blk-pagebreak,
+body.exporting .page-empty-hint,
+body.exporting .page-overflow-warning{display:none !important;}
+body.exporting .block{background:transparent !important;}
+body.exporting .block.selected{outline:none !important;}
+body.exporting .pdf-page.overflowing{outline:none !important;}
+
+/* ---------- Print (secours) ---------- */
+@media print{
+  body{padding-top:0; background:#fff;}
+  #toolbar,.row-controls,.insert-bar,.modal-backdrop,#toast,#draftBanner{display:none !important;}
+  .pdf-page{box-shadow:none; margin:0; page-break-after:always;}
+  #canvasWrap{margin:0; padding:0; gap:0;}
+  .page-label,.page-overflow-warning{display:none;}
+}
+
+@media (max-width:900px){
+  .pdf-page{width:100%; height:auto; min-height:60vh; padding:30px 22px;}
+  .row-controls{position:static; transform:none; justify-content:flex-end;}
+}
