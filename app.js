@@ -12,12 +12,12 @@ function defaultDoc(){
     /* ===================== PLANCHE 1 (boissons & desserts) ===================== */
 
     /* Éléments décoratifs (positionnés en absolu, déplaçables) */
-    b('deco', {img:'assets/deco-stamp.png', x:342, y:196, w:100, rot:0}),
+    b('deco', {img:'assets/deco-stamp.png', x:352, y:214, w:82, rot:0}),
     b('deco', {img:'assets/deco-flower.png', x:758, y:742, w:80, rot:0}),
 
     /* ---------- Volet 1 : cocktails, boissons fraîches, vins, champagnes ---------- */
     b('section', {fr:'COCKTAILS FRAIS PRESSÉS', en:'(40 cl)', price:'8'}),
-    b('formule', {text:'Supplément collagène "Day+" +2 €'}),
+    b('formule', {text:'Supplément collagène "Day+" +2€'}),
     b('item', {fr:'GINGER ADDICT', en:'Pomme, citron, gingembre', price:'', half:true}),
     b('item', {fr:'FRESH', en:'Ananas, pomme, menthe fraîche', price:'', half:true}),
     b('item', {fr:'IPANEMA', en:'Baies d’açaï BIO*, banane, myrtille, pomme', price:'', half:true}),
@@ -40,7 +40,7 @@ function defaultDoc(){
     b('section', {fr:'BOISSONS FRAÎCHES', en:null}),
     b('item', {fr:'EAU AQUACHIARA', en:'Plate ou gazeuse 75 cl', price:'5', inline:true}),
     b('item', {fr:'EAU DÉTOX', en:'Concombre & menthe 75 cl', price:'5.5', inline:true}),
-    b('item', {fr:'THÉ GLACÉ MAISON', en:'Infusion par l’Infuseur : cassis, hibiscus, citronnelle · « Détox »', price:'6'}),
+    b('item', {fr:'THÉ GLACÉ MAISON : INFUSION PAR L’INFUSEUR', en:'Cassis, hibiscus, citronnelle · Infusion « Détox »', price:'6'}),
     b('item', {fr:'COCA COLA, COCA COLA SANS SUCRE', en:'33 cl', price:'5.5', inline:true}),
     b('item', {fr:'FUZE TEA', en:'Pêche 25 cl', price:'5', inline:true}),
     b('item', {fr:'PERRIER', en:'33 cl', price:'5.5', inline:true}),
@@ -55,7 +55,7 @@ function defaultDoc(){
     b('item', {fr:'Saint Nicolas de Bourgueil AOP — Domaine des Pins', en:'', cols:3, p1:'6', p2:'9', p3:'29'}),
     b('item', {fr:'Graves AOP — Château les Majureaux', en:'', cols:3, p1:'—', p2:'—', p3:'35'}),
     b('formule', {text:'BLANCS', heading:true}),
-    b('item', {fr:'IGP Côtes de Gascogne Sauvignon Gros-Manseng — Famille Dufour', en:'Demi-sec', cols:3, p1:'6', p2:'9', p3:'29'}),
+    b('item', {fr:'IGP Côtes de Gascogne Sauvignon Gros-Manseng — Famille Dufour', en:'demi sec', cols:3, p1:'6', p2:'9', p3:'29'}),
     b('item', {fr:'IGP d’Oc Chardonnay — Cellier du Pic', en:'', cols:3, p1:'6', p2:'9', p3:'29'}),
     b('item', {fr:'Petit Chablis — Domaine du Chardonnay', en:'', cols:3, p1:'9', p2:'—', p3:'45'}),
     b('formule', {text:'ROSÉ', heading:true}),
@@ -63,11 +63,11 @@ function defaultDoc(){
 
     b('section', {fr:'CHAMPAGNES', en:null}),
     b('pricehead', {cols:2, h1:'VERRE\n12 cl', h2:'BTL\n75 cl'}),
-    b('item', {fr:'Grande Réserve Brut — Pierre Domi', en:'Local', cols:2, p1:'9.5', p2:'—'}),
-    b('item', {fr:'Blanc de Blancs — Pierre Domi', en:'Local', cols:2, p1:'—', p2:'60'}),
+    b('item', {fr:'Grande Réserve Brut — Pierre Domi', en:'local', cols:2, p1:'9.5', p2:'—'}),
+    b('item', {fr:'Blanc de Blancs — Pierre Domi', en:'local', cols:2, p1:'—', p2:'60'}),
     b('item', {fr:'Cuvée Royale Brut — Joseph Perrier', en:'', cols:2, p1:'12', p2:'65'}),
     b('item', {fr:'« R » de Ruinart Brut — Ruinart', en:'', cols:2, p1:'—', p2:'90'}),
-    b('note', {text:'AOP : Appellation d’Origine Protégée · IGP : Indication Géographique Protégée.  L’abus d’alcool est dangereux pour la santé. Toute boisson alcoolisée doit être accompagnée d’un plat.', center:true}),
+    b('note', {text:'AOP : Appellation d’Origine Protégée, IGP : Indication Géographique Protégée.  L’abus d’alcool est dangereux pour la santé. Toute boisson alcoolisée doit être accompagnée d’un plat.', center:true}),
 
     b('colbreak', {}),
 
@@ -80,14 +80,14 @@ function defaultDoc(){
     b('item', {fr:'DS LIGHT "RÉÉDITION"', sg:true, veg:true, en:'Mousse au lait d’amande, coulis de fruits rouges*', price:'8.5'}),
     b('item', {fr:'MOELLEUX AU CHOCOLAT', en:'Crème anglaise', price:'8'}),
     b('item', {fr:'CAKE DU MOMENT', en:'Cake myrtille, glaçage citron ou cake aux pépites de chocolat', price:'5.5'}),
-    b('item', {fr:'CRÊPE AU SUCRE*', en:'Supplément Nutella, crème sucrée ou chocolat maison +1 €', price:'5.5'}),
+    b('item', {fr:'CRÊPE AU SUCRE*', en:'Supplément Nutella, crème sucrée ou chocolat maison +1€', price:'5.5'}),
     b('item', {fr:'COOKIE', en:'Chocolat-noix de pécan ou matcha-chocolat blanc', price:'5.5'}),
     b('item', {fr:'AÇAÏ BOWL', veg:true, en:'Açaï BIO*, banane, muesli, coco râpée, myrtille', price:'12'}),
     b('item', {fr:'CAFÉ GOURMAND', en:'DS light, cake du moment, mousse au chocolat', price:'10'}),
 
     b('section', {fr:'FROZEN YOGURT', veg:true, en:'(avec 2 toppings au choix)', big:true, price:'9.5'}),
     b('note', {text:'Glace au yaourt nature basse calorie'}),
-    b('formule', {text:'Topping supplémentaire +1 €'}),
+    b('formule', {text:'Topping supplémentaire +1€'}),
     b('note', {text:'Toppings : banane, myrtille, caramel beurré salé*, miel, noix de pécan, muesli, amandes, Nutella, sirop d’érable'}),
 
     b('section', {fr:'BOISSONS CHAUDES', en:null, big:true}),
@@ -98,7 +98,7 @@ function defaultDoc(){
     b('item', {fr:'CHOCOLAT CHAUD', en:'', price:'6'}),
     b('item', {fr:'GREEN MATCHA LATTE', en:'', price:'7'}),
     b('item', {fr:'THÉS BIO & INFUSION PAR L’INFUSEUR', en:'Sencha, thé vert menthe, thé vert gingembre, Earl Grey, Rooibos vanille · Infusion détox : cassis, hibiscus, citronnelle', price:'6'}),
-    b('note', {text:'Boissons lactées au lait végétal +1 € · Sirop vanille ou caramel +0.5 € · Supplément collagène « Day+ » +2 €'}),
+    b('note', {text:'Boissons lactées au lait végétal +1€ · Sirop vanille ou caramel +0.5€ · Supplément collagène « Day+ » +2€'}),
 
     b('section', {fr:'LES LATTE', en:'de la Main Noire', big:true, price:'7'}),
     b('item', {fr:'GOLDEN LATTE BIO', en:'Curcuma, gingembre, poivre noir, muscade, cardamome, sucre de betterave', price:''}),
@@ -121,9 +121,9 @@ function defaultDoc(){
       subtitle:'Samedi, Dimanche & jours fériés',
       offer:'ASSIETTE BRUNCH 24<br>FORMULE 32',
       d1t:'BOISSON AU CHOIX - 25 CL',
-      d1b:'Au choix : Green juice ou Wake up ou orange pressée ou jus de pomme pressé<br>(ou Mimosa 12 cl +6 €)',
+      d1b:'Au choix : Green juice ou Wake up ou orange pressée ou jus de pomme pressé<br>(ou Mimosa 12 cl +6€)',
       d2t:'BOISSON CHAUDE OU THÉ GLACÉ',
-      d2b:'Au choix : café, chocolat chaud, thé ou infusion L’Infuseur<br>(Cappuccino, Macchiato ou lait végétal +1 € · Latte au choix +1.50 €)',
+      d2b:'Au choix : Café, chocolat chaud, thé ou infusion L’Infuseur<br>(Cappuccino, Macchiato, ou lait végétal +1€ · Latte au choix +1.50€)',
       d3t:'ASSIETTE BRUNCH',
       d3b:'Pain brioché artisanal multigrains*, cheddar, œufs pochés, sauce hollandaise*, avocat, salade de pommes de terre, salade verte<br>+ au choix : poulet, saumon fumé ou pastrami',
       d4t:'DESSERT',
@@ -131,7 +131,8 @@ function defaultDoc(){
     }),
 
     b('section', {fr:'BUNS', en:null, big:true}),
-    b('note', {text:'Pain brioché artisanal multigrains* · Supplément cheddar +1.5 €'}),
+    b('note', {text:'Pain brioché artisanal multigrains*', strong:true}),
+    b('note', {text:'Supplément cheddar +1.5€'}),
     b('item', {fr:'BROOKLYN', en:'Pastrami de bœuf, cornichons, émincé de chou, mayonnaise Savora, salade de pommes de terre, salade verte', price:'19'}),
     b('item', {fr:'OSLO', en:'Saumon fumé, concombre, yaourt aux herbes, salade de pommes de terre, salade verte', price:'18.5'}),
     b('item', {fr:'CALIFORNIEN', en:'Poulet, tomate, romaine, œuf dur, mayonnaise Savora, salade de pommes de terre, salade verte', price:'16.5'}),
@@ -170,7 +171,7 @@ function defaultDoc(){
 
     /* ---------- Volet 3 : piadinas, clubs, toasts, menu enfant ---------- */
     b('section', {fr:'PIADINAS', en:null, big:true}),
-    b('note', {text:'Galette de blé non levée légèrement toastée'}),
+    b('note', {text:'Galette de blé non levée légèrement toastée', strong:true}),
     b('item', {fr:'PIADINA VEGGIE', en:'Pesto, courgettes & poivrons grillés, tomates confites, fromage fiore di latte, salade verte', price:'18'}),
     b('item', {fr:'PIADINA POULET', en:'Pesto rosso, tomates confites, fromage fiore di latte, salade verte', price:'18'}),
     b('item', {fr:'PIADINA THON', en:'Tomates confites, miettes de thon, œuf poché, fiore di latte, salade verte', price:'18'}),
@@ -184,12 +185,12 @@ function defaultDoc(){
     b('section', {fr:'TOASTS', en:null, big:true}),
     b('item', {fr:'AVOCADO TOAST', en:'Pain nordique BIO, avocat slicé, féta, œuf poché, grenade, sésame, salade verte', price:'17'}),
     b('item', {fr:'TARTINE CAPRESE', en:'Pain nordique BIO, tomate, mozzarella di bufala, câpres, crème de balsamique, roquette', price:'15'}),
-    b('note', {text:'Avec du saumon fumé +5 €'}),
+    b('note', {text:'Avec du saumon fumé +5€'}),
 
     b('enfant', {
       title:'Menu Enfant',
       offer:'PLAT · BOISSON · DESSERT   10',
-      body:'Demi pavé de saumon, ou mini club poulet ou thon, salade de pommes de terre<br>Sirop à l’eau ou jus de pomme pressé<br>Crêpe au sucre ou Nutella, ou cake du moment',
+      body:'Demi pavé de saumon, ou Mini club poulet ou thon, salade de pommes de terre<br>Sirop à l’eau ou jus de pomme pressé<br>Crêpe au sucre ou Nutella, ou Cake du moment',
     }),
 
     b('note', {text:'Paiements acceptés : Espèces, Tickets restaurant, CB, American Express. Prix nets en euros, service et TVA inclus. * Produit surgelé. DOP = dénomination d’origine protégée. Carafe d’eau potable gratuite sur demande. Liste des allergènes sur demande.', center:true, legend:true}),
@@ -491,6 +492,7 @@ function blockClass(blk){
   if(blk.type==='formule' && blk.heading) c += ' heading';
   if(blk.type==='section' && blk.big) c += ' big';
   if(blk.type==='note' && blk.center) c += ' center';
+  if(blk.type==='note' && blk.strong) c += ' strong';
   if(blk.type==='item' && blk.inline) c += ' inline';
   if(blk.type==='item' && blk.cols) c += ' wine';
   return c;

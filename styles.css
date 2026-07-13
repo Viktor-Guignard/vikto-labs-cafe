@@ -11,9 +11,9 @@
   --shadow:0 6px 26px rgba(58,73,45,.16);
   /* Planche paysage 3 volets — dimensions du dépliant imprimé (1 pt = 1 px, 1325 × 852 pt) */
   --sheet-w:1325px;
-  --sheet-h:1070px;       /* largeur 1325 = imprimé ; hauteur ajustée aux polices libres (plus hautes) */
+  --sheet-h:1048px;       /* largeur 1325 = imprimé ; hauteur resserrée vers le format paysage de l'imprimé */
   --sheet-pad:30px;
-  --volet-h:1010px;        /* --sheet-h - 2*--sheet-pad ; volets ~410px comme l'imprimé */
+  --volet-h:988px;        /* --sheet-h - 2*--sheet-pad ; volets ~410px comme l'imprimé */
   /* Apparence personnalisable (modale 🎨) */
   --font-title:'Playfair Display', serif;
   --font-body:'EB Garamond', serif;
@@ -155,14 +155,14 @@ body.placing-block, body.placing-block *{cursor:crosshair !important;}
 
 /* ---------- Section title ---------- */
 .blk-section h2{
-  font-family:var(--font-title); font-weight:800; font-size:18px; color:var(--title-color);
+  font-family:var(--font-title); font-weight:400; font-size:14px; color:var(--title-color);
   margin:8px 0 6px; line-height:1.0; text-transform:uppercase; letter-spacing:.01em;
-  display:flex; align-items:baseline; gap:6px;
+  display:flex; align-items:baseline; gap:4px;
 }
-.blk-section.big h2{font-size:19px; letter-spacing:0;}
+.blk-section.big h2{font-size:15px; letter-spacing:0;}
 .blk-section:first-child h2{margin-top:0;}
 .blk-section h2 .en{font-family:var(--font-body); font-style:italic; font-weight:400; text-transform:none; color:var(--grey); font-size:9.5px; letter-spacing:0;}
-.blk-section h2 .en.unit{font-style:normal; letter-spacing:.02em;}
+.blk-section h2 .en.unit{font-style:normal; letter-spacing:.02em; font-size:8px; margin-left:-1px;}
 .blk-section h2 .sec-price{margin-left:auto; font-family:var(--font-body); font-style:italic; font-weight:400; text-transform:none; font-size:9.5px; color:var(--ink); letter-spacing:0;}
 .blk-section:first-child h2{margin-top:0;}
 
@@ -172,7 +172,7 @@ body.placing-block, body.placing-block *{cursor:crosshair !important;}
 .blk-item.inline{align-items:baseline;}
 .blk-item .txt{flex:1 1 auto; min-width:0;}
 .blk-item .fr{font-family:var(--font-name); font-size:10.5px; font-weight:600; color:var(--title-color); letter-spacing:.04em; line-height:1.05;}
-.blk-item .en{font-size:9.5px; font-style:normal; color:#4c4c44; margin-top:1px; line-height:1.14; max-width:330px;}
+.blk-item .en{font-size:9.5px; font-style:normal; color:#4c4c44; margin-top:1px; line-height:1.14; max-width:295px;}
 .blk-item .en:empty{display:none;}
 /* Item « inline » : qualificatif court sur la même ligne que le nom (ex. « 33 cl ») */
 .blk-item.inline .fr{display:inline;}
@@ -188,9 +188,11 @@ body.leaders-off .blk-item .leader{display:none;}
 .item-grid .blk-item .leader{display:none;}
 /* prix vides (cocktails/shots) invisibles ; prix non vides (petits plus) visibles */
 .item-grid .blk-item .price{flex:1 1 auto; text-align:right;}
+/* libellés compacts : tenir chaque item sur une seule ligne (petits plus, cocktails) */
+.item-grid .blk-item .fr{font-size:9px; letter-spacing:.02em;}
 
 /* Pictos régime (sans gluten / végétarien) */
-.diet{height:10px; width:auto; vertical-align:-1px; margin-left:3px;}
+.diet{height:13px; width:auto; vertical-align:-1px; margin-left:5px;}
 .blk-section h2 .diet{height:13px; vertical-align:-1px;}
 .diet-legend{display:inline-flex; align-items:center; gap:2px; margin-left:6px; white-space:nowrap;}
 .diet-legend .diet{margin-left:1px;}
@@ -201,8 +203,12 @@ body.leaders-off .blk-item .leader{display:none;}
 .blk-item.wine .pcols .pcell + .pcell{border-left:1px solid rgba(58,73,45,.28);}
 /* nom de vin : serif régulier (pas gras sans) comme l'imprimé */
 .blk-item.wine .fr{display:inline; font-family:var(--font-body); font-weight:400; color:var(--ink); text-transform:none; letter-spacing:0; font-size:9.5px;}
-/* annotation (demi-sec / local) : petit exposant à droite du nom, sur la même ligne */
-.blk-item.wine .en{display:inline; font-size:0.62em; vertical-align:super; font-style:italic; margin-left:3px; margin-top:0; color:var(--grey);}
+/* lignes de vins : interligne serré, prix et nom sur la même baseline (façon imprimé) */
+.blk-item.wine{align-items:baseline; margin:1px 0; line-height:1.2;}
+.blk-item.wine .fr{line-height:1.2;}
+.blk-item.wine .pcell{line-height:1.2;}
+/* annotation (demi sec / local) : minuscule exposant compact non sécable, sans hauteur ajoutée */
+.blk-item.wine .en{display:inline; font-size:0.55em; vertical-align:super; line-height:0; white-space:nowrap; font-style:italic; margin-left:3px; margin-top:0; color:var(--grey);}
 .blk-pricehead{display:flex; align-items:flex-end; margin:2px 0 1px;}
 .blk-pricehead .ph-spacer{flex:1 1 auto;}
 .pcell.head{width:38px; font-style:normal; font-size:7px; line-height:1.15; color:var(--grey);
@@ -225,7 +231,9 @@ body.leaders-off .blk-item .leader{display:none;}
 
 /* ---------- Note ---------- */
 .blk-note{font-size:9px; font-style:italic; color:var(--grey); line-height:1.2; margin:1px 0;}
-.blk-note.center{text-align:center; font-size:6.8px; margin-top:6px; color:#6a6a62;}
+/* sous-titre de tête de section (PIADINAS / BUNS) : gras, vert foncé, romain */
+.blk-note.strong{font-style:normal; font-weight:700; color:var(--title-color); font-size:9.5px; margin:1px 0 2px;}
+.blk-note.center{text-align:center; font-size:6.8px; margin-top:6px; color:#6a6a62; max-width:560px; margin-left:auto; margin-right:auto;}
 
 /* ---------- Divider ---------- */
 .blk-divider{height:1px; background:var(--line); margin:8px 0;}
@@ -247,7 +255,7 @@ body.leaders-off .blk-item .leader{display:none;}
   padding:0; margin:0;
 }
 .blk-panel:hover{background:transparent;}
-.panel-img{width:100%; cursor:pointer; line-height:0; border-radius:36px; overflow:hidden; box-shadow:0 5px 16px rgba(58,73,45,.16);}
+.panel-img{width:100%; cursor:pointer; line-height:0; border-radius:18px; overflow:hidden; background:transparent;}
 .panel-img img{width:100%; height:auto; display:block; transform:scale(1.06); transform-origin:center; filter:none;}
 .panel-caption{
   font-family:var(--font-title); font-style:normal; font-weight:400;
@@ -263,16 +271,16 @@ body.leaders-off .blk-item .leader{display:none;}
 .blk-brunch:hover{background:transparent;}
 .frame-bg{width:100%; height:auto; display:block; pointer-events:none;}
 .brunch-inner{
-  position:absolute; inset:6% 12% 5% 12%;
+  position:absolute; inset:6% 17% 6% 17%;
   display:flex; flex-direction:column; align-items:center; text-align:center;
   color:var(--title-color);
 }
 .brunch-title{font-family:var(--font-title); font-weight:800; font-size:60px; line-height:.9; letter-spacing:.01em;}
 .brunch-sub{font-family:var(--font-body); font-style:italic; font-size:14px; margin-top:7px; color:var(--title-color);}
 .brunch-offer{font-family:var(--font-title); font-weight:700; font-size:14px; letter-spacing:.04em; margin-top:13px; text-transform:uppercase;}
-.brunch-sep{color:var(--accent); font-size:11px; margin:5px 0;}
+.brunch-sep{color:var(--accent); font-size:11px; margin:3px 0;}
 .brunch-h{font-family:var(--font-name); font-weight:700; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--title-color);}
-.brunch-b{font-family:var(--font-body); font-size:10px; font-style:italic; color:#43433c; line-height:1.3; margin-top:2px;}
+.brunch-b{font-family:var(--font-body); font-size:9px; font-style:normal; color:#43433c; line-height:1.25; margin-top:2px;}
 
 /* ---------- Bloc Menu Enfant (pastille poisson) ---------- */
 .blk-enfant{
@@ -280,13 +288,13 @@ body.leaders-off .blk-item .leader{display:none;}
 }
 .blk-enfant:hover{background:transparent;}
 .enfant-inner{
-  position:absolute; inset:14% 5% 12% 30%;
+  position:absolute; inset:14% 12% 12% 30%;
   display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
   color:var(--title-color);
 }
 .enfant-title{font-family:var(--font-title); font-weight:800; font-size:26px; line-height:.95;}
 .enfant-offer{font-family:var(--font-name); font-weight:700; font-size:10px; letter-spacing:.08em; text-transform:uppercase; margin-top:6px;}
-.enfant-b{font-family:var(--font-body); font-size:10px; font-style:italic; color:#43433c; line-height:1.3; margin-top:4px;}
+.enfant-b{font-family:var(--font-body); font-size:10px; font-style:normal; color:#43433c; line-height:1.3; margin-top:4px;}
 
 /* ---------- Empty hint ---------- */
 .page-empty-hint{color:var(--grey); font-size:13px; text-align:center; padding:40px 0; border:1px dashed var(--line); border-radius:8px;}
