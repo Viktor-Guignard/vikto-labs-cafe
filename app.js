@@ -199,9 +199,16 @@ const BLOCK_LIBRARY = [
   {type:'item', ttl:'Plat', desc:'Nom, description, prix', make:()=>({fr:'NOUVEAU PLAT', en:'Description', price:'0'})},
   {type:'formule', ttl:'Ligne formule', desc:'Texte en vert (ex. prix partagé)', make:()=>({text:'NOUVELLE FORMULE'})},
   {type:'note', ttl:'Note / mention', desc:'Petit texte italique', make:()=>({text:'Note...'})},
+  {type:'item', ttl:'Plat — 2 colonnes', desc:'Plat compact réparti sur 2 sous-colonnes (cocktails, petits plus…)', make:()=>({fr:'NOUVEAU PLAT', en:'Description', price:'', half:true})},
+  {type:'item', ttl:'Plat — inline', desc:'Nom + qualificatif sur une seule ligne (« 33 cl »)', make:()=>({fr:'NOUVEAU PLAT', en:'33 cl', price:'0', inline:true})},
+  {type:'item', ttl:'Vin — 3 prix', desc:'Ligne avec 3 colonnes de prix (verre/verre/btl)', make:()=>({fr:'Nom du vin — Domaine', en:'', cols:3, p1:'6', p2:'9', p3:'29'})},
+  {type:'pricehead', ttl:'En-tête colonnes prix', desc:'Libellés au-dessus des colonnes de prix (Verre / Btl)', make:()=>({cols:3, h1:'Verre 14 cl', h2:'Verre 25 cl', h3:'Btl 75 cl'})},
   {type:'divider', ttl:'Séparateur', desc:'Ligne fine de séparation', make:()=>({})},
   {type:'colbreak', ttl:'Nouvelle colonne', desc:'Passe au volet suivant de la planche', make:()=>({})},
   {type:'pagebreak', ttl:'Nouvelle planche', desc:'Démarre une nouvelle planche (PDF)', make:()=>({})},
+  {type:'panel', ttl:'Panneau vert DS', desc:'Grand visuel botanique DS (volet entier)', make:()=>({img:null, caption:'Chez nous, happiness is homemade'})},
+  {type:'brunch', ttl:'Cadre « Brunch »', desc:'Cadre botanique ovale avec texte éditable', make:()=>({title:'LE BRUNCH', subtitle:'Samedi, dimanche & jours fériés', offer:'ASSIETTE BRUNCH 24 · FORMULE 32', d1t:'BOISSON', d1b:'…', d2t:'BOISSON CHAUDE', d2b:'…', d3t:'ASSIETTE', d3b:'…', d4t:'DESSERT', d4b:'…'})},
+  {type:'enfant', ttl:'Pastille « Menu Enfant »', desc:'Pastille + poisson avec texte éditable', make:()=>({title:'Menu Enfant', offer:'PLAT · BOISSON · DESSERT  10', body:'…'})},
   {type:'deco', ttl:'Déco — tampon', desc:'Motif « good food good mood » (déplaçable)', make:()=>({img:'assets/deco-stamp.png', x:120, y:120, w:120, rot:0})},
   {type:'deco', ttl:'Déco — fleur', desc:'Fleur-tasse DS (déplaçable)', make:()=>({img:'assets/deco-flower.png', x:150, y:150, w:90, rot:0})},
   {type:'deco', ttl:'Déco — image…', desc:'Votre propre illustration (déplaçable)', make:()=>({img:'assets/deco-stamp.png', x:130, y:130, w:120, rot:0})},
@@ -571,11 +578,14 @@ function buildBlockEl(blk){
   const controls = document.createElement('div');
   controls.className = 'row-controls';
   controls.innerHTML = `
+    <button class="rctrl grip" data-act="grip" title="Glisser pour déplacer où vous voulez">⠿</button>
     <button class="rctrl del" data-act="del" title="Supprimer">✕</button>
     <button class="rctrl" data-act="dup" title="Dupliquer">⧉</button>
     <button class="rctrl" data-act="up" title="Monter">↑</button>
     <button class="rctrl" data-act="down" title="Descendre">↓</button>`;
   wrap.appendChild(controls);
+  const grip = controls.querySelector('.grip');
+  if(grip) grip.addEventListener('mousedown', (e)=> startBlockDrag(e, blk));
 
   wrap.addEventListener('click', (e) => {
     if(e.target.closest('.rctrl')) return;
@@ -616,6 +626,100 @@ function buildBlockEl(blk){
   });
 
   return wrap;
+}
+
+/* ===================== Glisser-déposer d'un bloc (aimanté à la grille) ===================== */
+
+let dragState = null;
+
+function startBlockDrag(e, blk){
+  e.preventDefault(); e.stopPropagation();
+  const wrap = e.target.closest('.block');
+  if(!wrap) return;
+  wrap.classList.add('dragging');
+  document.body.classList.add('dragging-block');
+  const indicator = document.createElement('div');
+  indicator.className = 'drop-indicator';
+  indicator.style.display = 'none';
+  document.body.appendChild(indicator);
+  dragState = { id: blk.id, beforeId: null, indicator };
+
+  const move = (ev) => {
+    const t = findDropTarget(ev.clientX, ev.clientY, blk.id);
+    if(t){
+      dragState.beforeId = t.beforeId;
+      dragState.hasTarget = true;
+      indicator.style.display = 'block';
+      indicator.style.left = t.x + 'px';
+      indicator.style.top = t.y + 'px';
+      indicator.style.width = t.w + 'px';
+    } else {
+      dragState.hasTarget = false;
+      indicator.style.display = 'none';
+    }
+  };
+  const up = () => {
+    document.removeEventListener('mousemove', move);
+    document.removeEventListener('mouseup', up);
+    wrap.classList.remove('dragging');
+    document.body.classList.remove('dragging-block');
+    indicator.remove();
+    if(dragState && dragState.hasTarget) moveBlockBefore(dragState.id, dragState.beforeId);
+    dragState = null;
+  };
+  document.addEventListener('mousemove', move);
+  document.addEventListener('mouseup', up);
+}
+
+/* Trouve la position d'insertion la plus proche (volet sous le curseur, puis position verticale). */
+function findDropTarget(cx, cy, draggedId){
+  const volets = [...document.querySelectorAll('.volet')];
+  if(!volets.length) return null;
+  let vol = null, bestd = Infinity;
+  for(const v of volets){
+    const r = v.getBoundingClientRect();
+    if(cx >= r.left && cx <= r.right){ vol = v; break; }
+    const d = Math.min(Math.abs(cx - r.left), Math.abs(cx - r.right));
+    if(d < bestd){ bestd = d; vol = v; }
+  }
+  if(!vol) return null;
+  const vr = vol.getBoundingClientRect();
+  const cands = [...vol.querySelectorAll('[data-block-id]')].filter(el =>
+    el.dataset.blockId !== draggedId && !el.classList.contains('blk-deco'));
+  cands.sort((a,b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top);
+  let beforeEl = null;
+  for(const el of cands){
+    const r = el.getBoundingClientRect();
+    if(cy < r.top + r.height/2){ beforeEl = el; break; }
+  }
+  if(beforeEl){
+    const r = beforeEl.getBoundingClientRect();
+    return { beforeId: beforeEl.dataset.blockId, x: vr.left, y: r.top - 1.5, w: vr.width };
+  }
+  // sous tous les blocs : insérer avant le marqueur de fin de volet (reste dans ce volet)
+  const marker = cands.find(el => el.classList.contains('blk-colbreak') || el.classList.contains('blk-pagebreak'));
+  if(marker){
+    const r = marker.getBoundingClientRect();
+    return { beforeId: marker.dataset.blockId, x: vr.left, y: r.top - 1.5, w: vr.width };
+  }
+  const last = cands[cands.length-1];
+  const y = last ? last.getBoundingClientRect().bottom + 1 : vr.top;
+  return { beforeId: null, x: vr.left, y, w: vr.width };
+}
+
+function moveBlockBefore(dragId, beforeId){
+  const from = state.doc.findIndex(b => b.id === dragId);
+  if(from < 0) return;
+  const [blk] = state.doc.splice(from, 1);
+  let to;
+  if(beforeId == null){ to = state.doc.length; }
+  else {
+    to = state.doc.findIndex(b => b.id === beforeId);
+    if(to < 0) to = state.doc.length;
+  }
+  state.doc.splice(to, 0, blk);
+  state.selectedId = dragId;
+  markDirty(); render();
 }
 
 /* Élément décoratif : positionné en absolu, déplaçable / redimensionnable / pivotable */
