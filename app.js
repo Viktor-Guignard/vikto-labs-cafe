@@ -17,7 +17,7 @@ function defaultDoc(){
 
     /* ---------- Volet 1 : cocktails, boissons fraîches, vins, champagnes ---------- */
     b('section', {fr:'COCKTAILS FRAIS PRESSÉS', en:'(40 cl)', price:'8'}),
-    b('formule', {text:'Supplément collagène « Day+ » +2 €'}),
+    b('formule', {text:'Supplément collagène "Day+" +2 €'}),
     b('item', {fr:'GINGER ADDICT', en:'Pomme, citron, gingembre', price:'', half:true}),
     b('item', {fr:'FRESH', en:'Ananas, pomme, menthe fraîche', price:'', half:true}),
     b('item', {fr:'IPANEMA', en:'Baies d’açaï BIO*, banane, myrtille, pomme', price:'', half:true}),
@@ -49,7 +49,7 @@ function defaultDoc(){
     b('item', {fr:'BIÈRE GRIMBERGEN ROUGE', en:'25 cl / 50 cl', price:'6.5 / 8.5', inline:true}),
 
     b('section', {fr:'VINS', en:null}),
-    b('pricehead', {cols:3, h1:'Verre 14 cl', h2:'Verre 25 cl', h3:'Btl 75 cl'}),
+    b('pricehead', {cols:3, h1:'VERRE\n14 cl', h2:'VERRE\n25 cl', h3:'BTL\n75 cl'}),
     b('formule', {text:'ROUGES', heading:true}),
     b('item', {fr:'Côtes du Rhône Amour de Fruits — Domaine Dieu le Fit BIO', en:'', cols:3, p1:'6', p2:'9', p3:'29'}),
     b('item', {fr:'Saint Nicolas de Bourgueil AOP — Domaine des Pins', en:'', cols:3, p1:'6', p2:'9', p3:'29'}),
@@ -62,7 +62,7 @@ function defaultDoc(){
     b('item', {fr:'Vin de France Gris de Gris Les Oliviers — Domaine des Captives BIO', en:'', cols:3, p1:'6', p2:'9', p3:'29'}),
 
     b('section', {fr:'CHAMPAGNES', en:null}),
-    b('pricehead', {cols:2, h1:'Verre 12 cl', h2:'Btl 75 cl'}),
+    b('pricehead', {cols:2, h1:'VERRE\n12 cl', h2:'BTL\n75 cl'}),
     b('item', {fr:'Grande Réserve Brut — Pierre Domi', en:'Local', cols:2, p1:'9.5', p2:'—'}),
     b('item', {fr:'Blanc de Blancs — Pierre Domi', en:'Local', cols:2, p1:'—', p2:'60'}),
     b('item', {fr:'Cuvée Royale Brut — Joseph Perrier', en:'', cols:2, p1:'12', p2:'65'}),
@@ -77,7 +77,7 @@ function defaultDoc(){
     b('item', {fr:'MOUSSE AU CHOCOLAT NOIR', en:'', price:'8.5'}),
     b('item', {fr:'CRUMBLE POMMES', en:'', price:'8.5'}),
     b('item', {fr:'LE PLUME', en:'Gâteau au fromage blanc allégé', price:'9.5'}),
-    b('item', {fr:'DS LIGHT « RÉÉDITION »', sg:true, veg:true, en:'Mousse au lait d’amande, coulis de fruits rouges*', price:'8.5'}),
+    b('item', {fr:'DS LIGHT "RÉÉDITION"', sg:true, veg:true, en:'Mousse au lait d’amande, coulis de fruits rouges*', price:'8.5'}),
     b('item', {fr:'MOELLEUX AU CHOCOLAT', en:'Crème anglaise', price:'8'}),
     b('item', {fr:'CAKE DU MOMENT', en:'Cake myrtille, glaçage citron ou cake aux pépites de chocolat', price:'5.5'}),
     b('item', {fr:'CRÊPE AU SUCRE*', en:'Supplément Nutella, crème sucrée ou chocolat maison +1 €', price:'5.5'}),
@@ -86,8 +86,9 @@ function defaultDoc(){
     b('item', {fr:'CAFÉ GOURMAND', en:'DS light, cake du moment, mousse au chocolat', price:'10'}),
 
     b('section', {fr:'FROZEN YOGURT', veg:true, en:'(avec 2 toppings au choix)', big:true, price:'9.5'}),
+    b('note', {text:'Glace au yaourt nature basse calorie'}),
     b('formule', {text:'Topping supplémentaire +1 €'}),
-    b('item', {fr:'Glace au yaourt nature basse calorie', en:'Toppings : banane, myrtille, caramel beurré salé*, miel, noix de pécan, muesli, amandes, Nutella, sirop d’érable', price:''}),
+    b('note', {text:'Toppings : banane, myrtille, caramel beurré salé*, miel, noix de pécan, muesli, amandes, Nutella, sirop d’érable'}),
 
     b('section', {fr:'BOISSONS CHAUDES', en:null, big:true}),
     b('item', {fr:'CAFÉ EXPRESSO, DÉCAFÉINÉ', en:'', price:'2.8'}),
@@ -108,7 +109,7 @@ function defaultDoc(){
     b('colbreak', {}),
 
     /* ---------- Volet 3 : panneau vert DS Café ---------- */
-    b('panel', {img:null, caption:'Chez nous, happiness is homemade'}),
+    b('panel', {img:null, caption:'Chez nous, <em>happiness</em> is homemade'}),
 
     b('pagebreak', {}),
 
@@ -116,11 +117,11 @@ function defaultDoc(){
 
     /* ---------- Volet 1 : le brunch + buns ---------- */
     b('brunch', {
-      title:'LE BRUNCH',
-      subtitle:'Samedi, dimanche & jours fériés',
-      offer:'ASSIETTE BRUNCH 24  ·  FORMULE 32',
-      d1t:'BOISSON AU CHOIX — 25 CL',
-      d1b:'Au choix : Green Juice ou Wake Up ou orange pressée ou jus de pomme pressé<br>(ou Mimosa 12 cl +6 €)',
+      title:'LE<br>BRUNCH',
+      subtitle:'Samedi, Dimanche & jours fériés',
+      offer:'ASSIETTE BRUNCH 24<br>FORMULE 32',
+      d1t:'BOISSON AU CHOIX - 25 CL',
+      d1b:'Au choix : Green juice ou Wake up ou orange pressée ou jus de pomme pressé<br>(ou Mimosa 12 cl +6 €)',
       d2t:'BOISSON CHAUDE OU THÉ GLACÉ',
       d2b:'Au choix : café, chocolat chaud, thé ou infusion L’Infuseur<br>(Cappuccino, Macchiato ou lait végétal +1 € · Latte au choix +1.50 €)',
       d3t:'ASSIETTE BRUNCH',
@@ -168,7 +169,8 @@ function defaultDoc(){
     b('colbreak', {}),
 
     /* ---------- Volet 3 : piadinas, clubs, toasts, menu enfant ---------- */
-    b('section', {fr:'PIADINAS', en:'Galette de blé non levée légèrement toastée', big:true}),
+    b('section', {fr:'PIADINAS', en:null, big:true}),
+    b('note', {text:'Galette de blé non levée légèrement toastée'}),
     b('item', {fr:'PIADINA VEGGIE', en:'Pesto, courgettes & poivrons grillés, tomates confites, fromage fiore di latte, salade verte', price:'18'}),
     b('item', {fr:'PIADINA POULET', en:'Pesto rosso, tomates confites, fromage fiore di latte, salade verte', price:'18'}),
     b('item', {fr:'PIADINA THON', en:'Tomates confites, miettes de thon, œuf poché, fiore di latte, salade verte', price:'18'}),
@@ -408,14 +410,14 @@ function renderBlockInner(blk){
         <div class="panel-img img-slot" data-id="${blk.id}" data-field="img" title="Cliquer pour remplacer le visuel">
           <img src="${blk.img || 'assets/logo.png'}" alt="DS Café">
         </div>
-        <div class="panel-caption">${ed(blk.id,'caption',esc(blk.caption))}</div>`;
+        <div class="panel-caption">${ed(blk.id,'caption',blk.caption)}</div>`;
     case 'brunch':
       return `
         <img class="frame-bg" src="assets/brunch.png" alt="" draggable="false">
         <div class="brunch-inner">
-          <div class="brunch-title">${ed(blk.id,'title',esc(blk.title),'','div')}</div>
+          <div class="brunch-title">${ed(blk.id,'title',blk.title,'','div')}</div>
           <div class="brunch-sub">${ed(blk.id,'subtitle',esc(blk.subtitle),'','div')}</div>
-          <div class="brunch-offer">${ed(blk.id,'offer',esc(blk.offer),'','div')}</div>
+          <div class="brunch-offer">${ed(blk.id,'offer',blk.offer,'','div')}</div>
           <div class="brunch-sep">—</div>
           <div class="brunch-h">${ed(blk.id,'d1t',esc(blk.d1t),'','div')}</div>
           <div class="brunch-b">${ed(blk.id,'d1b',blk.d1b,'','div')}</div>
@@ -438,7 +440,7 @@ function renderBlockInner(blk){
           <div class="enfant-b">${ed(blk.id,'body',blk.body,'','div')}</div>
         </div>`;
     case 'section':
-      return `<h2>${ed(blk.id,'fr',esc(blk.fr))}${dietIcons(blk)}${blk.en != null ? ' <span class="en">'+ed(blk.id,'en',esc(blk.en))+'</span>' : ''}${blk.price != null ? '<span class="sec-price">'+ed(blk.id,'price',esc(blk.price))+'</span>' : ''}</h2>`;
+      return `<h2>${ed(blk.id,'fr',esc(blk.fr))}${dietIcons(blk)}${blk.en != null ? ' <span class="en'+(/^\(\s*\d+\s*cl\s*\)$/.test(blk.en)?' unit':'')+'">'+ed(blk.id,'en',esc(blk.en))+'</span>' : ''}${blk.price != null ? '<span class="sec-price">'+ed(blk.id,'price',esc(blk.price))+'</span>' : ''}</h2>`;
     case 'item': {
       if(blk.cols){
         let cells = '';
@@ -574,7 +576,7 @@ function checkOverflow(){
     sheet.classList.remove('overflowing');
     let over = false;
     sheet.querySelectorAll('.volet').forEach(v => {
-      if(v.scrollHeight > v.clientHeight + 2) over = true;
+      if(v.scrollHeight > v.clientHeight + 6) over = true;
     });
     sheet.classList.toggle('overflowing', over);
   });
