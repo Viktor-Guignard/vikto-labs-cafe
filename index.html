@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DS Café — Éditeur de carte</title>
+<title>Éditeur de carte</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,600;1,700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=10">
+<link rel="stylesheet" href="styles.css?v=11">
 </head>
 <body>
 
 <div id="toolbar">
-  <div class="brand">DS Café <small>Éditeur de carte</small></div>
+  <div class="brand">Carte <small>Éditeur</small></div>
   <button class="tbtn secondary" id="undoBtn" title="Annuler (Ctrl/Cmd+Z)" disabled>↶</button>
   <button class="tbtn secondary" id="redoBtn" title="Rétablir (Ctrl/Cmd+Shift+Z)" disabled>↷</button>
   <button class="tbtn secondary" id="addBlockBtn">+ Ajouter un bloc</button>
@@ -67,9 +67,9 @@
       <div class="field">
         <label>Fond de la carte</label>
         <select id="pageBgSel">
-          <option value="#fefbf8">Crème DS</option>
+          <option value="#fefbf8">Crème</option>
           <option value="#ffffff">Blanc</option>
-          <option value="#fdfaf3">Crème</option>
+          <option value="#fdfaf3">Crème claire</option>
           <option value="#faf6ee">Ivoire</option>
         </select>
       </div>
@@ -92,8 +92,8 @@
     <p class="sub">Les versions sont lisibles partout sans réglage. Pour <b>enregistrer</b> depuis cet ordinateur, collez une fois votre jeton GitHub.</p>
     <ol class="steps">
       <li>Ouvrez <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a> (connecté à votre compte GitHub).</li>
-      <li><b>Token name</b> : « carte ds café » — <b>Expiration</b> : 1 an.</li>
-      <li><b>Repository access</b> : <i>Only select repositories</i> → choisissez <b>ds-cafe-carte</b>.</li>
+      <li><b>Token name</b> : « éditeur de carte » — <b>Expiration</b> : 1 an.</li>
+      <li><b>Repository access</b> : <i>Only select repositories</i> → choisissez <b>carte-cafe</b>.</li>
       <li><b>Permissions</b> → <i>Repository permissions</i> → <b>Contents</b> : <i>Read and write</i>.</li>
       <li>Bouton <b>Generate token</b>, copiez le jeton (commence par <code>github_pat_…</code>) et collez-le ci-dessous.</li>
     </ol>
@@ -128,11 +128,11 @@
 
 <div id="toast"></div>
 
-<script src="app.js?v=10"></script>
-<script src="storage.js?v=10"></script>
+<script src="app.js?v=11"></script>
+<script src="storage.js?v=11"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="pdf-export.js?v=10"></script>
+<script src="pdf-export.js?v=11"></script>
 
 </body>
 </html>

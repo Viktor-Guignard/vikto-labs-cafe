@@ -8,7 +8,7 @@
 
 const GH = {
   owner: 'Viktor-Guignard',
-  repo: 'ds-cafe-carte',
+  repo: 'carte-cafe',
   branch: 'main',
   dir: 'versions',
   tokenKey: 'carte_ds_gh_token',

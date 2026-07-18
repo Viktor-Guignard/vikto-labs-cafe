@@ -3,7 +3,7 @@
 let uidCounter = 1;
 function newId(){ return 'b' + (uidCounter++) + '_' + Math.random().toString(36).slice(2,7); }
 
-/* Carte DS Café — reproduction du dépliant 3 volets (2 planches paysage).
+/* Carte café — dépliant 3 volets (2 planches paysage).
    Chaque planche = 3 volets, séparés par des blocs `colbreak` ;
    `pagebreak` démarre la planche suivante. */
 function defaultDoc(){
@@ -77,13 +77,13 @@ function defaultDoc(){
     b('item', {fr:'MOUSSE AU CHOCOLAT NOIR', en:'', price:'8.5'}),
     b('item', {fr:'CRUMBLE POMMES', en:'', price:'8.5'}),
     b('item', {fr:'LE PLUME', en:'Gâteau au fromage blanc allégé', price:'9.5'}),
-    b('item', {fr:'DS LIGHT "RÉÉDITION"', sg:true, veg:true, en:'Mousse au lait d’amande, coulis de fruits rouges*', price:'8.5'}),
+    b('item', {fr:'MOUSSE LÉGÈRE "SIGNATURE"', sg:true, veg:true, en:'Mousse au lait d’amande, coulis de fruits rouges*', price:'8.5'}),
     b('item', {fr:'MOELLEUX AU CHOCOLAT', en:'Crème anglaise', price:'8'}),
     b('item', {fr:'CAKE DU MOMENT', en:'Cake myrtille, glaçage citron ou cake aux pépites de chocolat', price:'5.5'}),
     b('item', {fr:'CRÊPE AU SUCRE*', en:'Supplément Nutella, crème sucrée ou chocolat maison +1€', price:'5.5'}),
     b('item', {fr:'COOKIE', en:'Chocolat-noix de pécan ou matcha-chocolat blanc', price:'5.5'}),
     b('item', {fr:'AÇAÏ BOWL', veg:true, en:'Açaï BIO*, banane, muesli, coco râpée, myrtille', price:'12'}),
-    b('item', {fr:'CAFÉ GOURMAND', en:'DS light, cake du moment, mousse au chocolat', price:'10'}),
+    b('item', {fr:'CAFÉ GOURMAND', en:'Mousse légère, cake du moment, mousse au chocolat', price:'10'}),
 
     b('section', {fr:'FROZEN YOGURT', veg:true, en:'(avec 2 toppings au choix)', big:true, price:'9.5'}),
     b('note', {text:'Glace au yaourt nature basse calorie'}),
@@ -110,8 +110,8 @@ function defaultDoc(){
 
     b('colbreak', {}),
 
-    /* ---------- Volet 3 : panneau vert DS Café ---------- */
-    b('panel', {img:null, caption:'Chez nous, <em>happiness</em> is homemade'}),
+    /* ---------- Volet 3 : panneau vert (nom + signature éditables) ---------- */
+    b('panel', {img:null, name:'Le Café', caption:'Chez nous, <em>happiness</em> is homemade'}),
 
     b('pagebreak', {}),
 
@@ -211,11 +211,11 @@ const BLOCK_LIBRARY = [
   {type:'divider', ttl:'Séparateur', desc:'Ligne fine de séparation', make:()=>({})},
   {type:'colbreak', ttl:'Nouvelle colonne', desc:'Passe au volet suivant de la planche', make:()=>({})},
   {type:'pagebreak', ttl:'Nouvelle planche', desc:'Démarre une nouvelle planche (PDF)', make:()=>({})},
-  {type:'panel', ttl:'Panneau vert DS', desc:'Grand visuel botanique DS (volet entier)', make:()=>({img:null, caption:'Chez nous, happiness is homemade'})},
+  {type:'panel', ttl:'Panneau visuel', desc:'Grand visuel botanique + nom éditable (volet entier)', make:()=>({img:null, name:'Le Café', caption:'Chez nous, happiness is homemade'})},
   {type:'brunch', ttl:'Cadre « Brunch »', desc:'Cadre botanique ovale avec texte éditable', make:()=>({title:'LE BRUNCH', subtitle:'Samedi, dimanche & jours fériés', offer:'ASSIETTE BRUNCH 24 · FORMULE 32', d1t:'BOISSON', d1b:'…', d2t:'BOISSON CHAUDE', d2b:'…', d3t:'ASSIETTE', d3b:'…', d4t:'DESSERT', d4b:'…'})},
-  {type:'enfant', ttl:'Pastille « Menu Enfant »', desc:'Pastille + poisson avec texte éditable', make:()=>({title:'Menu Enfant', offer:'PLAT · BOISSON · DESSERT  10', body:'…'})},
-  {type:'deco', ttl:'Déco — tampon', desc:'Motif « good food good mood » (déplaçable)', make:()=>({img:'assets/deco-stamp.png', x:120, y:120, w:120, rot:0})},
-  {type:'deco', ttl:'Déco — fleur', desc:'Fleur-tasse DS (déplaçable)', make:()=>({img:'assets/deco-flower.png', x:150, y:150, w:90, rot:0})},
+  {type:'enfant', ttl:'Pastille « Menu Enfant »', desc:'Pastille botanique avec texte éditable', make:()=>({title:'Menu Enfant', offer:'PLAT · BOISSON · DESSERT  10', body:'…'})},
+  {type:'deco', ttl:'Déco — tampon', desc:'Motif soleil-agrume (déplaçable)', make:()=>({img:'assets/deco-stamp.png', x:120, y:120, w:120, rot:0})},
+  {type:'deco', ttl:'Déco — fleur', desc:'Fleur botanique (déplaçable)', make:()=>({img:'assets/deco-flower.png', x:150, y:150, w:90, rot:0})},
   {type:'deco', ttl:'Déco — image…', desc:'Votre propre illustration (déplaçable)', make:()=>({img:'assets/deco-stamp.png', x:130, y:130, w:120, rot:0})},
 ];
 
@@ -246,10 +246,10 @@ function defaultStyle(){
   return {
     titleFont:'Playfair Display',
     bodyFont:'EB Garamond',
-    titleColor:'#3a492d',   // vert forêt DS Café
+    titleColor:'#3a492d',   // vert forêt
     accent:'#3a492d',
-    pageBg:'#fefbf8',       // crème DS Café
-    leaders:false,          // la carte DS n'utilise pas de pointillés
+    pageBg:'#fefbf8',       // crème
+    leaders:false,          // pas de pointillés par défaut (comme l'imprimé)
   };
 }
 
@@ -410,10 +410,15 @@ function renderBlockInner(blk){
   switch(blk.type){
     case 'panel':
       return `
-        <div class="panel-img img-slot" data-id="${blk.id}" data-field="img" title="Cliquer pour remplacer le visuel">
-          <img src="${blk.img || 'assets/logo.png'}" alt="DS Café">
-        </div>
-        <div class="panel-caption">${ed(blk.id,'caption',blk.caption)}</div>`;
+        <div class="panel-wrap">
+          <div class="panel-img img-slot" data-id="${blk.id}" data-field="img" title="Cliquer pour remplacer le visuel">
+            <img src="${blk.img || 'assets/logo.png'}" alt="">
+          </div>
+          <div class="panel-over">
+            <div class="panel-name">${ed(blk.id,'name',esc(blk.name),'','div')}</div>
+            <div class="panel-caption">${ed(blk.id,'caption',blk.caption,'','div')}</div>
+          </div>
+        </div>`;
     case 'brunch':
       return `
         <img class="frame-bg" src="assets/brunch.png" alt="" draggable="false">

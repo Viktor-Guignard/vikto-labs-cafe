@@ -1,6 +1,6 @@
 :root{
   --ink:#1d1d1b;
-  --teal:#3a492d;         /* vert forêt DS Café (chrome + accents UI) */
+  --teal:#3a492d;         /* vert forêt (chrome + accents UI) */
   --teal-dark:#2c3823;
   --grey:#7a7a72;
   --paper:#ffffff;
@@ -178,7 +178,7 @@ body.placing-block, body.placing-block *{cursor:crosshair !important;}
 .blk-item.inline .fr{display:inline;}
 .blk-item.inline .en{display:inline; margin-left:5px;}
 .blk-item .price{flex:none; font-size:9.5px; font-style:italic; font-weight:500; color:var(--ink); white-space:nowrap; text-align:right; margin-left:8px; line-height:1.1;}
-/* Meneur de pointillés (désactivé par défaut pour DS — l'imprimé n'en a pas) */
+/* Meneur de pointillés (désactivé par défaut — l'imprimé n'en a pas) */
 .blk-item .leader{flex:1 1 auto; align-self:flex-start; height:12px; border-bottom:1.4px dotted #cfc9bb; margin:0 2px;}
 body.leaders-off .blk-item .leader{display:none;}
 
@@ -253,19 +253,31 @@ body.leaders-off .blk-item .leader{display:none;}
 .blk-pagebreak::before,.blk-pagebreak::after{content:''; flex:1; height:1px; background:var(--teal); opacity:.35;}
 .blk-pagebreak{margin-top:auto;}
 
-/* ---------- Panneau vert DS (volet 3, planche 1) ---------- */
+/* ---------- Panneau visuel (volet 3, planche 1) ---------- */
 .blk-panel{
   height:100%; display:flex; flex-direction:column;
-  align-items:center; justify-content:center; gap:14px;
+  align-items:center; justify-content:center;
   padding:0; margin:0;
 }
 .blk-panel:hover{background:transparent;}
-.panel-img{width:86%; margin-right:8%; cursor:pointer; line-height:0; border-radius:18px; overflow:hidden; background:transparent;}
-.panel-img img{width:100%; height:auto; display:block; transform:scale(1.02); transform-origin:center; filter:none;}
+.panel-wrap{position:relative; width:92%; margin:0 auto;}
+.panel-img{width:100%; cursor:pointer; line-height:0; border-radius:18px; overflow:hidden; background:transparent;}
+.panel-img img{width:100%; height:auto; display:block;}
+/* Nom + signature en surimpression, centrés dans le cœur libre du panneau.
+   pointer-events:none laisse passer le clic vers l'image (remplacer le visuel) ;
+   seuls les textes éditables captent le clic. */
+.panel-over{
+  position:absolute; inset:0; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:16px; padding:0 13%;
+  pointer-events:none; text-align:center;
+}
+.panel-name{
+  font-family:var(--font-title); font-weight:700; font-size:56px; line-height:1.0;
+  color:#f4ede1; pointer-events:auto;
+}
 .panel-caption{
   font-family:var(--font-title); font-style:normal; font-weight:400;
-  font-size:25px; color:var(--accent); text-align:center; line-height:1.2; padding:0 10px;
-  max-width:260px; margin:0 auto;
+  font-size:20px; color:#f4ede1; line-height:1.35; max-width:80%; pointer-events:auto;
 }
 .panel-caption em{font-style:italic;}
 
@@ -290,13 +302,13 @@ body.leaders-off .blk-item .leader{display:none;}
 .brunch-h{font-family:var(--font-name); font-weight:700; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--title-color);}
 .brunch-b{font-family:var(--font-body); font-size:9px; font-style:normal; color:#43433c; line-height:1.25; margin-top:2px;}
 
-/* ---------- Bloc Menu Enfant (pastille poisson) ---------- */
+/* ---------- Bloc Menu Enfant (pastille botanique symétrique) ---------- */
 .blk-enfant{
   position:relative; width:100%; margin:8px 0 6px; padding:0;
 }
 .blk-enfant:hover{background:transparent;}
 .enfant-inner{
-  position:absolute; inset:13% 5% 13% 26%;
+  position:absolute; inset:14% 17% 14% 17%;
   display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
   color:var(--title-color);
 }
