@@ -93,11 +93,11 @@ body{
 /* ---------- Volet (colonne) ---------- */
 .volet{
   flex:1 1 0; min-width:0; height:var(--volet-h);
-  display:flex; flex-direction:column; justify-content:space-between; overflow:visible;
+  display:flex; flex-direction:column; justify-content:flex-start; overflow:visible;
 }
-/* groupe « section + ses lignes » — l'espace libre se répartit entre les groupes */
+/* groupe « section + ses lignes » — espacement CONSTANT entre sections (rythme homogène d'une colonne à l'autre) */
 .section-group{display:flex; flex-direction:column; flex:0 0 auto;}
-.section-group + .section-group{margin-top:9px;}
+.section-group + .section-group{margin-top:15px;}
 
 /* ---------- Blocks (generic) ---------- */
 .block{
@@ -442,7 +442,7 @@ body.exporting .sheet.overflowing{outline:none !important;}
 
 /* ---------- Planche 2 : répartition & grille « petits plus » (fidélité imprimé) ---------- */
 /* volets de la planche 2 : marge haute ET basse (space-evenly) au lieu d'un ancrage tout en haut */
-#canvasWrap > .sheet:nth-of-type(2) .volet{justify-content:space-evenly;}
+#canvasWrap > .sheet:nth-of-type(2) .volet{justify-content:flex-start;}
 /* grille « petits plus » : filet vertical entre les 2 sous-colonnes + libellés compacts sur une ligne */
 #canvasWrap > .sheet:nth-of-type(2) .item-grid{column-rule:1px solid rgba(70,66,58,.16);}
 #canvasWrap > .sheet:nth-of-type(2) .item-grid .blk-item .fr{font-size:7.5px;}
