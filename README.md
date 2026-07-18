@@ -31,7 +31,7 @@ Application web statique, sans build ni serveur : elle s'héberge telle quelle s
 
 La lecture est publique (aucun réglage). Pour **enregistrer** depuis un poste :
 
-1. Créez un jeton GitHub *fine-grained* limité au dépôt `carte-cafe`, permission **Contents : Read and write**.
+1. Créez un jeton GitHub *fine-grained* limité au dépôt `vikto-labs-cafe`, permission **Contents : Read and write**.
 2. Dans le site : ⚙️ → collez le jeton. (Ou utilisez le « lien magique » pour vos autres postes.)
 
 Le jeton n'est stocké que dans le navigateur de ce poste.
