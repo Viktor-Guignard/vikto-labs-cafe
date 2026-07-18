@@ -64,10 +64,10 @@ function defaultDoc(){
     b('item', {fr:'MOUSSE CHOCOLAT NOIR', en:'Éclats de fève de cacao', price:'7.5'}),
     b('item', {fr:'CRUMBLE POMME-POIRE', en:'Servi tiède, glace vanille', price:'7.5'}),
     b('item', {fr:'CHEESECAKE VANILLE', en:'Base spéculoos, cœur fruits rouges', price:'8.5'}),
-    b('item', {fr:'MOELLEUX CHOCOLAT', sg:true, en:'Cœur coulant, crème anglaise', price:'8'}),
+    b('item', {fr:'FONDANT CHOCOLAT', sg:true, en:'Cœur coulant, crème anglaise', price:'8'}),
     b('item', {fr:'COOKIE MAISON', en:'Chocolat & noix de pécan', price:'4.5'}),
     b('item', {fr:'BOWL AÇAÏ', veg:true, en:'Açaï, banane, granola, coco, myrtille', price:'11'}),
-    b('item', {fr:'CAFÉ GOURMAND', en:'Expresso & trois douceurs du jour', price:'9'}),
+    b('item', {fr:'CAFÉ & MIGNARDISES', en:'Expresso & trois douceurs du jour', price:'9'}),
 
     b('section', {fr:'GLACES & YAOURT GLACÉ', veg:true, en:'2 toppings au choix', big:true, price:'8.5'}),
     b('note', {text:'Yaourt glacé nature, faible en sucre'}),
@@ -156,8 +156,8 @@ function defaultDoc(){
     b('item', {fr:'ITALIENNE', en:'Jambon cru, burrata, roquette, pesto', price:'16'}),
 
     b('section', {fr:'CLUBS & BURGERS', en:null, big:true}),
-    b('item', {fr:'CLUB POULET', en:'Poulet, œuf, tomate, salade, mayo maison, frites', price:'16'}),
-    b('item', {fr:'CLUB SAUMON', en:'Saumon fumé, avocat, fromage frais, frites', price:'17'}),
+    b('item', {fr:'CLUB CLASSIQUE', en:'Poulet, œuf, tomate, salade, mayo maison, frites', price:'16'}),
+    b('item', {fr:'CLUB NORDIQUE', en:'Saumon fumé, avocat, fromage frais, frites', price:'17'}),
     b('item', {fr:'BURGER MAISON', en:'Bœuf, cheddar, oignons confits, cornichons, frites', price:'17'}),
 
     b('enfant', {

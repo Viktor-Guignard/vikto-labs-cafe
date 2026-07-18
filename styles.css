@@ -159,7 +159,7 @@ body.placing-block, body.placing-block *{cursor:crosshair !important;}
   margin:10px 0 7px; line-height:1.0; text-transform:uppercase; letter-spacing:.04em;
   display:flex; align-items:baseline; gap:4px;
 }
-.blk-section.big h2{font-size:19.5px; letter-spacing:.03em;}
+.blk-section.big h2{font-size:19.5px; letter-spacing:.03em; border-bottom:1px solid rgba(58,73,45,.28); padding-bottom:5px;}
 .blk-section:first-child h2{margin-top:0;}
 .blk-section h2 .en{font-family:var(--font-body); font-style:italic; font-weight:400; text-transform:none; color:var(--grey); font-size:9.5px; letter-spacing:0;}
 .blk-section h2 .en.unit{font-style:normal; letter-spacing:.02em; font-size:8px; margin-left:-1px;}
@@ -272,12 +272,13 @@ body.leaders-off .blk-item .leader{display:none;}
   pointer-events:none; text-align:center;
 }
 .panel-name{
-  font-family:var(--font-title); font-weight:700; font-size:56px; line-height:1.0;
-  color:#f4ede1; pointer-events:auto;
+  font-family:var(--font-title); font-weight:700; font-size:52px; line-height:1.05;
+  letter-spacing:.01em; color:var(--title-color); pointer-events:auto;
 }
 .panel-caption{
   font-family:var(--font-title); font-style:normal; font-weight:400;
-  font-size:20px; color:#f4ede1; line-height:1.35; max-width:80%; pointer-events:auto;
+  font-size:18px; color:var(--title-color); line-height:1.4; max-width:78%;
+  letter-spacing:.02em; pointer-events:auto; margin-top:2px;
 }
 .panel-caption em{font-style:italic;}
 
