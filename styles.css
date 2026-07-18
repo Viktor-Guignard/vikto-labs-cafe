@@ -13,7 +13,7 @@
   --sheet-w:1325px;
   --sheet-h:964px;        /* largeur 1325 = imprimé ; hauteur resserrée vers le format paysage de l'imprimé */
   --sheet-pad:30px;
-  --volet-h:904px;        /* --sheet-h - 2*--sheet-pad ; volets ~410px comme l'imprimé */
+  --volet-h:866px;        /* place laissée en haut pour le bandeau décoratif */
   /* Apparence personnalisable (modale 🎨) */
   --font-title:'Playfair Display', serif;
   --font-body:'EB Garamond', serif;
@@ -74,9 +74,15 @@ body{
 .sheet{
   background:var(--page-bg); width:var(--sheet-w); height:var(--sheet-h);
   box-shadow:var(--shadow); position:relative; flex:none;
-  padding:var(--sheet-pad);
+  padding:68px var(--sheet-pad) var(--sheet-pad);
   display:flex; gap:18px;
   font-family:var(--font-body);
+}
+/* Bandeau décoratif (frise olivier) en tête de planche — pleine largeur */
+.sheet-band{
+  position:absolute; top:18px; left:50%; transform:translateX(-50%);
+  width:calc(100% - 88px); height:auto;
+  opacity:.9; pointer-events:none; user-select:none;
 }
 .sheet-label{
   position:absolute; top:-26px; left:0; font-size:11px; color:var(--grey);
@@ -97,7 +103,7 @@ body{
 }
 /* groupe « section + ses lignes » — l'espace libre se répartit entre les groupes */
 .section-group{display:flex; flex-direction:column; flex:0 0 auto;}
-.section-group + .section-group{margin-top:9px;}
+.section-group + .section-group{margin-top:6px;}
 
 /* ---------- Blocks (generic) ---------- */
 .block{
@@ -126,6 +132,12 @@ body{
 .rctrl.del:hover{background:#fdeaea;}
 .rctrl.grip{cursor:grab; color:#7a7a72; font-size:13px;}
 .rctrl.grip:active{cursor:grabbing;}
+/* Toggles régime (végé / sans gluten) : picto grisé = off, teinté vert = on */
+.rctrl.diet-tgl{width:auto; padding:0 6px; gap:3px; color:#9a9a90; font-size:9px; font-weight:700; letter-spacing:.02em;}
+.rctrl.diet-tgl img{height:12px; width:auto; opacity:.3; transition:opacity .12s;}
+.rctrl.diet-tgl:hover{background:#f2f2f2;}
+.rctrl.diet-tgl.on{border-color:var(--teal); background:#eef1e9; color:var(--teal-dark);}
+.rctrl.diet-tgl.on img{opacity:1;}
 .block:hover .rctrl{opacity:1;}
 .block:hover .rctrl.del{opacity:1;}
 
@@ -156,7 +168,7 @@ body.placing-block, body.placing-block *{cursor:crosshair !important;}
 /* ---------- Section title ---------- */
 .blk-section h2{
   font-family:var(--font-title); font-weight:700; font-size:16px; color:var(--title-color);
-  margin:10px 0 7px; line-height:1.0; text-transform:uppercase; letter-spacing:.04em;
+  margin:8px 0 5px; line-height:1.0; text-transform:uppercase; letter-spacing:.04em;
   display:flex; align-items:baseline; gap:4px;
 }
 .blk-section.big h2{font-size:19.5px; letter-spacing:.03em; border-bottom:1px solid rgba(58,73,45,.28); padding-bottom:5px;}
@@ -167,7 +179,7 @@ body.placing-block, body.placing-block *{cursor:crosshair !important;}
 .blk-section:first-child h2{margin-top:0;}
 
 /* ---------- Item row ---------- */
-.blk-item{display:flex; align-items:flex-start; gap:6px; padding:0 3px; margin-bottom:9px; line-height:1.05;}
+.blk-item{display:flex; align-items:flex-start; gap:6px; padding:0 3px; margin-bottom:7px; line-height:1.05;}
 .blk-item.inline, .blk-item.wine{margin-bottom:1.5px;}
 .blk-item.inline{align-items:baseline;}
 .blk-item .txt{flex:1 1 auto; min-width:0;}
@@ -455,11 +467,58 @@ body.exporting .sheet.overflowing{outline:none !important;}
 #canvasWrap > .sheet:nth-of-type(2) .item-grid .blk-item .fr{font-size:7.5px;}
 
 /* ---------- Vue étroite : volets empilés ---------- */
-@media (max-width:1100px){
-  body{overflow-x:hidden;}
-  #canvasWrap{padding:24px 14px 100px;}
-  .sheet{width:100%; height:auto; flex-direction:column; gap:26px;}
-  .volet{height:auto;}
-  .row-controls{position:static; transform:none; justify-content:flex-end; margin-top:4px;}
-  .blk-pagebreak{margin-top:6px;}
+/* ============================ MOBILE / ÉCRAN ÉTROIT ============================ */
+@media (max-width:900px){
+  body{overflow-x:hidden; padding-top:0;}
+  /* barre d'outils : ne plus la figer, la laisser passer à la ligne */
+  #toolbar{position:static; height:auto; flex-wrap:wrap; gap:7px; padding:10px 12px; box-shadow:none; border-bottom:1px solid var(--line);}
+  #toolbar .brand{font-size:17px; width:100%; margin:0 0 2px;}
+  .tbtn{padding:8px 11px; font-size:12.5px;}
+  #syncStatus{order:9; font-size:11px; max-width:100%;}
+
+  /* planches empilées, pleine largeur, centrées */
+  #canvasWrap{align-items:stretch; min-width:0; padding:18px 12px 80px; gap:36px;}
+  .sheet{width:auto; max-width:560px; margin:0 auto; height:auto;
+    flex-direction:column; gap:26px; padding:26px 20px;}
+  .sheet-label{position:static; margin-bottom:4px;}
+  .sheet-band{display:none;}
+  .sheet-overflow-warning{display:none !important;}
+  .sheet.overflowing{outline:none;}
+  .volet{width:auto; height:auto; flex:0 0 auto; display:block; justify-content:flex-start;}
+  .section-group{margin:0 0 16px;}
+  .section-group + .section-group{margin-top:16px;}
+  /* contrôles d'édition : masqués par défaut, révélés en touchant le bloc */
+  .row-controls{position:static; transform:none; justify-content:flex-end; margin-top:6px; gap:8px; flex-wrap:wrap; display:none;}
+  .block.selected .row-controls{display:flex;}
+  .block.selected{outline:2px dashed var(--teal); outline-offset:2px;}
+  .rctrl{opacity:1; width:30px; height:30px; font-size:13px;}
+  .rctrl.diet-tgl{width:auto; padding:0 9px; font-size:11px;}
+  .rctrl.diet-tgl img{height:15px;}
+
+  /* lisibilité : polices agrandies pour l'écran */
+  .blk-section h2{font-size:17px; margin:16px 0 9px;}
+  .blk-section.big h2{font-size:19px;}
+  .blk-item{margin-bottom:11px;}
+  .blk-item .fr{font-size:13.5px;}
+  .blk-item .en{font-size:12.5px; max-width:none; margin-top:3px;}
+  .blk-item .price{font-size:12.5px; margin-left:10px;}
+  .blk-section h2 .en{font-size:11px;}
+  .blk-section h2 .sec-price{font-size:12px;}
+  .blk-formule{font-size:12.5px;}
+  .blk-formule.heading{font-size:12px;}
+  .blk-note{font-size:11.5px;}
+  .diet{height:15px;}
+
+  /* grilles 2 sous-colonnes → 1 colonne + police lisible sur mobile */
+  .item-grid{column-count:1;}
+  .item-grid .blk-item .fr{font-size:13.5px; letter-spacing:.06em;}
+  .item-grid .blk-item .en{font-size:12px;}
+  #canvasWrap > .sheet:nth-of-type(2) .item-grid .blk-item .fr{font-size:13.5px;}
+  #canvasWrap > .sheet:nth-of-type(2) .volet{justify-content:flex-start;}
+
+  /* blocs spéciaux : pleine largeur */
+  .blk-panel{padding:8px 0;}
+  .panel-wrap{width:100%;}
+  .panel-name{font-size:46px;}
+  .blk-brunch, .blk-enfant{margin:6px 0;}
 }

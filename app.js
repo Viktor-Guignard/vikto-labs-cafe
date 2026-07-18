@@ -11,10 +11,6 @@ function defaultDoc(){
   return [
     /* ===================== PLANCHE 1 (boissons & desserts) ===================== */
 
-    /* Éléments décoratifs (positionnés en absolu, déplaçables) */
-    b('deco', {img:'assets/deco-stamp.png', x:300, y:210, w:86, rot:0}),
-    b('deco', {img:'assets/deco-flower.png', x:760, y:648, w:82, rot:0}),
-
     /* ---------- Volet 1 : jus, apéro, boissons, vins ---------- */
     b('section', {fr:'JUS PRESSÉS À FROID', en:'40 cl', price:'7.5'}),
     b('formule', {text:'Boost superaliment au choix +1.5€'}),
@@ -493,6 +489,12 @@ function render(){
     label.className = 'sheet-label';
     label.textContent = 'Planche ' + sheetNum;
     sheetEl.appendChild(label);
+    const band = document.createElement('img');
+    band.className = 'sheet-band';
+    band.src = 'assets/band.png';
+    band.alt = '';
+    band.draggable = false;
+    sheetEl.appendChild(band);
     const warn = document.createElement('div');
     warn.className = 'sheet-overflow-warning';
     warn.textContent = '⚠️ Une colonne dépasse la hauteur de la planche — déplacez ou retirez des blocs';
@@ -580,8 +582,14 @@ function buildBlockEl(blk){
 
   const controls = document.createElement('div');
   controls.className = 'row-controls';
+  // Toggles régime (végétarien / sans gluten) — sur plats & sections uniquement.
+  // Cliquer ajoute ou retire le picto ; on peut en activer 1, plusieurs ou aucun.
+  const dietToggles = (blk.type === 'item' || blk.type === 'section') ? `
+    <button class="rctrl diet-tgl ${blk.veg?'on':''}" data-act="tveg" title="Végétarien (afficher/masquer le picto)"><img src="assets/icon-veg.png" alt=""><span>V</span></button>
+    <button class="rctrl diet-tgl ${blk.sg?'on':''}" data-act="tsg" title="Sans gluten (afficher/masquer le picto)"><img src="assets/icon-sg.png" alt=""><span>SG</span></button>` : '';
   controls.innerHTML = `
     <button class="rctrl grip" data-act="grip" title="Glisser pour déplacer où vous voulez">⠿</button>
+    ${dietToggles}
     <button class="rctrl del" data-act="del" title="Supprimer">✕</button>
     <button class="rctrl" data-act="dup" title="Dupliquer">⧉</button>
     <button class="rctrl" data-act="up" title="Monter">↑</button>
@@ -597,10 +605,14 @@ function buildBlockEl(blk){
   });
 
   controls.addEventListener('click', (e) => {
-    const act = e.target.dataset.act;
+    const btn = e.target.closest('.rctrl');
+    if(!btn) return;
+    const act = btn.dataset.act;
     if(!act) return;
     const idx = state.doc.findIndex(x=>x.id===blk.id);
     if(idx < 0) return;
+    if(act==='tveg'){ state.doc[idx].veg = !state.doc[idx].veg; markDirty(); render(); return; }
+    if(act==='tsg'){ state.doc[idx].sg = !state.doc[idx].sg; markDirty(); render(); return; }
     if(act==='up' && idx>0){
       [state.doc[idx-1],state.doc[idx]]=[state.doc[idx],state.doc[idx-1]];
       markDirty(); render();
