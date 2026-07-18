@@ -489,12 +489,6 @@ function render(){
     label.className = 'sheet-label';
     label.textContent = 'Planche ' + sheetNum;
     sheetEl.appendChild(label);
-    const band = document.createElement('img');
-    band.className = 'sheet-band';
-    band.src = 'assets/band.png';
-    band.alt = '';
-    band.draggable = false;
-    sheetEl.appendChild(band);
     const warn = document.createElement('div');
     warn.className = 'sheet-overflow-warning';
     warn.textContent = '⚠️ Une colonne dépasse la hauteur de la planche — déplacez ou retirez des blocs';

@@ -13,7 +13,7 @@
   --sheet-w:1325px;
   --sheet-h:964px;        /* largeur 1325 = imprimé ; hauteur resserrée vers le format paysage de l'imprimé */
   --sheet-pad:30px;
-  --volet-h:866px;        /* place laissée en haut pour le bandeau décoratif */
+  --volet-h:904px;        /* --sheet-h - 2*--sheet-pad ; volets ~410px comme l'imprimé */
   /* Apparence personnalisable (modale 🎨) */
   --font-title:'Playfair Display', serif;
   --font-body:'EB Garamond', serif;
@@ -74,15 +74,9 @@ body{
 .sheet{
   background:var(--page-bg); width:var(--sheet-w); height:var(--sheet-h);
   box-shadow:var(--shadow); position:relative; flex:none;
-  padding:68px var(--sheet-pad) var(--sheet-pad);
+  padding:var(--sheet-pad);
   display:flex; gap:18px;
   font-family:var(--font-body);
-}
-/* Bandeau décoratif (frise olivier) en tête de planche — pleine largeur */
-.sheet-band{
-  position:absolute; top:18px; left:50%; transform:translateX(-50%);
-  width:calc(100% - 88px); height:auto;
-  opacity:.9; pointer-events:none; user-select:none;
 }
 .sheet-label{
   position:absolute; top:-26px; left:0; font-size:11px; color:var(--grey);
@@ -103,7 +97,7 @@ body{
 }
 /* groupe « section + ses lignes » — l'espace libre se répartit entre les groupes */
 .section-group{display:flex; flex-direction:column; flex:0 0 auto;}
-.section-group + .section-group{margin-top:6px;}
+.section-group + .section-group{margin-top:9px;}
 
 /* ---------- Blocks (generic) ---------- */
 .block{
@@ -168,7 +162,7 @@ body.placing-block, body.placing-block *{cursor:crosshair !important;}
 /* ---------- Section title ---------- */
 .blk-section h2{
   font-family:var(--font-title); font-weight:700; font-size:16px; color:var(--title-color);
-  margin:8px 0 5px; line-height:1.0; text-transform:uppercase; letter-spacing:.04em;
+  margin:10px 0 7px; line-height:1.0; text-transform:uppercase; letter-spacing:.04em;
   display:flex; align-items:baseline; gap:4px;
 }
 .blk-section.big h2{font-size:19.5px; letter-spacing:.03em; border-bottom:1px solid rgba(58,73,45,.28); padding-bottom:5px;}
@@ -179,7 +173,7 @@ body.placing-block, body.placing-block *{cursor:crosshair !important;}
 .blk-section:first-child h2{margin-top:0;}
 
 /* ---------- Item row ---------- */
-.blk-item{display:flex; align-items:flex-start; gap:6px; padding:0 3px; margin-bottom:7px; line-height:1.05;}
+.blk-item{display:flex; align-items:flex-start; gap:6px; padding:0 3px; margin-bottom:9px; line-height:1.05;}
 .blk-item.inline, .blk-item.wine{margin-bottom:1.5px;}
 .blk-item.inline{align-items:baseline;}
 .blk-item .txt{flex:1 1 auto; min-width:0;}
