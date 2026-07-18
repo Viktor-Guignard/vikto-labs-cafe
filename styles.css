@@ -1,14 +1,14 @@
 :root{
-  --ink:#2b2018;
-  --teal:#c0592e;         /* terracotta (chrome + accents UI) */
-  --teal-dark:#a2481f;
-  --grey:#8c8175;
-  --paper:#fffdf8;
-  --line:#e9dfcd;
-  --bg:#ece2d0;
+  --ink:#2e2b26;
+  --teal:#33302a;         /* charbon (chrome + accents UI) */
+  --teal-dark:#201e1a;
+  --grey:#8a857b;
+  --paper:#fffdf9;
+  --line:#e7e1d4;
+  --bg:#ebe5d7;
   --danger:#b5503f;
-  --peach:#f2e5d3;
-  --shadow:0 6px 26px rgba(120,74,45,.16);
+  --peach:#efe9db;
+  --shadow:0 6px 26px rgba(70,66,58,.16);
   /* Planche paysage 3 volets — dimensions du dépliant imprimé (1 pt = 1 px, 1325 × 852 pt) */
   --sheet-w:1325px;
   --sheet-h:964px;        /* largeur 1325 = imprimé ; hauteur resserrée vers le format paysage de l'imprimé */
@@ -18,9 +18,9 @@
   --font-title:'Playfair Display', serif;
   --font-body:'EB Garamond', serif;
   --font-name:'Poppins', sans-serif;   /* noms de plats (façon imprimé) */
-  --title-color:#47301f;
-  --accent:#c0592e;
-  --page-bg:#f7efe1;
+  --title-color:#2e2b26;
+  --accent:#2e2b26;
+  --page-bg:#f5f1e8;
 }
 
 *{box-sizing:border-box;}
@@ -104,7 +104,7 @@ body{
   position:relative; margin-bottom:0; border-radius:4px;
   padding:0 3px; transition:background .12s;
 }
-.block:hover{background:rgba(120,74,45,.06);}
+.block:hover{background:rgba(70,66,58,.06);}
 .block.selected{outline:2px dashed var(--teal);}
 
 /* Contrôles en bout de ligne */
@@ -130,7 +130,7 @@ body{
 .rctrl.diet-tgl{width:auto; padding:0 6px; gap:3px; color:#9a9a90; font-size:9px; font-weight:700; letter-spacing:.02em;}
 .rctrl.diet-tgl img{height:12px; width:auto; opacity:.3; transition:opacity .12s;}
 .rctrl.diet-tgl:hover{background:#f2f2f2;}
-.rctrl.diet-tgl.on{border-color:var(--teal); background:#f6e7d6; color:var(--teal-dark);}
+.rctrl.diet-tgl.on{border-color:var(--teal); background:#ece5d6; color:var(--teal-dark);}
 .rctrl.diet-tgl.on img{opacity:1;}
 .block:hover .rctrl{opacity:1;}
 .block:hover .rctrl.del{opacity:1;}
@@ -156,8 +156,8 @@ body.placing-block, body.placing-block *{cursor:crosshair !important;}
 .placing-label span{font-size:10px; opacity:.85;}
 
 [contenteditable="true"]{outline:none; cursor:text; border-radius:3px;}
-[contenteditable="true"]:hover{background:rgba(120,74,45,.08);}
-[contenteditable="true"]:focus{background:rgba(120,74,45,.13); box-shadow:0 0 0 2px var(--teal) inset;}
+[contenteditable="true"]:hover{background:rgba(70,66,58,.08);}
+[contenteditable="true"]:focus{background:rgba(70,66,58,.13); box-shadow:0 0 0 2px var(--teal) inset;}
 
 /* ---------- Section title ---------- */
 .blk-section h2{
@@ -165,7 +165,7 @@ body.placing-block, body.placing-block *{cursor:crosshair !important;}
   margin:10px 0 7px; line-height:1.0; text-transform:uppercase; letter-spacing:.04em;
   display:flex; align-items:baseline; gap:4px;
 }
-.blk-section.big h2{font-size:19.5px; letter-spacing:.03em; border-bottom:1px solid rgba(120,74,45,.28); padding-bottom:5px;}
+.blk-section.big h2{font-size:19.5px; letter-spacing:.03em; border-bottom:1px solid rgba(70,66,58,.28); padding-bottom:5px;}
 .blk-section:first-child h2{margin-top:0;}
 .blk-section h2 .en{font-family:var(--font-body); font-style:italic; font-weight:400; text-transform:none; color:var(--grey); font-size:9.5px; letter-spacing:0;}
 .blk-section h2 .en.unit{font-style:normal; letter-spacing:.02em; font-size:8px; margin-left:-1px;}
@@ -208,7 +208,7 @@ body.leaders-off .blk-item .leader{display:none;}
 /* Colonnes de prix (vins / champagnes) — valeurs centrées + filets verticaux, façon imprimé */
 .pcols{flex:none; display:flex; align-self:flex-start;}
 .pcell{width:34px; text-align:center; font-style:italic; font-size:9.5px; color:var(--ink);}
-.blk-item.wine .pcols .pcell + .pcell{border-left:1px solid rgba(120,74,45,.16);}
+.blk-item.wine .pcols .pcell + .pcell{border-left:1px solid rgba(70,66,58,.16);}
 /* nom de vin : serif régulier (pas gras sans) comme l'imprimé */
 .blk-item.wine .fr{display:inline; font-family:var(--font-body); font-weight:400; color:var(--ink); text-transform:none; letter-spacing:0; font-size:9.5px;}
 /* lignes de vins : interligne serré, prix et nom sur la même baseline (façon imprimé) */
@@ -226,7 +226,7 @@ body.leaders-off .blk-item .leader{display:none;}
 
 /* Éléments décoratifs (déplaçables) */
 .blk-deco{position:absolute; cursor:move; z-index:4; line-height:0; padding:0; margin:0;}
-.blk-deco:hover{background:transparent; outline:1px dashed rgba(120,74,45,.35);}
+.blk-deco:hover{background:transparent; outline:1px dashed rgba(70,66,58,.35);}
 .blk-deco.selected{outline:1.5px dashed var(--teal);}
 .deco-img{width:100%; height:auto; display:block; pointer-events:none; user-select:none;}
 .deco-controls{position:absolute; top:-11px; right:-6px; display:flex; gap:3px; opacity:0; transition:opacity .12s;}
@@ -300,7 +300,7 @@ body.leaders-off .blk-item .leader{display:none;}
 .brunch-b{font-family:var(--font-body); font-size:11px; font-style:normal; color:var(--ink); line-height:1.3; margin-top:3px;}
 
 /* ---------- Menu Enfant — bloc typographique sans cadre ---------- */
-.blk-enfant{ width:100%; margin:16px 0 6px; padding:12px 0 0; text-align:center; border-top:1px solid rgba(120,74,45,.22); }
+.blk-enfant{ width:100%; margin:16px 0 6px; padding:12px 0 0; text-align:center; border-top:1px solid rgba(70,66,58,.22); }
 .blk-enfant:hover{background:transparent;}
 .enfant-inner{
   display:flex; flex-direction:column; align-items:center; text-align:center;
@@ -353,7 +353,7 @@ body.leaders-off .blk-item .leader{display:none;}
   text-align:left; background:#fafafa; transition:border-color .12s, background .12s;
   font-family:'Poppins',sans-serif;
 }
-.block-opt:hover{border-color:var(--teal); background:#f7ece0;}
+.block-opt:hover{border-color:var(--teal); background:#efe9dc;}
 .block-opt .ttl{font-weight:700; font-size:13.5px; margin-bottom:3px;}
 .block-opt .desc{font-size:11.5px; color:var(--grey);}
 
@@ -386,7 +386,7 @@ body.leaders-off .blk-item .leader{display:none;}
 
 /* ---------- Lien magique ---------- */
 #magicLinkBox{
-  margin-top:16px; padding:14px; border:1px dashed var(--teal); border-radius:10px; background:#f7ece0;
+  margin-top:16px; padding:14px; border:1px dashed var(--teal); border-radius:10px; background:#efe9dc;
 }
 #magicLinkBox .ttl{font-weight:700; font-size:13px; margin-bottom:4px; color:var(--teal-dark);}
 #magicLinkBox p{margin:0 0 10px; font-size:12px; color:#333; line-height:1.5;}
@@ -444,7 +444,7 @@ body.exporting .sheet.overflowing{outline:none !important;}
 /* volets de la planche 2 : marge haute ET basse (space-evenly) au lieu d'un ancrage tout en haut */
 #canvasWrap > .sheet:nth-of-type(2) .volet{justify-content:space-evenly;}
 /* grille « petits plus » : filet vertical entre les 2 sous-colonnes + libellés compacts sur une ligne */
-#canvasWrap > .sheet:nth-of-type(2) .item-grid{column-rule:1px solid rgba(120,74,45,.16);}
+#canvasWrap > .sheet:nth-of-type(2) .item-grid{column-rule:1px solid rgba(70,66,58,.16);}
 #canvasWrap > .sheet:nth-of-type(2) .item-grid .blk-item .fr{font-size:7.5px;}
 
 /* ---------- Vue étroite : volets empilés ---------- */
