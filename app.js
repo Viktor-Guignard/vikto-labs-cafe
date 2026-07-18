@@ -90,7 +90,7 @@ function defaultDoc(){
     b('colbreak', {}),
 
     /* ---------- Volet 3 : panneau vert (nom + signature éditables) ---------- */
-    b('panel', {img:null, name:'Le Café', caption:'Ici, tout est <em>fait maison</em>'}),
+    b('panel', {img:null, kicker:'CAFÉ · BRUNCH', name:'Le Café', caption:'Ici, tout est <em>fait maison</em>', foot:'MENU · ÉTÉ 2026'}),
 
     b('pagebreak', {}),
 
@@ -178,7 +178,7 @@ const BLOCK_LIBRARY = [
   {type:'divider', ttl:'Séparateur', desc:'Ligne fine de séparation', make:()=>({})},
   {type:'colbreak', ttl:'Nouvelle colonne', desc:'Passe au volet suivant de la planche', make:()=>({})},
   {type:'pagebreak', ttl:'Nouvelle planche', desc:'Démarre une nouvelle planche (PDF)', make:()=>({})},
-  {type:'panel', ttl:'Panneau visuel', desc:'Grand visuel botanique + nom éditable (volet entier)', make:()=>({img:null, name:'Le Café', caption:'Chez nous, happiness is homemade'})},
+  {type:'panel', ttl:'Panneau couverture', desc:'Couverture typographique éditable (volet entier)', make:()=>({img:null, kicker:'CAFÉ · BRUNCH', name:'Le Café', caption:'Ici, tout est fait maison', foot:'MENU · ÉTÉ 2026'})},
   {type:'brunch', ttl:'Cadre « Brunch »', desc:'Cadre botanique ovale avec texte éditable', make:()=>({title:'LE BRUNCH', subtitle:'Samedi, dimanche & jours fériés', offer:'ASSIETTE BRUNCH 24 · FORMULE 32', d1t:'BOISSON', d1b:'…', d2t:'BOISSON CHAUDE', d2b:'…', d3t:'ASSIETTE', d3b:'…', d4t:'DESSERT', d4b:'…'})},
   {type:'enfant', ttl:'Pastille « Menu Enfant »', desc:'Pastille botanique avec texte éditable', make:()=>({title:'Menu Enfant', offer:'PLAT · BOISSON · DESSERT  10', body:'…'})},
   {type:'deco', ttl:'Déco — tampon', desc:'Motif soleil-agrume (déplaçable)', make:()=>({img:'assets/deco-stamp.png', x:120, y:120, w:120, rot:0})},
@@ -382,8 +382,13 @@ function renderBlockInner(blk){
             <img src="${blk.img || 'assets/logo.png'}" alt="">
           </div>
           <div class="panel-over">
-            <div class="panel-name">${ed(blk.id,'name',esc(blk.name),'','div')}</div>
-            <div class="panel-caption">${ed(blk.id,'caption',blk.caption,'','div')}</div>
+            <div class="panel-kicker">${ed(blk.id,'kicker',esc(blk.kicker),'','div')}</div>
+            <div class="panel-mid">
+              <div class="panel-name">${ed(blk.id,'name',esc(blk.name),'','div')}</div>
+              <div class="panel-rule"></div>
+              <div class="panel-caption">${ed(blk.id,'caption',blk.caption,'','div')}</div>
+            </div>
+            <div class="panel-foot">${ed(blk.id,'foot',esc(blk.foot),'','div')}</div>
           </div>
         </div>`;
     case 'brunch':

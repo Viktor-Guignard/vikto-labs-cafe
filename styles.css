@@ -274,17 +274,24 @@ body.leaders-off .blk-item .leader{display:none;}
    seuls les textes éditables captent le clic. */
 .panel-over{
   position:absolute; inset:0; display:flex; flex-direction:column;
-  align-items:center; justify-content:center; gap:16px; padding:0 13%;
+  align-items:center; justify-content:space-between; padding:12% 11%;
   pointer-events:none; text-align:center;
 }
-.panel-name{
-  font-family:var(--font-title); font-weight:700; font-size:52px; line-height:1.05;
-  letter-spacing:.01em; color:var(--title-color); pointer-events:auto;
+.panel-kicker, .panel-foot{
+  font-family:'Poppins',sans-serif; font-weight:600; font-size:11.5px;
+  letter-spacing:.3em; text-transform:uppercase; color:var(--title-color);
+  opacity:.8; pointer-events:auto;
 }
+.panel-mid{display:flex; flex-direction:column; align-items:center; gap:15px;}
+.panel-name{
+  font-family:var(--font-title); font-weight:700; font-size:58px; line-height:1.02;
+  letter-spacing:.005em; color:var(--title-color); pointer-events:auto;
+}
+.panel-rule{width:54px; height:1.5px; background:var(--title-color); opacity:.65;}
 .panel-caption{
-  font-family:var(--font-title); font-style:normal; font-weight:400;
-  font-size:18px; color:var(--title-color); line-height:1.4; max-width:78%;
-  letter-spacing:.02em; pointer-events:auto; margin-top:2px;
+  font-family:var(--font-body); font-style:italic; font-weight:400;
+  font-size:19px; color:var(--title-color); line-height:1.4; max-width:82%;
+  pointer-events:auto;
 }
 .panel-caption em{font-style:italic;}
 
