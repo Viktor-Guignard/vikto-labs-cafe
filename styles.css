@@ -97,7 +97,7 @@ body{
 }
 /* groupe « section + ses lignes » — l'espace libre se répartit entre les groupes */
 .section-group{display:flex; flex-direction:column; flex:0 0 auto;}
-.section-group + .section-group{margin-top:2px;}
+.section-group + .section-group{margin-top:9px;}
 
 /* ---------- Blocks (generic) ---------- */
 .block{
@@ -155,11 +155,11 @@ body.placing-block, body.placing-block *{cursor:crosshair !important;}
 
 /* ---------- Section title ---------- */
 .blk-section h2{
-  font-family:var(--font-title); font-weight:700; font-size:15.5px; color:var(--title-color);
-  margin:6px 0 4px; line-height:1.0; text-transform:uppercase; letter-spacing:.035em;
+  font-family:var(--font-title); font-weight:700; font-size:16px; color:var(--title-color);
+  margin:10px 0 7px; line-height:1.0; text-transform:uppercase; letter-spacing:.04em;
   display:flex; align-items:baseline; gap:4px;
 }
-.blk-section.big h2{font-size:18.5px; letter-spacing:.03em;}
+.blk-section.big h2{font-size:19.5px; letter-spacing:.03em;}
 .blk-section:first-child h2{margin-top:0;}
 .blk-section h2 .en{font-family:var(--font-body); font-style:italic; font-weight:400; text-transform:none; color:var(--grey); font-size:9.5px; letter-spacing:0;}
 .blk-section h2 .en.unit{font-style:normal; letter-spacing:.02em; font-size:8px; margin-left:-1px;}
@@ -167,12 +167,12 @@ body.placing-block, body.placing-block *{cursor:crosshair !important;}
 .blk-section:first-child h2{margin-top:0;}
 
 /* ---------- Item row ---------- */
-.blk-item{display:flex; align-items:flex-start; gap:6px; padding:0 3px; margin-bottom:6px; line-height:1.0;}
+.blk-item{display:flex; align-items:flex-start; gap:6px; padding:0 3px; margin-bottom:9px; line-height:1.05;}
 .blk-item.inline, .blk-item.wine{margin-bottom:1.5px;}
 .blk-item.inline{align-items:baseline;}
 .blk-item .txt{flex:1 1 auto; min-width:0;}
-.blk-item .fr{font-family:var(--font-name); font-size:10.5px; font-weight:600; color:var(--title-color); letter-spacing:.09em; line-height:1.15;}
-.blk-item .en{font-size:10.5px; font-style:normal; color:#4c4c44; margin-top:2.5px; line-height:1.2; max-width:320px;}
+.blk-item .fr{font-family:var(--font-name); font-size:11px; font-weight:600; color:var(--title-color); letter-spacing:.09em; line-height:1.2;}
+.blk-item .en{font-size:10.5px; font-style:normal; color:#4c4c44; margin-top:3px; line-height:1.3; max-width:320px;}
 .blk-item .en:empty{display:none;}
 /* Item « inline » : qualificatif court sur la même ligne que le nom (ex. « 33 cl ») */
 .blk-item.inline .fr{display:inline;}
