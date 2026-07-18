@@ -259,77 +259,57 @@ body.leaders-off .blk-item .leader{display:none;}
 .blk-pagebreak::before,.blk-pagebreak::after{content:''; flex:1; height:1px; background:var(--teal); opacity:.35;}
 .blk-pagebreak{margin-top:auto;}
 
-/* ---------- Panneau visuel (volet 3, planche 1) ---------- */
-.blk-panel{
-  height:100%; display:flex; flex-direction:column;
-  align-items:center; justify-content:center;
-  padding:0; margin:0;
-}
+/* ---------- Couverture typographique (volet 3, planche 1) — sans cadre ---------- */
+.blk-panel{ height:100%; display:flex; padding:0; margin:0; }
 .blk-panel:hover{background:transparent;}
-.panel-wrap{position:relative; width:92%; margin:0 auto;}
-.panel-img{width:100%; cursor:pointer; line-height:0; border-radius:18px; overflow:hidden; background:transparent;}
-.panel-img img{width:100%; height:auto; display:block;}
-/* Nom + signature en surimpression, centrés dans le cœur libre du panneau.
-   pointer-events:none laisse passer le clic vers l'image (remplacer le visuel) ;
-   seuls les textes éditables captent le clic. */
-.panel-over{
-  position:absolute; inset:0; display:flex; flex-direction:column;
-  align-items:center; justify-content:space-between; padding:12% 11%;
-  pointer-events:none; text-align:center;
+.panel-type{
+  flex:1 1 auto; height:100%; display:flex; flex-direction:column;
+  align-items:center; justify-content:space-between; text-align:center;
+  padding:11% 8%;
 }
 .panel-kicker, .panel-foot{
   font-family:'Poppins',sans-serif; font-weight:600; font-size:11.5px;
-  letter-spacing:.3em; text-transform:uppercase; color:var(--title-color);
-  opacity:.8; pointer-events:auto;
+  letter-spacing:.3em; text-transform:uppercase; color:var(--title-color); opacity:.75;
 }
-.panel-mid{display:flex; flex-direction:column; align-items:center; gap:15px;}
+.panel-mid{display:flex; flex-direction:column; align-items:center; gap:16px;}
 .panel-name{
-  font-family:var(--font-title); font-weight:700; font-size:58px; line-height:1.02;
-  letter-spacing:.005em; color:var(--title-color); pointer-events:auto;
+  font-family:var(--font-title); font-weight:700; font-size:60px; line-height:1.02;
+  letter-spacing:.005em; color:var(--title-color);
 }
-.panel-rule{width:54px; height:1.5px; background:var(--title-color); opacity:.65;}
+.panel-rule{width:56px; height:1.5px; background:var(--accent); opacity:.85;}
 .panel-caption{
   font-family:var(--font-body); font-style:italic; font-weight:400;
-  font-size:19px; color:var(--title-color); line-height:1.4; max-width:82%;
-  pointer-events:auto;
+  font-size:19px; color:var(--title-color); line-height:1.4; max-width:84%;
 }
 .panel-caption em{font-style:italic;}
 
-/* ---------- Bloc Brunch (cadre botanique) ---------- */
-.blk-brunch{
-  position:relative; width:100%; margin-bottom:30px; padding:0;
-}
-/* volet ne contenant que le brunch + BUNS : empiler par le haut (bas de colonne vide, comme l'imprimé) */
+/* ---------- Brunch — bloc typographique sans cadre ---------- */
+.blk-brunch{ width:100%; margin:0 0 10px; padding:0; text-align:center; }
 .volet:has(.blk-brunch){justify-content:flex-start;}
 .blk-brunch:hover{background:transparent;}
-.frame-bg{width:100%; height:auto; display:block; pointer-events:none;}
 .brunch-inner{
-  position:absolute; inset:6% 20% 6% 20%;
-  display:flex; flex-direction:column; align-items:center; justify-content:space-between; text-align:center;
-  color:var(--title-color);
+  display:flex; flex-direction:column; align-items:center; text-align:center;
+  color:var(--title-color); padding:4px 5% 2px;
 }
-.brunch-title{font-family:var(--font-title); font-weight:800; font-size:52px; line-height:.9; letter-spacing:.01em;}
-.brunch-sub{font-family:var(--font-body); font-style:italic; font-size:14px; margin-top:7px; color:var(--title-color);}
-.brunch-offer{font-family:var(--font-title); font-weight:700; font-size:14px; letter-spacing:.04em; margin-top:13px; text-transform:uppercase;}
-.brunch-offer i{font-weight:400; font-style:italic;}
-.brunch-sep{color:var(--accent); font-size:11px; margin:3px 0;}
-.brunch-h{font-family:var(--font-name); font-weight:700; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--title-color);}
-.brunch-b{font-family:var(--font-body); font-size:9px; font-style:normal; color:#43433c; line-height:1.25; margin-top:2px;}
+.brunch-title{font-family:var(--font-title); font-weight:800; font-size:54px; line-height:.92; letter-spacing:.01em;}
+.brunch-sub{font-family:var(--font-body); font-style:italic; font-size:15px; margin-top:8px; color:var(--title-color);}
+.brunch-offer{font-family:var(--font-title); font-weight:700; font-size:15px; letter-spacing:.04em; margin-top:14px; text-transform:uppercase;}
+.brunch-offer i{font-weight:400; font-style:italic; color:var(--accent);}
+.brunch-sep{color:var(--accent); font-size:12px; margin:10px 0; opacity:.7;}
+.brunch-h{font-family:var(--font-name); font-weight:700; font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--title-color);}
+.brunch-b{font-family:var(--font-body); font-size:11px; font-style:normal; color:var(--ink); line-height:1.3; margin-top:3px;}
 
-/* ---------- Bloc Menu Enfant (pastille botanique symétrique) ---------- */
-.blk-enfant{
-  position:relative; width:100%; margin:8px 0 6px; padding:0;
-}
+/* ---------- Menu Enfant — bloc typographique sans cadre ---------- */
+.blk-enfant{ width:100%; margin:16px 0 6px; padding:12px 0 0; text-align:center; border-top:1px solid rgba(120,74,45,.22); }
 .blk-enfant:hover{background:transparent;}
 .enfant-inner{
-  position:absolute; inset:14% 17% 14% 17%;
-  display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
-  color:var(--title-color);
+  display:flex; flex-direction:column; align-items:center; text-align:center;
+  color:var(--title-color); padding:0 5%;
 }
-.enfant-title{font-family:var(--font-title); font-weight:800; font-size:26px; line-height:.95;}
-.enfant-offer{font-family:var(--font-name); font-weight:700; font-size:10px; letter-spacing:.08em; text-transform:uppercase; margin-top:6px;}
-.enfant-offer i{font-family:var(--font-title); font-weight:400; font-style:italic;}
-.enfant-b{font-family:var(--font-body); font-size:9.5px; font-style:normal; color:#43433c; line-height:1.2; margin-top:4px;}
+.enfant-title{font-family:var(--font-title); font-weight:800; font-size:30px; line-height:.95;}
+.enfant-offer{font-family:var(--font-name); font-weight:700; font-size:11px; letter-spacing:.08em; text-transform:uppercase; margin-top:8px;}
+.enfant-offer i{font-family:var(--font-title); font-weight:400; font-style:italic; color:var(--accent);}
+.enfant-b{font-family:var(--font-body); font-size:11px; font-style:normal; color:var(--ink); line-height:1.35; margin-top:6px;}
 
 /* ---------- Empty hint ---------- */
 .page-empty-hint{color:var(--grey); font-size:13px; text-align:center; padding:40px 0; border:1px dashed var(--line); border-radius:8px;}

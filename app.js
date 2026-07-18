@@ -377,23 +377,17 @@ function renderBlockInner(blk){
   switch(blk.type){
     case 'panel':
       return `
-        <div class="panel-wrap">
-          <div class="panel-img img-slot" data-id="${blk.id}" data-field="img" title="Cliquer pour remplacer le visuel">
-            <img src="${blk.img || 'assets/logo.png'}" alt="">
+        <div class="panel-type">
+          <div class="panel-kicker">${ed(blk.id,'kicker',esc(blk.kicker),'','div')}</div>
+          <div class="panel-mid">
+            <div class="panel-name">${ed(blk.id,'name',esc(blk.name),'','div')}</div>
+            <div class="panel-rule"></div>
+            <div class="panel-caption">${ed(blk.id,'caption',blk.caption,'','div')}</div>
           </div>
-          <div class="panel-over">
-            <div class="panel-kicker">${ed(blk.id,'kicker',esc(blk.kicker),'','div')}</div>
-            <div class="panel-mid">
-              <div class="panel-name">${ed(blk.id,'name',esc(blk.name),'','div')}</div>
-              <div class="panel-rule"></div>
-              <div class="panel-caption">${ed(blk.id,'caption',blk.caption,'','div')}</div>
-            </div>
-            <div class="panel-foot">${ed(blk.id,'foot',esc(blk.foot),'','div')}</div>
-          </div>
+          <div class="panel-foot">${ed(blk.id,'foot',esc(blk.foot),'','div')}</div>
         </div>`;
     case 'brunch':
       return `
-        <img class="frame-bg" src="assets/brunch.png" alt="" draggable="false">
         <div class="brunch-inner">
           <div class="brunch-title">${ed(blk.id,'title',blk.title,'','div')}</div>
           <div class="brunch-sub">${ed(blk.id,'subtitle',esc(blk.subtitle),'','div')}</div>
@@ -413,7 +407,6 @@ function renderBlockInner(blk){
         </div>`;
     case 'enfant':
       return `
-        <img class="frame-bg" src="assets/enfant.png" alt="" draggable="false">
         <div class="enfant-inner">
           <div class="enfant-title">${ed(blk.id,'title',esc(blk.title),'','div')}</div>
           <div class="enfant-offer">${ed(blk.id,'offer',blk.offer,'','div')}</div>
