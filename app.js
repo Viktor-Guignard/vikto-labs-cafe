@@ -90,7 +90,7 @@ function defaultDoc(){
     b('colbreak', {}),
 
     /* ---------- Volet 3 : panneau vert (nom + signature éditables) ---------- */
-    b('panel', {img:null, kicker:'CAFÉ · BRUNCH', name:'Le Café', caption:'Ici, tout est <em>fait maison</em>', foot:'MENU · ÉTÉ 2026'}),
+    b('panel', {img:null, kicker:'CAFÉ · BRUNCH', name:'Ambre', caption:'Fait maison, <em>du matin au soir</em>', foot:'MENU · ÉTÉ 2026'}),
 
     b('pagebreak', {}),
 
@@ -178,7 +178,7 @@ const BLOCK_LIBRARY = [
   {type:'divider', ttl:'Séparateur', desc:'Ligne fine de séparation', make:()=>({})},
   {type:'colbreak', ttl:'Nouvelle colonne', desc:'Passe au volet suivant de la planche', make:()=>({})},
   {type:'pagebreak', ttl:'Nouvelle planche', desc:'Démarre une nouvelle planche (PDF)', make:()=>({})},
-  {type:'panel', ttl:'Panneau couverture', desc:'Couverture typographique éditable (volet entier)', make:()=>({img:null, kicker:'CAFÉ · BRUNCH', name:'Le Café', caption:'Ici, tout est fait maison', foot:'MENU · ÉTÉ 2026'})},
+  {type:'panel', ttl:'Panneau couverture', desc:'Couverture typographique éditable (volet entier)', make:()=>({img:null, kicker:'CAFÉ · BRUNCH', name:'Ambre', caption:'Fait maison, du matin au soir', foot:'MENU · ÉTÉ 2026'})},
   {type:'brunch', ttl:'Cadre « Brunch »', desc:'Cadre botanique ovale avec texte éditable', make:()=>({title:'LE BRUNCH', subtitle:'Samedi, dimanche & jours fériés', offer:'ASSIETTE BRUNCH 24 · FORMULE 32', d1t:'BOISSON', d1b:'…', d2t:'BOISSON CHAUDE', d2b:'…', d3t:'ASSIETTE', d3b:'…', d4t:'DESSERT', d4b:'…'})},
   {type:'enfant', ttl:'Pastille « Menu Enfant »', desc:'Pastille botanique avec texte éditable', make:()=>({title:'Menu Enfant', offer:'PLAT · BOISSON · DESSERT  10', body:'…'})},
   {type:'deco', ttl:'Déco — tampon', desc:'Motif soleil-agrume (déplaçable)', make:()=>({img:'assets/deco-stamp.png', x:120, y:120, w:120, rot:0})},
@@ -213,9 +213,9 @@ function defaultStyle(){
   return {
     titleFont:'Playfair Display',
     bodyFont:'EB Garamond',
-    titleColor:'#3a492d',   // vert forêt
-    accent:'#3a492d',
-    pageBg:'#fefbf8',       // crème
+    titleColor:'#47301f',   // espresso profond
+    accent:'#c0592e',       // terracotta
+    pageBg:'#f7efe1',       // crème chaude
     leaders:false,          // pas de pointillés par défaut (comme l'imprimé)
   };
 }
