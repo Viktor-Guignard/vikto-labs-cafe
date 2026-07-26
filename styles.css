@@ -17,7 +17,7 @@
   /* Apparence personnalisable (modale 🎨) */
   --font-title:'Syne', sans-serif;
   --font-body:'EB Garamond', serif;
-  --font-name:'Poppins', sans-serif;   /* noms de plats (façon imprimé) */
+  --font-name:'Syne', sans-serif;      /* noms de produits — meme famille que les titres */
   --title-color:#2e2b26;
   --accent:#a9432f;      /* terre cuite : rouge VIKTO LABS adapte au papier */
   --page-bg:#f6f2e9;
@@ -179,7 +179,7 @@ body.placing-block, body.placing-block *{cursor:crosshair !important;}
 .blk-item.inline, .blk-item.wine{margin-bottom:1.5px;}
 .blk-item.inline{align-items:baseline;}
 .blk-item .txt{flex:1 1 auto; min-width:0;}
-.blk-item .fr{font-family:var(--font-name); font-size:11px; font-weight:600; color:var(--title-color); letter-spacing:.055em; line-height:1.2;}
+.blk-item .fr{font-family:var(--font-name); font-size:10.5px; font-weight:600; color:var(--title-color); letter-spacing:.03em; line-height:1.22;}
 .blk-item .en{font-size:10.5px; font-style:italic; color:#5b564d; margin-top:2px; line-height:1.3; max-width:320px;}
 .blk-item .en:empty{display:none;}
 /* Item « inline » : qualificatif court sur la même ligne que le nom (ex. « 33 cl ») */
@@ -273,7 +273,7 @@ body.leaders-off .blk-item .leader{display:none;}
 /* Surtitre et pied de couverture : en terre cuite, ils encadrent le nom
    et rappellent la couleur d'accent presente sur toute la carte. */
 .panel-kicker, .panel-foot{
-  font-family:'Poppins',sans-serif; font-weight:600; font-size:11.5px;
+  font-family:'Syne',sans-serif; font-weight:600; font-size:11px;
   letter-spacing:.3em; text-transform:uppercase; color:var(--accent); opacity:.9;
 }
 .panel-mid{display:flex; flex-direction:column; align-items:center; gap:16px;}

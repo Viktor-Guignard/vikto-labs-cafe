@@ -32,6 +32,7 @@
     { file: 'Poppins-Italic.ttf',          name: 'Poppins',          style: 'italic', weight: 'normal' },
     { file: 'Poppins-SemiBold.ttf',        name: 'Poppins',          style: 'normal', weight: 'semibold' },
     { file: 'Poppins-Bold.ttf',            name: 'Poppins',          style: 'normal', weight: 'bold' },
+    { file: 'Syne-SemiBold.ttf',           name: 'Syne',             style: 'normal', weight: 'semibold' },
     { file: 'Syne-Bold.ttf',               name: 'Syne',             style: 'normal', weight: 'bold' },
     { file: 'Syne-ExtraBold.ttf',          name: 'Syne',             style: 'normal', weight: 'extrabold' },
     { file: 'PlayfairDisplay-Bold.ttf',    name: 'Playfair Display', style: 'normal', weight: 'bold' },
@@ -67,7 +68,8 @@
   /* Graisse CSS (100-900 ou mot-clé) -> graisse déclarée à jsPDF. */
   function pickWeight(family, cssWeight) {
     const w = parseInt(cssWeight, 10) || (cssWeight === 'bold' ? 700 : 400);
-    if (family === 'Playfair Display' || family === 'Syne') return w >= 800 ? 'extrabold' : 'bold';
+    if (family === 'Syne') return w >= 800 ? 'extrabold' : (w >= 700 ? 'bold' : 'semibold');
+    if (family === 'Playfair Display') return w >= 800 ? 'extrabold' : 'bold';
     if (family === 'EB Garamond') return w >= 600 ? 'bold' : (w >= 500 ? 'semibold' : 'normal');
     if (w >= 700) return 'bold';
     if (w >= 500) return 'semibold';
@@ -77,6 +79,21 @@
   function familyOf(cs) {
     const first = (cs.fontFamily || '').split(',')[0].replace(/["']/g, '').trim();
     return FONTS.some(f => f.name === first) ? first : 'EB Garamond';
+  }
+
+
+  /* La combinaison demandee (famille + style + graisse) n'existe pas
+     toujours — un texte italique en demi-gras, par exemple. Sans
+     repli, jsPDF abandonne la police embarquee et retombe sur une
+     police generique. On degrade proprement : meme style d'abord,
+     puis graisse normale. */
+  function resolveFont(family, style, weight) {
+    const has = (st, w) => FONTS.some(f => f.name === family && f.style === st && f.weight === w);
+    if (has(style, weight)) return [style, weight];
+    if (has(style, 'normal')) return [style, 'normal'];
+    if (has('normal', weight)) return ['normal', weight];
+    const any = FONTS.find(f => f.name === family);
+    return any ? [any.style, any.weight] : ['normal', 'normal'];
   }
 
   function rgb(str) {
@@ -416,7 +433,8 @@
       const col = rgb(cs.color);
       const deco = cs.textDecorationLine || '';
 
-      pdf.setFont(fam, style, weight);
+      const [fStyle, fWeight] = resolveFont(fam, style, weight);
+      pdf.setFont(fam, fStyle, fWeight);
       pdf.setFontSize(size * PX2MM * 72 / 25.4);   // px CSS -> points PDF
       pdf.setTextColor(col.r, col.g, col.b);
 
