@@ -213,9 +213,11 @@ function defaultStyle(){
   return {
     titleFont:'Playfair Display',
     bodyFont:'EB Garamond',
-    titleColor:'#2e2b26',   // charbon chaud
-    accent:'#2e2b26',       // charbon (mono)
-    pageBg:'#f5f1e8',       // crème neutre
+    titleColor:'#2e2b26',   // charbon chaud (encre)
+    accent:'#a9432f',       // terre cuite — le rouge VIKTO LABS (#e52824)
+                            // assourdi pour le papier : il signe la marque
+                            // sans crier sur une carte de café
+    pageBg:'#f6f2e9',       // ivoire chaud
     leaders:false,          // pas de pointillés par défaut (comme l'imprimé)
   };
 }

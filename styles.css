@@ -19,8 +19,9 @@
   --font-body:'EB Garamond', serif;
   --font-name:'Poppins', sans-serif;   /* noms de plats (façon imprimé) */
   --title-color:#2e2b26;
-  --accent:#2e2b26;
-  --page-bg:#f5f1e8;
+  --accent:#a9432f;      /* terre cuite : rouge VIKTO LABS adapte au papier */
+  --page-bg:#f6f2e9;
+  --olive:#5d7a3a;       /* pictogramme vegetarien */
 }
 
 *{box-sizing:border-box;}
@@ -165,11 +166,12 @@ body.placing-block, body.placing-block *{cursor:crosshair !important;}
   margin:10px 0 7px; line-height:1.0; text-transform:uppercase; letter-spacing:.04em;
   display:flex; align-items:baseline; gap:4px;
 }
-.blk-section.big h2{font-size:19.5px; letter-spacing:.03em; border-bottom:1px solid rgba(70,66,58,.28); padding-bottom:5px;}
+.blk-section h2{border-bottom:1px solid rgba(169,67,47,.32); padding-bottom:4px;}
+.blk-section.big h2{font-size:19.5px; letter-spacing:.03em; border-bottom-width:1.4px; padding-bottom:5px;}
 .blk-section:first-child h2{margin-top:0;}
 .blk-section h2 .en{font-family:var(--font-body); font-style:italic; font-weight:400; text-transform:none; color:var(--grey); font-size:9.5px; letter-spacing:0;}
 .blk-section h2 .en.unit{font-style:normal; letter-spacing:.02em; font-size:8px; margin-left:-1px;}
-.blk-section h2 .sec-price{margin-left:auto; font-family:var(--font-body); font-style:italic; font-weight:400; text-transform:none; font-size:9.5px; color:var(--ink); letter-spacing:0;}
+.blk-section h2 .sec-price{margin-left:auto; font-family:var(--font-body); font-style:normal; font-weight:600; text-transform:none; font-size:11px; color:var(--accent); letter-spacing:0;}
 .blk-section:first-child h2{margin-top:0;}
 
 /* ---------- Item row ---------- */
@@ -177,15 +179,15 @@ body.placing-block, body.placing-block *{cursor:crosshair !important;}
 .blk-item.inline, .blk-item.wine{margin-bottom:1.5px;}
 .blk-item.inline{align-items:baseline;}
 .blk-item .txt{flex:1 1 auto; min-width:0;}
-.blk-item .fr{font-family:var(--font-name); font-size:11px; font-weight:600; color:var(--title-color); letter-spacing:.09em; line-height:1.2;}
-.blk-item .en{font-size:10.5px; font-style:normal; color:#4c4c44; margin-top:3px; line-height:1.3; max-width:320px;}
+.blk-item .fr{font-family:var(--font-name); font-size:11px; font-weight:600; color:var(--title-color); letter-spacing:.055em; line-height:1.2;}
+.blk-item .en{font-size:10.5px; font-style:italic; color:#5b564d; margin-top:2px; line-height:1.3; max-width:320px;}
 .blk-item .en:empty{display:none;}
 /* Item « inline » : qualificatif court sur la même ligne que le nom (ex. « 33 cl ») */
 .blk-item.inline .fr{display:inline;}
 .blk-item.inline .en{display:inline; margin-left:5px;}
-.blk-item .price{flex:none; font-size:9.5px; font-style:italic; font-weight:500; color:var(--ink); white-space:nowrap; text-align:right; margin-left:8px; line-height:1.1;}
+.blk-item .price{flex:none; font-size:10.5px; font-style:normal; font-weight:600; color:var(--accent); white-space:nowrap; text-align:right; margin-left:8px; line-height:1.1;}
 /* Meneur de pointillés (désactivé par défaut — l'imprimé n'en a pas) */
-.blk-item .leader{flex:1 1 auto; align-self:flex-start; height:12px; border-bottom:1.4px dotted #cfc9bb; margin:0 2px;}
+.blk-item .leader{flex:1 1 auto; align-self:flex-start; height:12px; border-bottom:1.4px dotted rgba(169,67,47,.34); margin:0 2px;}
 body.leaders-off .blk-item .leader{display:none;}
 
 /* Items « half » (cocktails, shots) répartis en 2 sous-colonnes, façon dépliant */
@@ -236,7 +238,8 @@ body.leaders-off .blk-item .leader{display:none;}
 .blk-deco:hover .deco-resize, .blk-deco.selected .deco-resize{opacity:1;}
 
 /* ---------- Formule ---------- */
-.blk-formule{color:var(--accent); font-weight:500; font-size:10px; line-height:1.2; font-style:italic;}
+.blk-formule{color:#5b564d; font-weight:500; font-size:10px; line-height:1.2; font-style:italic;}
+/* l'accent reste rare — prix, filets, couverture — donc il porte */
 .blk-formule.heading{font-family:var(--font-name); font-style:normal; font-weight:700; letter-spacing:.06em; text-transform:uppercase; font-size:10px; color:var(--title-color); margin-top:3px;}
 
 /* ---------- Note ---------- */
@@ -267,16 +270,18 @@ body.leaders-off .blk-item .leader{display:none;}
   align-items:center; justify-content:space-between; text-align:center;
   padding:11% 8%;
 }
+/* Surtitre et pied de couverture : en terre cuite, ils encadrent le nom
+   et rappellent la couleur d'accent presente sur toute la carte. */
 .panel-kicker, .panel-foot{
   font-family:'Poppins',sans-serif; font-weight:600; font-size:11.5px;
-  letter-spacing:.3em; text-transform:uppercase; color:var(--title-color); opacity:.75;
+  letter-spacing:.3em; text-transform:uppercase; color:var(--accent); opacity:.9;
 }
 .panel-mid{display:flex; flex-direction:column; align-items:center; gap:16px;}
 .panel-name{
-  font-family:var(--font-title); font-weight:700; font-size:60px; line-height:1.02;
-  letter-spacing:.005em; color:var(--title-color);
+  font-family:var(--font-title); font-weight:700; font-size:62px; line-height:1.0;
+  letter-spacing:.005em; color:var(--title-color); text-wrap:balance;
 }
-.panel-rule{width:56px; height:1.5px; background:var(--accent); opacity:.85;}
+.panel-rule{width:78px; height:2px; background:var(--accent); opacity:1;}
 .panel-caption{
   font-family:var(--font-body); font-style:italic; font-weight:400;
   font-size:19px; color:var(--title-color); line-height:1.4; max-width:84%;
