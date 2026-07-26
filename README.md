@@ -1,6 +1,8 @@
-# Éditeur de carte — café / brunch
+# VIKTO LABS CAFÉ
 
-Éditeur de carte en ligne pour un café (menu Été 2026).
+Éditeur de carte pour café / brunch.
+
+Édition directe sur la carte, PDF vectoriel prêt pour l'imprimeur, versions horodatées dans le cloud.
 Dépliant **3 volets** (2 planches paysage), entièrement éditable.
 Application web statique, sans build ni serveur : elle s'héberge telle quelle sur **GitHub Pages**.
 
