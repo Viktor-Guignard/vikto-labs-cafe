@@ -467,6 +467,7 @@ function blockClass(blk){
   if(blk.type==='note' && blk.strong) c += ' strong';
   if(blk.type==='item' && blk.inline) c += ' inline';
   if(blk.type==='item' && blk.cols) c += ' wine';
+  if(blk.hidden) c += ' is-hidden';
   return c;
 }
 
@@ -579,9 +580,13 @@ function buildBlockEl(blk){
   const dietToggles = (blk.type === 'item' || blk.type === 'section') ? `
     <button class="rctrl diet-tgl ${blk.veg?'on':''}" data-act="tveg" title="Végétarien (afficher/masquer le picto)"><img src="assets/icon-veg.png" alt=""><span>V</span></button>
     <button class="rctrl diet-tgl ${blk.sg?'on':''}" data-act="tsg" title="Sans gluten (afficher/masquer le picto)"><img src="assets/icon-sg.png" alt=""><span>SG</span></button>` : '';
+  /* Masquage temporaire : retirer un produit epuise SANS le supprimer. */
+  const HIDEABLE = new Set(['item','section','formule','note','divider','panel','brunch','enfant','pricehead','deco']);
+  const hideBtn = HIDEABLE.has(blk.type) ? `
+    <button class="rctrl ${blk.hidden?'is-off':''}" data-act="hide" title="${blk.hidden?'Réafficher':'Masquer temporairement (rupture)'}">${blk.hidden?'🚫':'👁'}</button>` : '';
   controls.innerHTML = `
     <button class="rctrl grip" data-act="grip" title="Glisser pour déplacer où vous voulez">⠿</button>
-    ${dietToggles}
+    ${dietToggles}${hideBtn}
     <button class="rctrl del" data-act="del" title="Supprimer">✕</button>
     <button class="rctrl" data-act="dup" title="Dupliquer">⧉</button>
     <button class="rctrl" data-act="up" title="Monter">↑</button>
@@ -603,6 +608,7 @@ function buildBlockEl(blk){
     if(!act) return;
     const idx = state.doc.findIndex(x=>x.id===blk.id);
     if(idx < 0) return;
+    if(act==='hide'){ state.doc[idx].hidden = !state.doc[idx].hidden; markDirty(); render(); return; }
     if(act==='tveg'){ state.doc[idx].veg = !state.doc[idx].veg; markDirty(); render(); return; }
     if(act==='tsg'){ state.doc[idx].sg = !state.doc[idx].sg; markDirty(); render(); return; }
     if(act==='up' && idx>0){

@@ -511,3 +511,21 @@ body.exporting .sheet.overflowing{outline:none !important;}
 }
 .vikto-credit a{color:var(--teal-dark); text-decoration:none; font-weight:600;}
 .vikto-credit a:hover{text-decoration:underline;}
+
+/* ---------- Masquage temporaire (produit épuisé) ----------
+   Le bloc reste dans la carte du restaurateur, grisé et barré, mais
+   disparaît du PDF téléchargé. */
+.block.is-hidden{opacity:.42;}
+.block.is-hidden .nm, .block.is-hidden .price, .block.is-hidden h2,
+.block.is-hidden .txt, .block.is-hidden > div[contenteditable]{
+  text-decoration:line-through; text-decoration-color:rgba(0,0,0,.35);
+}
+.block.is-hidden::after{
+  content:'Masqué'; position:absolute; left:4px; top:-9px; z-index:3;
+  background:#7a5b1e; color:#fff; font-size:9px; font-weight:600;
+  letter-spacing:.04em; padding:1px 7px; border-radius:10px; white-space:nowrap;
+  text-decoration:none; opacity:1; pointer-events:none;
+}
+.rctrl.is-off{color:#b0782a; opacity:1 !important;}
+/* à l'export : le bloc masqué disparaît complètement */
+body.exporting .block.is-hidden{display:none !important;}
