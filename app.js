@@ -194,6 +194,7 @@ const MULTILINE_FIELDS = new Set(['insta','wifi','d1b','d2b','d3b','d4b','body']
 
 const FONT_CHOICES = {
   title: [
+    {name:'Syne', gq:'Syne:wght@600;700;800'},
     {name:'Playfair Display', gq:'Playfair+Display:wght@400;700;800'},
     {name:'Cormorant Garamond', gq:'Cormorant+Garamond:wght@600;700'},
     {name:'DM Serif Display', gq:'DM+Serif+Display'},
@@ -211,7 +212,7 @@ const FONT_CHOICES = {
 
 function defaultStyle(){
   return {
-    titleFont:'Playfair Display',
+    titleFont:'Syne',
     bodyFont:'EB Garamond',
     titleColor:'#2e2b26',   // charbon chaud (encre)
     accent:'#a9432f',       // terre cuite — le rouge VIKTO LABS (#e52824)
@@ -225,7 +226,7 @@ function defaultStyle(){
 function applyStyle(){
   const st = state.style;
   const root = document.documentElement;
-  root.style.setProperty('--font-title', `'${st.titleFont}', serif`);
+  root.style.setProperty('--font-title', `'${st.titleFont}', ${st.titleFont === 'Syne' ? 'sans-serif' : 'serif'}`);
   root.style.setProperty('--font-body', `'${st.bodyFont}', serif`);
   root.style.setProperty('--title-color', st.titleColor);
   root.style.setProperty('--accent', st.accent);

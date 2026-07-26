@@ -32,6 +32,8 @@
     { file: 'Poppins-Italic.ttf',          name: 'Poppins',          style: 'italic', weight: 'normal' },
     { file: 'Poppins-SemiBold.ttf',        name: 'Poppins',          style: 'normal', weight: 'semibold' },
     { file: 'Poppins-Bold.ttf',            name: 'Poppins',          style: 'normal', weight: 'bold' },
+    { file: 'Syne-Bold.ttf',               name: 'Syne',             style: 'normal', weight: 'bold' },
+    { file: 'Syne-ExtraBold.ttf',          name: 'Syne',             style: 'normal', weight: 'extrabold' },
     { file: 'PlayfairDisplay-Bold.ttf',    name: 'Playfair Display', style: 'normal', weight: 'bold' },
     { file: 'PlayfairDisplay-ExtraBold.ttf', name: 'Playfair Display', style: 'normal', weight: 'extrabold' },
   ];
@@ -65,7 +67,7 @@
   /* Graisse CSS (100-900 ou mot-clé) -> graisse déclarée à jsPDF. */
   function pickWeight(family, cssWeight) {
     const w = parseInt(cssWeight, 10) || (cssWeight === 'bold' ? 700 : 400);
-    if (family === 'Playfair Display') return w >= 800 ? 'extrabold' : 'bold';
+    if (family === 'Playfair Display' || family === 'Syne') return w >= 800 ? 'extrabold' : 'bold';
     if (family === 'EB Garamond') return w >= 600 ? 'bold' : (w >= 500 ? 'semibold' : 'normal');
     if (w >= 700) return 'bold';
     if (w >= 500) return 'semibold';

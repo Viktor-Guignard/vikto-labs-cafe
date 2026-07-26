@@ -15,7 +15,7 @@
   --sheet-pad:30px;
   --volet-h:904px;        /* --sheet-h - 2*--sheet-pad ; volets ~410px comme l'imprimé */
   /* Apparence personnalisable (modale 🎨) */
-  --font-title:'Playfair Display', serif;
+  --font-title:'Syne', sans-serif;
   --font-body:'EB Garamond', serif;
   --font-name:'Poppins', sans-serif;   /* noms de plats (façon imprimé) */
   --title-color:#2e2b26;
@@ -162,12 +162,12 @@ body.placing-block, body.placing-block *{cursor:crosshair !important;}
 
 /* ---------- Section title ---------- */
 .blk-section h2{
-  font-family:var(--font-title); font-weight:700; font-size:16px; color:var(--title-color);
+  font-family:var(--font-title); font-weight:700; font-size:15px; color:var(--title-color);
   margin:10px 0 7px; line-height:1.0; text-transform:uppercase; letter-spacing:.04em;
   display:flex; align-items:baseline; gap:4px;
 }
 .blk-section h2{border-bottom:1px solid rgba(169,67,47,.32); padding-bottom:4px;}
-.blk-section.big h2{font-size:19.5px; letter-spacing:.03em; border-bottom-width:1.4px; padding-bottom:5px;}
+.blk-section.big h2{font-size:18px; letter-spacing:.02em; border-bottom-width:1.4px; padding-bottom:5px;}
 .blk-section:first-child h2{margin-top:0;}
 .blk-section h2 .en{font-family:var(--font-body); font-style:italic; font-weight:400; text-transform:none; color:var(--grey); font-size:9.5px; letter-spacing:0;}
 .blk-section h2 .en.unit{font-style:normal; letter-spacing:.02em; font-size:8px; margin-left:-1px;}
@@ -278,8 +278,8 @@ body.leaders-off .blk-item .leader{display:none;}
 }
 .panel-mid{display:flex; flex-direction:column; align-items:center; gap:16px;}
 .panel-name{
-  font-family:var(--font-title); font-weight:700; font-size:62px; line-height:1.0;
-  letter-spacing:.005em; color:var(--title-color); text-wrap:balance;
+  font-family:var(--font-title); font-weight:800; font-size:52px; line-height:1.06;
+  letter-spacing:-.01em; color:var(--title-color); text-wrap:balance;
 }
 .panel-rule{width:78px; height:2px; background:var(--accent); opacity:1;}
 .panel-caption{
