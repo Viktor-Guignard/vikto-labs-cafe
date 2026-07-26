@@ -30,7 +30,7 @@
 
     return `
       <div class="demo-bar">
-        <span class="demo-brand">Carte</span>
+        <span class="demo-brand">VIKTO LABS</span>
         <span class="dbtn" data-b="undo">↶</span>
         <span class="dbtn" data-b="add">+ Ajouter un bloc</span>
         <span class="dbtn" data-b="app">🎨 Apparence</span>
@@ -180,7 +180,7 @@
       await a.clic(oeil);
       row.classList.add('masked');
       const b = document.createElement('span');
-      b.className = 'dbadge'; b.textContent = 'Masqué du site';
+      b.className = 'dbadge'; b.textContent = 'Masqué';
       row.querySelector('.nm').appendChild(b);
       row.classList.remove('hl');
       a.cacherCurseur();

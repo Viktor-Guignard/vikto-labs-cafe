@@ -90,7 +90,7 @@ function defaultDoc(){
     b('colbreak', {}),
 
     /* ---------- Volet 3 : panneau vert (nom + signature éditables) ---------- */
-    b('panel', {img:null, kicker:'CAFÉ · BRUNCH', name:'Comptoir', caption:'Fait maison, <em>du matin au soir</em>', foot:'MENU · ÉTÉ 2026'}),
+    b('panel', {img:null, kicker:'BRUNCH', name:'VIKTO LABS CAFÉ', caption:'Fait maison, <em>du matin au soir</em>', foot:'MENU · ÉTÉ 2026'}),
 
     b('pagebreak', {}),
 
