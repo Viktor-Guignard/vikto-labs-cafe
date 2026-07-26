@@ -503,3 +503,11 @@ body.exporting .sheet.overflowing{outline:none !important;}
   .panel-name{font-size:46px;}
   .blk-brunch, .blk-enfant{margin:6px 0;}
 }
+
+/* Signature du studio */
+.vikto-credit{
+  text-align:center; font-size:11.5px; color:var(--grey);
+  padding:26px 16px 30px; letter-spacing:.02em;
+}
+.vikto-credit a{color:var(--teal-dark); text-decoration:none; font-weight:600;}
+.vikto-credit a:hover{text-decoration:underline;}
