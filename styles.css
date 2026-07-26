@@ -534,3 +534,131 @@ body.exporting .sheet.overflowing{outline:none !important;}
 .rctrl.is-off{color:#b0782a; opacity:1 !important;}
 /* à l'export : le bloc masqué disparaît complètement */
 body.exporting .block.is-hidden{display:none !important;}
+
+/* =====================================================
+   Assistant d'aide (FAQ conversationnelle)
+   ===================================================== */
+#aideBtn{
+  position:fixed; right:22px; bottom:22px; z-index:400;
+  width:54px; height:54px; border-radius:50%;
+  background:var(--ink); color:#fff; border:none; cursor:pointer;
+  box-shadow:0 6px 22px rgba(20,17,16,.28);
+  font-family:'Playfair Display',serif; font-size:26px; font-weight:700; line-height:1;
+  display:flex; align-items:center; justify-content:center;
+  transition:transform .15s, background .15s;
+}
+#aideBtn:hover{background:var(--teal-dark); transform:scale(1.06);}
+#aideBtn.open{background:var(--ink);}
+#aideBtn.open span{font-size:0;}
+#aideBtn.open span::before{content:'×'; font-size:30px; font-weight:400;}
+
+#aidePanel{
+  position:fixed; right:22px; bottom:88px; z-index:400;
+  width:min(390px, calc(100vw - 32px));
+  max-height:min(560px, calc(100vh - 200px));
+  background:var(--paper); border:1px solid var(--line); border-radius:16px;
+  box-shadow:0 18px 50px rgba(20,17,16,.24);
+  display:none; flex-direction:column; overflow:hidden;
+}
+#aidePanel.open{display:flex; animation:aideIn .18s ease-out;}
+@keyframes aideIn{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:none;}}
+
+.aide-head{
+  display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+  padding:16px 16px 13px; background:var(--ink); color:#fff; flex:none;
+}
+.aide-title{font-family:'Playfair Display',serif; font-size:18px; font-weight:700;}
+.aide-sub{font-size:11.5px; opacity:.85; margin-top:2px;}
+.aide-close{
+  background:none; border:none; color:#fff; font-size:22px; line-height:1;
+  cursor:pointer; opacity:.8; padding:0 2px;
+}
+.aide-close:hover{opacity:1;}
+
+.aide-body{flex:1; overflow-y:auto; padding:14px; background:#f7f6f4;}
+.aide-msg{
+  border-radius:12px; padding:11px 13px; margin-bottom:10px;
+  font-size:13.2px; line-height:1.55; max-width:92%;
+}
+.aide-msg.bot{background:var(--paper); border:1px solid var(--line); color:var(--ink);}
+.aide-msg.user{
+  background:var(--ink); color:#fff; margin-left:auto; border-bottom-right-radius:4px;
+}
+.aide-msg .aide-a-title{
+  font-weight:700; color:var(--teal-dark); margin-bottom:7px; font-size:13.5px;
+}
+.aide-msg ol, .aide-msg ul{margin:6px 0 6px; padding-left:19px;}
+.aide-msg li{margin-bottom:4px;}
+.aide-msg p{margin:6px 0;}
+.aide-msg code{background:#f0efec; padding:1px 5px; border-radius:4px; font-size:12px;}
+.aide-msg .tip{
+  background:#f2fbfa; border-left:3px solid var(--ink); border-radius:0 6px 6px 0;
+  padding:7px 10px; font-size:12.4px; color:#2b544f; margin-top:9px;
+}
+.aide-msg .warn{
+  background:#fdf5ec; border-left:3px solid #d99a3e; border-radius:0 6px 6px 0;
+  padding:7px 10px; font-size:12.4px; color:#7a5b1e; margin-top:9px;
+}
+
+.aide-chips{margin-bottom:12px;}
+.aide-chips-label{
+  font-size:10.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--grey); margin:2px 0 7px; font-weight:600;
+}
+.aide-chip{
+  display:block; width:100%; text-align:left; margin-bottom:6px;
+  background:var(--paper); border:1px solid var(--line); border-radius:10px;
+  padding:9px 12px; font-size:12.8px; font-family:'Poppins',sans-serif;
+  color:var(--ink); cursor:pointer; transition:border-color .12s, background .12s;
+}
+.aide-chip:hover{border-color:var(--ink); background:#f2fbfa; color:var(--teal-dark);}
+
+.aide-form{display:flex; gap:8px; padding:11px; border-top:1px solid var(--line); background:var(--paper); flex:none;}
+.aide-form input{
+  flex:1; border:1px solid var(--line); border-radius:22px; padding:10px 14px;
+  font-size:13px; font-family:'Poppins',sans-serif; outline:none;
+}
+.aide-form input:focus{border-color:var(--ink);}
+.aide-form button{
+  flex:none; width:40px; height:40px; border-radius:50%; border:none;
+  background:var(--ink); color:#fff; cursor:pointer; font-size:15px;
+}
+.aide-form button:hover{background:var(--teal-dark);}
+
+@media (max-width:640px){
+  #aidePanel{right:12px; left:12px; width:auto; bottom:80px; max-height:calc(100vh - 110px);}
+  #aideBtn{right:14px; bottom:14px;}
+}
+
+/* jamais dans le PDF ni à l'impression */
+body.exporting #aideBtn, body.exporting #aidePanel{display:none !important;}
+@media print{ #aideBtn, #aidePanel{display:none !important;} }
+
+/* Repli « écrire à VIKTO LABS » dans l'assistant */
+.aide-mailbox{
+  background:var(--paper); border:1px solid var(--ink); border-radius:12px;
+  padding:12px 13px; margin-bottom:12px;
+}
+.aide-mailbox-txt{font-size:12.6px; color:var(--ink); margin-bottom:9px;}
+.aide-mail{
+  display:block; text-align:center; text-decoration:none;
+  background:var(--ink); color:#fff; border-radius:9px;
+  padding:10px 12px; font-size:12.8px; font-weight:600;
+}
+.aide-mail:hover{background:var(--teal-dark);}
+.aide-mailbox-alt{font-size:11px; color:var(--grey); margin-top:8px; text-align:center;}
+
+/* ---------- Bloc masqué temporairement (rupture…) ---------- */
+.block.is-hidden{opacity:.42;}
+.block.is-hidden .fr, .block.is-hidden .price, .block.is-hidden > div[contenteditable],
+.block.is-hidden h2, .block.is-hidden .txt{text-decoration:line-through; text-decoration-color:rgba(0,0,0,.35);}
+.hidden-badge{
+  position:absolute; left:4px; top:-9px; z-index:3;
+  background:#7a5b1e; color:#fff; font-size:9px; font-weight:600;
+  letter-spacing:.04em; padding:1px 7px; border-radius:10px; white-space:nowrap;
+  text-decoration:none !important; opacity:1;
+}
+.rctrl.is-off{color:#b0782a; opacity:1 !important;}
+/* À l'export PDF, le plat masqué disparaît aussi — comme sur le site
+   et la page QR (demande de Viktor, 26 juil) */
+body.exporting .block.is-hidden{display:none !important;}
