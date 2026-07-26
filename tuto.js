@@ -253,7 +253,11 @@
       const p = document.createElement('span');
       p.textContent = ' ⓥ';
       p.style.cssText = 'color:#5d7a3a;font-size:9px;font-weight:700';
-      row.querySelector('.nm').appendChild(p);
+      /* juste apres le nom : la description (.en) est un bloc, un picto
+         ajoute a la fin tomberait a la ligne */
+      const nm = row.querySelector('.nm');
+      const desc = nm.querySelector('.en');
+      if (desc) nm.insertBefore(p, desc); else nm.appendChild(p);
       row.classList.remove('hl');
       a.cacherCurseur();
       a.dire('Le pictogramme apparaît sur la carte. SG fait de même pour le sans gluten.');
