@@ -520,7 +520,13 @@ body.exporting .sheet.overflowing{outline:none !important;}
 /* ---------- Masquage temporaire (produit épuisé) ----------
    Le bloc reste dans la carte du restaurateur, grisé et barré, mais
    disparaît du PDF téléchargé. */
-.block.is-hidden{opacity:.42;}
+/* L'attenuation porte sur le contenu, jamais sur le bloc lui-meme : une
+   opacite sur .block creerait un contexte d'empilement qui enfermerait le
+   z-index:6 de ses .row-controls. Le bloc de la colonne voisine, plus loin
+   dans le DOM, se peignait alors par-dessus le bouton « Reafficher » et
+   avalait le clic — impossible de demasquer une rubrique. Remonter le bloc
+   avec un z-index le ferait a son tour recouvrir la barre « + ajouter ici ». */
+.block.is-hidden > *:not(.row-controls){opacity:.42;}
 .block.is-hidden .nm, .block.is-hidden .price, .block.is-hidden h2,
 .block.is-hidden .txt, .block.is-hidden > div[contenteditable]{
   text-decoration:line-through; text-decoration-color:rgba(0,0,0,.35);
@@ -649,7 +655,13 @@ body.exporting #aideBtn, body.exporting #aidePanel{display:none !important;}
 .aide-mailbox-alt{font-size:11px; color:var(--grey); margin-top:8px; text-align:center;}
 
 /* ---------- Bloc masqué temporairement (rupture…) ---------- */
-.block.is-hidden{opacity:.42;}
+/* L'attenuation porte sur le contenu, jamais sur le bloc lui-meme : une
+   opacite sur .block creerait un contexte d'empilement qui enfermerait le
+   z-index:6 de ses .row-controls. Le bloc de la colonne voisine, plus loin
+   dans le DOM, se peignait alors par-dessus le bouton « Reafficher » et
+   avalait le clic — impossible de demasquer une rubrique. Remonter le bloc
+   avec un z-index le ferait a son tour recouvrir la barre « + ajouter ici ». */
+.block.is-hidden > *:not(.row-controls){opacity:.42;}
 .block.is-hidden .fr, .block.is-hidden .price, .block.is-hidden > div[contenteditable],
 .block.is-hidden h2, .block.is-hidden .txt{text-decoration:line-through; text-decoration-color:rgba(0,0,0,.35);}
 .hidden-badge{
