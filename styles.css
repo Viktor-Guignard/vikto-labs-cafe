@@ -109,10 +109,19 @@ body{
 .block.selected{outline:2px dashed var(--teal);}
 
 /* Contrôles en bout de ligne */
+/* Les contrôles se plaçaient hors du bloc, à sa droite (translate 100%).
+   Cela convenait à une page à une seule colonne, mais dans une carte à
+   plusieurs volets ils débordaient sur le volet voisin : en survolant une
+   ligne, on voyait ses icônes s'afficher par-dessus la colonne d'à côté.
+   Ils restent désormais à l'intérieur du bloc, sur fond opaque pour rester
+   lisibles au-dessus du texte. */
 .row-controls{
-  position:absolute; right:-4px; top:50%;
-  transform:translate(100%,-50%);
+  position:absolute; right:2px; top:50%;
+  transform:translateY(-50%);
   display:flex; align-items:center; gap:3px; z-index:6;
+  padding:2px 3px; border-radius:7px;
+  background:var(--paper);
+  box-shadow:0 0 0 3px var(--paper), 0 2px 10px rgba(20,17,16,.16);
 }
 .rctrl{
   width:22px;height:22px; border-radius:6px; border:1px solid var(--line);
