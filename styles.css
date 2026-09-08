@@ -120,6 +120,15 @@ body{
   transform:translateY(-50%);
   display:flex; align-items:center; gap:3px; z-index:6;
   padding:2px 3px; border-radius:7px;
+  background:transparent;
+  transition:background .12s, box-shadow .12s;
+}
+/* Le fond ne parait qu'avec les boutons. Ce sont les .rctrl qui portent
+   l'opacite (0 au repos, 1 au survol du bloc), pas ce conteneur : lui poser
+   un fond en permanence peignait un rectangle opaque sur la droite de chaque
+   ligne de la carte. */
+.block:hover > .row-controls,
+.block.selected > .row-controls{
   background:var(--paper);
   box-shadow:0 0 0 3px var(--paper), 0 2px 10px rgba(20,17,16,.16);
 }
