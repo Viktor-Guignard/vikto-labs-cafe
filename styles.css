@@ -125,6 +125,12 @@ body{
    dans cette meme gouttiere, quand on vient sur la poignee. Rien n'est
    jamais recouvert. */
 .row-controls{
+  /* Inerte tant que sa ligne n'est pas survolee : sinon les poignees, hautes
+     de 18 px pour des lignes espacees de 17, pavent la gouttiere et ouvrent
+     une palette au hasard quand la souris la traverse. La poignee etant un
+     enfant du bloc, la survoler maintient .block:hover : le passage de la
+     ligne a la poignee ne coupe donc rien. */
+  pointer-events:none;
   position:absolute; left:100%; top:0; margin-left:0;
   display:flex; flex-direction:column; align-items:center; gap:2px;
   z-index:6; padding:1px; border-radius:6px;
@@ -135,14 +141,23 @@ body{
    remplissage. Depliee, on s'autorise des boutons plus confortables — a ce
    moment-la le curseur est sur la palette, pas sur le texte. */
 .row-controls .rctrl{width:16px; height:16px; font-size:9px; border-radius:4px;}
-.row-controls:hover > .rctrl{width:20px; height:20px; font-size:11px;}
 /* Depliee, la palette s'ouvre sur deux colonnes : une seule ferait 176 px de
    haut, penible a parcourir dans un couloir de 22 px et debordant sous la
    planche. Sur deux colonnes elle fait 44 x 88 : elle mord alors sur la
    colonne voisine, mais seulement tant que le curseur est dessus, et elle
    est translucide. */
 .row-controls:hover,
-.block.selected > .row-controls{flex-flow:row wrap; align-content:flex-start; width:46px;}
+.row-controls:focus-within,
+.block.selected > .row-controls{flex-flow:row wrap; align-content:flex-start; width:38px;}
+
+/* Zone tampon invisible : sans elle, sortir d'un pixel de la palette la
+   referme et le bouton vise disparait sous la souris. Elle ne s'etend que
+   vers la gouttiere, le haut et le bas — jamais vers la gauche, ou se
+   trouve le prix de la ligne, qui doit rester cliquable. */
+.block:hover > .row-controls::after,
+.row-controls:hover::after{
+  content:''; position:absolute; left:0; right:0; top:-8px; bottom:-12px;
+}
 .row-controls .rctrl.diet-tgl{width:16px; padding:0; gap:0;}
 .row-controls .rctrl.diet-tgl span{display:none;}
 .row-controls .rctrl.diet-tgl img{height:10px;}
@@ -152,6 +167,7 @@ body{
    la poignee etant dans le bloc, la survoler survole aussi le bloc. */
 .row-controls > .rctrl:not(.grip){display:none;}
 .row-controls:hover > .rctrl,
+.row-controls:focus-within > .rctrl,
 .block.selected > .row-controls > .rctrl{display:flex;}
 
 /* Le fond ne parait qu'avec les boutons. Ce sont les .rctrl qui portent
@@ -159,6 +175,7 @@ body{
    un fond en permanence peignait un rectangle sur chaque ligne de la carte. */
 .block:hover > .row-controls,
 .block.selected > .row-controls{
+  pointer-events:auto;
   background:rgba(255,253,249,.82);
   backdrop-filter:blur(6px);
   -webkit-backdrop-filter:blur(6px);
