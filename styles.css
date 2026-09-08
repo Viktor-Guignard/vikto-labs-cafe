@@ -140,7 +140,10 @@ body{
 /* Repliee, la poignee doit tenir dans les 18 px de gouttiere : 16 + 2 de
    remplissage. Depliee, on s'autorise des boutons plus confortables — a ce
    moment-la le curseur est sur la palette, pas sur le texte. */
-.row-controls .rctrl{width:16px; height:16px; font-size:9px; border-radius:4px;}
+/* position:relative + z-index place les boutons AU-DESSUS de la zone tampon
+   ::after, qui sinon, etant en position absolue, se peint par-dessus eux et
+   avale tous leurs clics. */
+.row-controls .rctrl{width:16px; height:16px; font-size:9px; border-radius:4px; position:relative; z-index:1;}
 /* Depliee, la palette s'ouvre sur deux colonnes : une seule ferait 176 px de
    haut, penible a parcourir dans un couloir de 22 px et debordant sous la
    planche. Sur deux colonnes elle fait 44 x 88 : elle mord alors sur la
