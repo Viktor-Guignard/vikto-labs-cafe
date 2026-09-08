@@ -641,11 +641,18 @@ function buildBlockEl(blk){
   let ouverture = null;
   const ouvrir = () => {
     if(ouverture || controls.classList.contains('is-open')) return;
-    ouverture = setTimeout(() => { controls.classList.add('is-open'); ouverture = null; }, 150);
+    ouverture = setTimeout(() => {
+      controls.classList.add('is-open');
+      document.body.classList.add('palette-ouverte');
+      ouverture = null;
+    }, 150);
   };
   const fermer = () => {
     clearTimeout(ouverture); ouverture = null;
     controls.classList.remove('is-open');
+    if(!document.querySelector('.row-controls.is-open')){
+      document.body.classList.remove('palette-ouverte');
+    }
   };
   controls.addEventListener('mouseenter', ouvrir);
   controls.addEventListener('mousemove', ouvrir);
@@ -672,6 +679,7 @@ function buildBlockEl(blk){
       // On deplie d'abord : un bouton en display:none ne peut pas prendre le
       // focus, et la palette est repliee tant que rien ne la survole.
       palette.classList.add('is-open');
+      document.body.classList.add('palette-ouverte');
       const cible = palette.querySelector(`.rctrl[data-act="${act}"]`);
       if(cible) cible.focus({ preventScroll: true });
       // La palette reste depliee tant que la souris est sur la ligne ; le
