@@ -115,9 +115,12 @@ body{
    ligne, on voyait ses icônes s'afficher par-dessus la colonne d'à côté.
    Ils restent désormais à l'intérieur du bloc, sur fond opaque pour rester
    lisibles au-dessus du texte. */
+/* La barre se pose juste AU-DESSUS de la ligne, calee a droite. Centree sur
+   la ligne, elle recouvrait sa description et son prix : impossible de
+   cliquer dedans pour les modifier, ce qui est pourtant la raison meme du
+   survol. Posee dehors, a droite, elle mordait sur le volet voisin. */
 .row-controls{
-  position:absolute; right:2px; top:50%;
-  transform:translateY(-50%);
+  position:absolute; right:2px; bottom:calc(100% - 2px);
   display:flex; align-items:center; gap:3px; z-index:6;
   padding:2px 3px; border-radius:7px;
   background:transparent;
@@ -137,7 +140,10 @@ body{
    est plus large que la cellule et mordrait sur la colonne voisine. On la
    resserre — pictos sans leur libelle, ecarts reduits — pour qu'elle tienne
    dans la ligne survolee. */
-.item-grid .block > .row-controls{gap:2px; padding:1px 2px;}
+/* Dans la grille a deux colonnes (column-count), le calcul en pourcentage de
+   `bottom` se resout mal : la barre retombait sur la ligne. On l'ancre par le
+   haut, avec un decalage fixe. */
+.item-grid .block > .row-controls{gap:2px; padding:1px 2px; bottom:auto; top:-23px;}
 .item-grid .block > .row-controls .rctrl.diet-tgl{width:22px; padding:0; gap:0;}
 .item-grid .block > .row-controls .rctrl.diet-tgl span{display:none;}
 .rctrl{
