@@ -150,8 +150,7 @@ body{
    colonne voisine, mais seulement tant que le curseur est dessus, et elle
    est translucide. */
 .row-controls:hover,
-.row-controls:focus-within,
-.block.selected > .row-controls{flex-flow:row wrap; align-content:flex-start; width:38px;}
+.row-controls:focus-within{flex-flow:row wrap; align-content:flex-start; width:38px;}
 
 /* Zone tampon invisible : sans elle, sortir d'un pixel de la palette la
    referme et le bouton vise disparait sous la souris. Elle ne s'etend que
@@ -170,25 +169,19 @@ body{
    la poignee etant dans le bloc, la survoler survole aussi le bloc. */
 .row-controls > .rctrl:not(.grip){display:none;}
 .row-controls:hover > .rctrl,
-.row-controls:focus-within > .rctrl,
-.block.selected > .row-controls > .rctrl{display:flex;}
+.row-controls:focus-within > .rctrl{display:flex;}
 
 /* Le fond ne parait qu'avec les boutons. Ce sont les .rctrl qui portent
    l'opacite (0 au repos, 1 au survol du bloc), pas ce conteneur : lui poser
    un fond en permanence peignait un rectangle sur chaque ligne de la carte. */
-.block:hover > .row-controls,
-.block.selected > .row-controls{
+.block:hover > .row-controls{
   pointer-events:auto;
   background:rgba(255,253,249,.82);
   backdrop-filter:blur(6px);
   -webkit-backdrop-filter:blur(6px);
   box-shadow:0 2px 12px rgba(20,17,16,.18), 0 0 0 1px rgba(20,17,16,.06);
 }
-.block:hover > .row-controls .rctrl,
-.block.selected > .row-controls .rctrl{background:rgba(255,255,255,.92);}
-/* Un bloc selectionne sans survol affichait la palette mais pas ses boutons,
-   l'opacite n'etant levee que par :hover. */
-.block.selected > .row-controls .rctrl{opacity:1;}
+.block:hover > .row-controls .rctrl{background:rgba(255,255,255,.92);}
 
 .rctrl{
   width:22px;height:22px; border-radius:6px; border:1px solid var(--line);
@@ -552,6 +545,7 @@ body.exporting .sheet.overflowing{outline:none !important;}
   /* contrôles d'édition : masqués par défaut, révélés en touchant le bloc */
   .row-controls{position:static; transform:none; justify-content:flex-end; margin-top:6px; gap:8px; flex-wrap:wrap; display:none;}
   .block.selected .row-controls{display:flex;}
+  .block.selected > .row-controls > .rctrl{display:flex;}   /* sinon seule la poignee parait */
   .block.selected{outline:2px dashed var(--teal); outline-offset:2px;}
   .rctrl{opacity:1; width:30px; height:30px; font-size:13px;}
   .rctrl.diet-tgl{width:auto; padding:0 9px; font-size:11px;}
