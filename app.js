@@ -619,6 +619,14 @@ function buildBlockEl(blk){
     majSelection(blk.id);
   });
 
+  /* Apres une action on rend le focus a un bouton pour que la palette reste
+     ouverte et qu'on puisse enchainer. Sans contrepartie, elle le restait
+     indefiniment : en s'eloignant, on laissait derriere soi un rectangle
+     flou en surimpression sur la carte. Quitter la ligne rend donc la main. */
+  wrap.addEventListener('mouseleave', () => {
+    if(wrap.contains(document.activeElement)) document.activeElement.blur();
+  });
+
   controls.addEventListener('click', (e) => {
     const btn = e.target.closest('.rctrl');
     if(!btn) return;
