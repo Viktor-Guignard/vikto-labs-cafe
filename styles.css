@@ -131,17 +131,30 @@ body{
    l'opacite (0 au repos, 1 au survol du bloc), pas ce conteneur : lui poser
    un fond en permanence peignait un rectangle opaque sur la droite de chaque
    ligne de la carte. */
+/* Palette flottante translucide : dans les grilles serrees, les lignes sont
+   espacees de 18 px pour une barre de 24 px — elle recouvre forcement une
+   ligne. La laisser voir au travers rend ce recouvrement supportable : on lit
+   toujours ce qu'il y a dessous. */
 .block:hover > .row-controls,
 .block.selected > .row-controls{
-  background:var(--paper);
-  box-shadow:0 0 0 3px var(--paper), 0 2px 10px rgba(20,17,16,.16);
+  background:rgba(255,253,249,.72);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  box-shadow:0 2px 12px rgba(20,17,16,.18), 0 0 0 1px rgba(20,17,16,.06);
 }
+.block:hover > .row-controls .rctrl,
+.block.selected > .row-controls .rctrl{background:rgba(255,255,255,.9);}
+/* Un bloc selectionne sans survol affichait la palette mais pas ses boutons,
+   l'opacite n'etant levee que par :hover. */
+.block.selected > .row-controls .rctrl{opacity:1;}
 
 /* Lignes en demi-colonne (grille a deux sous-colonnes) : la barre complete y
    est plus large que la cellule et mordrait sur la colonne voisine. On la
    resserre — pictos sans leur libelle, ecarts reduits — pour qu'elle tienne
    dans la ligne survolee. */
 .item-grid .block > .row-controls{gap:2px; padding:1px 2px;}
+.item-grid .block > .row-controls .rctrl{width:18px; height:18px; font-size:9px; border-radius:5px;}
+.item-grid .block > .row-controls .rctrl.diet-tgl img{height:10px;}
 .item-grid .block > .row-controls .rctrl.diet-tgl{width:22px; padding:0; gap:0;}
 .item-grid .block > .row-controls .rctrl.diet-tgl span{display:none;}
 .rctrl{
