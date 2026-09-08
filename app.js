@@ -557,6 +557,13 @@ function render(){
     g.appendChild(buildBlockEl(blk));
   });
 
+  // Nombre de lignes de chaque grille a deux colonnes : la moitie des plats,
+  // arrondie au-dessus, pour que le remplissage en colonnes reproduise
+  // l'ordre de l'imprime (voir .item-grid dans styles.css).
+  document.querySelectorAll('.item-grid').forEach(g => {
+    g.style.setProperty('--lignes', Math.ceil(g.children.length / 2));
+  });
+
   requestAnimationFrame(checkOverflow);
 }
 
@@ -627,6 +634,23 @@ function buildBlockEl(blk){
     if(wrap.contains(document.activeElement)) document.activeElement.blur();
   });
 
+  /* Dépliage apres un court arret sur la poignee. Un dépliage immediat au
+     survol ouvrait une palette a chaque ligne traversee dans la gouttiere ;
+     rendre la poignee inerte en dehors du survol de la ligne l'empechait de
+     repondre quand on venait directement a elle. Le delai concilie les deux. */
+  let ouverture = null;
+  const ouvrir = () => {
+    if(ouverture || controls.classList.contains('is-open')) return;
+    ouverture = setTimeout(() => { controls.classList.add('is-open'); ouverture = null; }, 150);
+  };
+  const fermer = () => {
+    clearTimeout(ouverture); ouverture = null;
+    controls.classList.remove('is-open');
+  };
+  controls.addEventListener('mouseenter', ouvrir);
+  controls.addEventListener('mousemove', ouvrir);
+  controls.addEventListener('mouseleave', fermer);
+
   controls.addEventListener('click', (e) => {
     const btn = e.target.closest('.rctrl');
     if(!btn) return;
@@ -650,8 +674,8 @@ function buildBlockEl(blk){
       palette.classList.add('is-open');
       const cible = palette.querySelector(`.rctrl[data-act="${act}"]`);
       if(cible) cible.focus({ preventScroll: true });
-      // Le focus pose, c'est le :focus-within qui prend le relais.
-      setTimeout(() => palette.classList.remove('is-open'), 0);
+      // La palette reste depliee tant que la souris est sur la ligne ; le
+      // mouseleave du bloc rend le focus et celui de la palette retire is-open.
     };
     if(act==='hide'){ state.doc[idx].hidden = !state.doc[idx].hidden; markDirty(); rendre(); return; }
     if(act==='tveg'){ state.doc[idx].veg = !state.doc[idx].veg; markDirty(); rendre(); return; }
