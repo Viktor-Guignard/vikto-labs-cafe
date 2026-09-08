@@ -632,6 +632,7 @@ function buildBlockEl(blk){
      flou en surimpression sur la carte. Quitter la ligne rend donc la main. */
   wrap.addEventListener('mouseleave', () => {
     if(wrap.contains(document.activeElement)) document.activeElement.blur();
+    controls.classList.remove('is-open');
   });
 
   /* Dépliage apres un court arret sur la poignee. Un dépliage immediat au
@@ -641,18 +642,11 @@ function buildBlockEl(blk){
   let ouverture = null;
   const ouvrir = () => {
     if(ouverture || controls.classList.contains('is-open')) return;
-    ouverture = setTimeout(() => {
-      controls.classList.add('is-open');
-      document.body.classList.add('palette-ouverte');
-      ouverture = null;
-    }, 150);
+    ouverture = setTimeout(() => { controls.classList.add('is-open'); ouverture = null; }, 150);
   };
   const fermer = () => {
     clearTimeout(ouverture); ouverture = null;
     controls.classList.remove('is-open');
-    if(!document.querySelector('.row-controls.is-open')){
-      document.body.classList.remove('palette-ouverte');
-    }
   };
   controls.addEventListener('mouseenter', ouvrir);
   controls.addEventListener('mousemove', ouvrir);
@@ -679,11 +673,13 @@ function buildBlockEl(blk){
       // On deplie d'abord : un bouton en display:none ne peut pas prendre le
       // focus, et la palette est repliee tant que rien ne la survole.
       palette.classList.add('is-open');
-      document.body.classList.add('palette-ouverte');
       const cible = palette.querySelector(`.rctrl[data-act="${act}"]`);
       if(cible) cible.focus({ preventScroll: true });
-      // La palette reste depliee tant que la souris est sur la ligne ; le
-      // mouseleave du bloc rend le focus et celui de la palette retire is-open.
+      // is-open n'a servi qu'a rendre le bouton focusable : on le retire
+      // aussitot, le :focus-within prend le relais. Laisse en place, il
+      // restait colle quand le DOM etait reconstruit sans que la souris ne
+      // quitte la palette, et plus aucune poignee ne repondait ensuite.
+      setTimeout(() => palette.classList.remove('is-open'), 0);
     };
     if(act==='hide'){ state.doc[idx].hidden = !state.doc[idx].hidden; markDirty(); rendre(); return; }
     if(act==='tveg'){ state.doc[idx].veg = !state.doc[idx].veg; markDirty(); rendre(); return; }

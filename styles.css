@@ -168,9 +168,6 @@ body{
    captaient la souris — le menu sautait alors sur la ligne du dessous. */
 .row-controls:focus-within,
 .row-controls.is-open{z-index:20;}
-/* Ceinture et bretelles : tant qu'une palette est ouverte, aucune autre
-   poignee ne repond. */
-body.palette-ouverte .row-controls:not(.is-open):not(:focus-within){pointer-events:none;}
 
 /* Zone tampon invisible : sans elle, sortir d'un pixel de la palette la
    referme et le bouton vise disparait sous la souris. Elle ne s'etend que
