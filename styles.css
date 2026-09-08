@@ -115,35 +115,53 @@ body{
    ligne, on voyait ses icônes s'afficher par-dessus la colonne d'à côté.
    Ils restent désormais à l'intérieur du bloc, sur fond opaque pour rester
    lisibles au-dessus du texte. */
-/* La barre se pose juste AU-DESSUS de la ligne, calee a droite. Centree sur
-   la ligne, elle recouvrait sa description et son prix : impossible de
-   cliquer dedans pour les modifier, ce qui est pourtant la raison meme du
-   survol. Posee dehors, a droite, elle mordait sur le volet voisin. */
+/* Controles de ligne : une poignee dans la gouttiere, pas une barre.
+   Aucune position ne permettait de loger huit boutons pres d'une ligne sans
+   masquer quelque chose : sur la ligne ils couvraient le prix, au-dessus ils
+   avalaient la ligne precedente, haute de 17 px seulement dans les grilles.
+   On exploite donc le seul espace reellement libre — la gouttiere entre les
+   colonnes (18 px) et la marge de planche (30 px). Au survol de la ligne,
+   seule la poignee parait ; les autres actions se deplient verticalement,
+   dans cette meme gouttiere, quand on vient sur la poignee. Rien n'est
+   jamais recouvert. */
 .row-controls{
-  position:absolute; right:2px; top:0;
-  transform:translateY(calc(-100% + 2px));
-  display:flex; align-items:center; gap:3px; z-index:6;
-  padding:2px 3px; border-radius:7px;
+  position:absolute; left:100%; top:0; margin-left:0;
+  display:flex; flex-direction:column; align-items:center; gap:2px;
+  z-index:6; padding:1px; border-radius:6px;
   background:transparent;
   transition:background .12s, box-shadow .12s;
 }
+/* Repliee, la poignee doit tenir dans les 18 px de gouttiere : 16 + 2 de
+   remplissage. Depliee, on s'autorise des boutons plus confortables — a ce
+   moment-la le curseur est sur la palette, pas sur le texte. */
+.row-controls .rctrl{width:16px; height:16px; font-size:9px; border-radius:4px;}
+.row-controls:hover > .rctrl{width:20px; height:20px; font-size:11px;}
+/* Depliee, la palette s'ouvre sur deux colonnes : une seule ferait 176 px de
+   haut, penible a parcourir dans un couloir de 22 px et debordant sous la
+   planche. Sur deux colonnes elle fait 44 x 88 : elle mord alors sur la
+   colonne voisine, mais seulement tant que le curseur est dessus, et elle
+   est translucide. */
+.row-controls:hover{flex-flow:row wrap; align-content:flex-start; width:46px;}
+.row-controls .rctrl.diet-tgl{width:16px; padding:0; gap:0;}
+.row-controls .rctrl.diet-tgl span{display:none;}
+.row-controls .rctrl.diet-tgl img{height:10px;}
+
+/* Repliee : seule la poignee. Depliee : la colonne complete. */
+.block:hover > .row-controls > .rctrl:not(.grip){display:none;}
+.row-controls:hover > .rctrl{display:flex;}
+
 /* Le fond ne parait qu'avec les boutons. Ce sont les .rctrl qui portent
    l'opacite (0 au repos, 1 au survol du bloc), pas ce conteneur : lui poser
-   un fond en permanence peignait un rectangle opaque sur la droite de chaque
-   ligne de la carte. */
-/* Palette flottante translucide : dans les grilles serrees, les lignes sont
-   espacees de 18 px pour une barre de 24 px — elle recouvre forcement une
-   ligne. La laisser voir au travers rend ce recouvrement supportable : on lit
-   toujours ce qu'il y a dessous. */
+   un fond en permanence peignait un rectangle sur chaque ligne de la carte. */
 .block:hover > .row-controls,
 .block.selected > .row-controls{
-  background:rgba(255,253,249,.72);
+  background:rgba(255,253,249,.82);
   backdrop-filter:blur(6px);
   -webkit-backdrop-filter:blur(6px);
   box-shadow:0 2px 12px rgba(20,17,16,.18), 0 0 0 1px rgba(20,17,16,.06);
 }
 .block:hover > .row-controls .rctrl,
-.block.selected > .row-controls .rctrl{background:rgba(255,255,255,.9);}
+.block.selected > .row-controls .rctrl{background:rgba(255,255,255,.92);}
 /* Un bloc selectionne sans survol affichait la palette mais pas ses boutons,
    l'opacite n'etant levee que par :hover. */
 .block.selected > .row-controls .rctrl{opacity:1;}
@@ -152,11 +170,6 @@ body{
    est plus large que la cellule et mordrait sur la colonne voisine. On la
    resserre — pictos sans leur libelle, ecarts reduits — pour qu'elle tienne
    dans la ligne survolee. */
-.item-grid .block > .row-controls{gap:2px; padding:1px 2px;}
-.item-grid .block > .row-controls .rctrl{width:18px; height:18px; font-size:9px; border-radius:5px;}
-.item-grid .block > .row-controls .rctrl.diet-tgl img{height:10px;}
-.item-grid .block > .row-controls .rctrl.diet-tgl{width:22px; padding:0; gap:0;}
-.item-grid .block > .row-controls .rctrl.diet-tgl span{display:none;}
 .rctrl{
   width:22px;height:22px; border-radius:6px; border:1px solid var(--line);
   background:#fff; cursor:pointer; font-size:11px; line-height:1;
