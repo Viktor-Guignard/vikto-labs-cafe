@@ -132,6 +132,14 @@ body{
   background:var(--paper);
   box-shadow:0 0 0 3px var(--paper), 0 2px 10px rgba(20,17,16,.16);
 }
+
+/* Lignes en demi-colonne (grille a deux sous-colonnes) : la barre complete y
+   est plus large que la cellule et mordrait sur la colonne voisine. On la
+   resserre — pictos sans leur libelle, ecarts reduits — pour qu'elle tienne
+   dans la ligne survolee. */
+.item-grid .block > .row-controls{gap:2px; padding:1px 2px;}
+.item-grid .block > .row-controls .rctrl.diet-tgl{width:22px; padding:0; gap:0;}
+.item-grid .block > .row-controls .rctrl.diet-tgl span{display:none;}
 .rctrl{
   width:22px;height:22px; border-radius:6px; border:1px solid var(--line);
   background:#fff; cursor:pointer; font-size:11px; line-height:1;
