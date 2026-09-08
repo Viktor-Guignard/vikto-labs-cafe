@@ -474,6 +474,21 @@ function blockClass(blk){
   return c;
 }
 
+/* La selection ne peut pas declencher render() : cela reconstruirait le DOM
+   et ferait perdre le curseur en pleine saisie. On deplace donc la classe a la
+   main. Sans cela, cliquer un bloc posait la selection sans rien afficher, et
+   les pointillés surgissaient au rendu suivant — donc apres une action sans
+   rapport — puis ne partaient plus, faute de quoi que ce soit qui les efface. */
+function majSelection(id){
+  if(state.selectedId === id) return;
+  state.selectedId = id;
+  document.querySelectorAll('.block.selected').forEach(b => b.classList.remove('selected'));
+  if(id){
+    const el = document.querySelector(`[data-block-id="${id}"]`);
+    if(el) el.classList.add('selected');
+  }
+}
+
 function render(){
   canvasWrap.innerHTML = '';
   let sheetEl = null, voletEl = null, sheetNum = 0;
@@ -601,7 +616,7 @@ function buildBlockEl(blk){
   wrap.addEventListener('click', (e) => {
     if(e.target.closest('.rctrl')) return;
     if(e.target.closest('.img-slot')) return;
-    state.selectedId = blk.id;
+    majSelection(blk.id);
   });
 
   controls.addEventListener('click', (e) => {
@@ -662,6 +677,14 @@ function buildBlockEl(blk){
 
   return wrap;
 }
+
+/* Cliquer hors de tout bloc efface la selection : sinon les pointillés
+   restaient indefiniment sur le dernier bloc touche. */
+document.addEventListener('click', (e) => {
+  if(e.target.closest('.block')) return;
+  if(e.target.closest('.row-controls')) return;
+  majSelection(null);
+});
 
 /* ===================== Glisser-déposer d'un bloc (aimanté à la grille) ===================== */
 
