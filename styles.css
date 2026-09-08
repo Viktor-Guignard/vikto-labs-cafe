@@ -150,7 +150,8 @@ body{
    colonne voisine, mais seulement tant que le curseur est dessus, et elle
    est translucide. */
 .row-controls:hover,
-.row-controls:focus-within{flex-flow:row wrap; align-content:flex-start; width:38px;}
+.row-controls:focus-within,
+.row-controls.is-open{flex-flow:row wrap; align-content:flex-start; width:38px;}
 
 /* Zone tampon invisible : sans elle, sortir d'un pixel de la palette la
    referme et le bouton vise disparait sous la souris. Elle ne s'etend que
@@ -169,19 +170,27 @@ body{
    la poignee etant dans le bloc, la survoler survole aussi le bloc. */
 .row-controls > .rctrl:not(.grip){display:none;}
 .row-controls:hover > .rctrl,
-.row-controls:focus-within > .rctrl{display:flex;}
+.row-controls:focus-within > .rctrl,
+.row-controls.is-open > .rctrl{display:flex;}
 
 /* Le fond ne parait qu'avec les boutons. Ce sont les .rctrl qui portent
    l'opacite (0 au repos, 1 au survol du bloc), pas ce conteneur : lui poser
    un fond en permanence peignait un rectangle sur chaque ligne de la carte. */
-.block:hover > .row-controls{
+.block:hover > .row-controls,
+.row-controls:focus-within,
+.row-controls.is-open{
   pointer-events:auto;
   background:rgba(255,253,249,.82);
   backdrop-filter:blur(6px);
   -webkit-backdrop-filter:blur(6px);
   box-shadow:0 2px 12px rgba(20,17,16,.18), 0 0 0 1px rgba(20,17,16,.06);
 }
-.block:hover > .row-controls .rctrl{background:rgba(255,255,255,.92);}
+.block:hover > .row-controls .rctrl,
+.row-controls:focus-within .rctrl{background:rgba(255,255,255,.92);}
+/* Apres un clic le DOM est reconstruit et le survol perdu : c'est le focus,
+   rendu au bouton equivalent, qui garde la palette visible et utilisable. */
+.row-controls:focus-within .rctrl,
+.row-controls.is-open .rctrl{opacity:1;}
 
 .rctrl{
   width:22px;height:22px; border-radius:6px; border:1px solid var(--line);

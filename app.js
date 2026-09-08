@@ -611,28 +611,47 @@ function buildBlockEl(blk){
     if(!act) return;
     const idx = state.doc.findIndex(x=>x.id===blk.id);
     if(idx < 0) return;
-    if(act==='hide'){ state.doc[idx].hidden = !state.doc[idx].hidden; markDirty(); render(); return; }
-    if(act==='tveg'){ state.doc[idx].veg = !state.doc[idx].veg; markDirty(); render(); return; }
-    if(act==='tsg'){ state.doc[idx].sg = !state.doc[idx].sg; markDirty(); render(); return; }
+
+    /* Chaque action reconstruit le DOM : le bouton sur lequel on vient de
+       cliquer disparait avec l'ancien, la palette perd son survol et se
+       referme sous la souris. On rend donc le focus au bouton equivalent du
+       nouveau DOM ; le :focus-within de la feuille de style garde alors la
+       palette ouverte, et on peut enchainer les clics. */
+    const rendre = () => {
+      render();
+      const palette = document.querySelector(
+        `[data-block-id="${blk.id}"] > .row-controls`);
+      if(!palette) return;
+      // On deplie d'abord : un bouton en display:none ne peut pas prendre le
+      // focus, et la palette est repliee tant que rien ne la survole.
+      palette.classList.add('is-open');
+      const cible = palette.querySelector(`.rctrl[data-act="${act}"]`);
+      if(cible) cible.focus({ preventScroll: true });
+      // Le focus pose, c'est le :focus-within qui prend le relais.
+      setTimeout(() => palette.classList.remove('is-open'), 0);
+    };
+    if(act==='hide'){ state.doc[idx].hidden = !state.doc[idx].hidden; markDirty(); rendre(); return; }
+    if(act==='tveg'){ state.doc[idx].veg = !state.doc[idx].veg; markDirty(); rendre(); return; }
+    if(act==='tsg'){ state.doc[idx].sg = !state.doc[idx].sg; markDirty(); rendre(); return; }
     if(act==='up' && idx>0){
       [state.doc[idx-1],state.doc[idx]]=[state.doc[idx],state.doc[idx-1]];
-      markDirty(); render();
+      markDirty(); rendre();
     }
     if(act==='down' && idx<state.doc.length-1){
       [state.doc[idx+1],state.doc[idx]]=[state.doc[idx],state.doc[idx+1]];
-      markDirty(); render();
+      markDirty(); rendre();
     }
     if(act==='dup'){
       const copy = JSON.parse(JSON.stringify(state.doc[idx]));
       copy.id = newId();
       state.doc.splice(idx+1, 0, copy);
       state.selectedId = copy.id;
-      markDirty(); render();
+      markDirty(); rendre();
     }
     if(act==='del'){
       if(state.selectedId === blk.id) state.selectedId = null;
       state.doc.splice(idx,1);
-      markDirty(); render();
+      markDirty(); rendre();
       toast('Bloc supprimé', 'Annuler', undo);
     }
   });
