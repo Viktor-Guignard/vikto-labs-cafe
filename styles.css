@@ -88,7 +88,7 @@ body{
   display:none; align-items:center; justify-content:center; gap:8px;
   color:var(--danger); font-size:12px; font-weight:600;
 }
-.sheet.overflowing{outline:2px dashed var(--danger);}
+/* Le debordement reste signale par son badge texte, sans encadrer la planche. */
 .sheet.overflowing .sheet-overflow-warning{display:flex;}
 
 /* ---------- Volet (colonne) ---------- */
@@ -106,7 +106,7 @@ body{
   padding:0 3px; transition:background .12s;
 }
 .block:hover{background:rgba(70,66,58,.06);}
-.block.selected{outline:2px dashed var(--teal);}
+
 
 /* Contrôles en bout de ligne */
 /* Les contrôles se plaçaient hors du bloc, à sa droite (translate 100%).
@@ -143,15 +143,18 @@ body{
 /* position:relative + z-index place les boutons AU-DESSUS de la zone tampon
    ::after, qui sinon, etant en position absolue, se peint par-dessus eux et
    avale tous leurs clics. */
-.row-controls .rctrl{width:16px; height:16px; font-size:9px; border-radius:4px; position:relative; z-index:1;}
+.row-controls .rctrl{width:22px; height:22px; font-size:11px; border-radius:6px; position:relative; z-index:1;}
 /* Depliee, la palette s'ouvre sur deux colonnes : une seule ferait 176 px de
    haut, penible a parcourir dans un couloir de 22 px et debordant sous la
    planche. Sur deux colonnes elle fait 44 x 88 : elle mord alors sur la
    colonne voisine, mais seulement tant que le curseur est dessus, et elle
    est translucide. */
+/* Depliee, la palette peut recouvrir la carte : elle est translucide et ne
+   parait que lorsqu'on est dessus. Plus besoin de la contraindre a la
+   gouttiere, donc des boutons de taille normale. */
 .row-controls:hover,
 .row-controls:focus-within,
-.row-controls.is-open{flex-flow:row wrap; align-content:flex-start; width:38px;}
+.row-controls.is-open{flex-flow:row wrap; align-content:flex-start; width:52px;}
 
 /* Zone tampon invisible : sans elle, sortir d'un pixel de la palette la
    referme et le bouton vise disparait sous la souris. Elle ne s'etend que
@@ -306,8 +309,8 @@ body.leaders-off .blk-item .leader{display:none;}
 
 /* Éléments décoratifs (déplaçables) */
 .blk-deco{position:absolute; cursor:move; z-index:4; line-height:0; padding:0; margin:0;}
-.blk-deco:hover{background:transparent; outline:1px dashed rgba(70,66,58,.35);}
-.blk-deco.selected{outline:1.5px dashed var(--teal);}
+.blk-deco:hover{background:transparent; outline:1px solid rgba(70,66,58,.22);}
+.blk-deco.selected{outline:1.5px solid rgba(90,122,106,.5);}
 .deco-img{width:100%; height:auto; display:block; pointer-events:none; user-select:none;}
 .deco-controls{position:absolute; top:-11px; right:-6px; display:flex; gap:3px; opacity:0; transition:opacity .12s;}
 .blk-deco:hover .deco-controls, .blk-deco.selected .deco-controls{opacity:1;}
@@ -395,7 +398,7 @@ body.leaders-off .blk-item .leader{display:none;}
 .enfant-b{font-family:var(--font-body); font-size:11px; font-style:normal; color:var(--ink); line-height:1.35; margin-top:6px;}
 
 /* ---------- Empty hint ---------- */
-.page-empty-hint{color:var(--grey); font-size:13px; text-align:center; padding:40px 0; border:1px dashed var(--line); border-radius:8px;}
+.page-empty-hint{color:var(--grey); font-size:13px; text-align:center; padding:40px 0; border:1px solid var(--line); border-radius:8px;}
 
 /* ---------- Insert-here bar ---------- */
 .insert-bar{height:0; margin:0; display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity .12s; position:relative; z-index:5; overflow:visible;}
@@ -469,7 +472,7 @@ body.leaders-off .blk-item .leader{display:none;}
 
 /* ---------- Lien magique ---------- */
 #magicLinkBox{
-  margin-top:16px; padding:14px; border:1px dashed var(--teal); border-radius:10px; background:#efe9dc;
+  margin-top:16px; padding:14px; border:1px solid var(--teal); border-radius:10px; background:#efe9dc;
 }
 #magicLinkBox .ttl{font-weight:700; font-size:13px; margin-bottom:4px; color:var(--teal-dark);}
 #magicLinkBox p{margin:0 0 10px; font-size:12px; color:#333; line-height:1.5;}
@@ -555,7 +558,6 @@ body.exporting .sheet.overflowing{outline:none !important;}
   .row-controls{position:static; transform:none; justify-content:flex-end; margin-top:6px; gap:8px; flex-wrap:wrap; display:none;}
   .block.selected .row-controls{display:flex;}
   .block.selected > .row-controls > .rctrl{display:flex;}   /* sinon seule la poignee parait */
-  .block.selected{outline:2px dashed var(--teal); outline-offset:2px;}
   .rctrl{opacity:1; width:30px; height:30px; font-size:13px;}
   .rctrl.diet-tgl{width:auto; padding:0 9px; font-size:11px;}
   .rctrl.diet-tgl img{height:15px;}
