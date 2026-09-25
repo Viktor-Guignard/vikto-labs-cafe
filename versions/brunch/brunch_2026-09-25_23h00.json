@@ -1,0 +1,84 @@
+{
+ "style": {
+  "titleFont": "Playfair Display",
+  "bodyFont": "Poppins",
+  "titleColor": "#C4622D",
+  "accent": "#C4622D",
+  "pageBg": "#ffffff",
+  "leaders": false,
+  "format": "a5",
+  "theme": "classique",
+  "marginMm": {
+   "t": 12,
+   "r": 12,
+   "b": 12,
+   "l": 12
+  },
+  "mirror": false,
+  "sectionUnderline": false
+ },
+ "blocks": [
+  {
+   "id": "b38_4yopb",
+   "type": "image",
+   "src": "assets/badge.png",
+   "widthPct": 36
+  },
+  {
+   "id": "b39_uid88",
+   "type": "section",
+   "fr": "LE BRUNCH",
+   "en": "Weekend brunch"
+  },
+  {
+   "id": "b40_bo1uo",
+   "type": "note",
+   "text": "Samedi, dimanche et jours fériés, de 10 h à 15 h"
+  },
+  {
+   "id": "b41_janbo",
+   "type": "formule",
+   "text": "L'assiette 22€ · la formule complète 29€"
+  },
+  {
+   "id": "b42_ouiot",
+   "type": "item",
+   "fr": "UN JUS PRESSÉ",
+   "en": "Vert vif, Soleil levant ou orange pressée (Mimosa +6€)",
+   "price": ""
+  },
+  {
+   "id": "b43_6ajbb",
+   "type": "item",
+   "fr": "UNE BOISSON CHAUDE",
+   "en": "Café, chocolat, thé ou infusion (cappuccino ou latte +1€)",
+   "price": ""
+  },
+  {
+   "id": "b44_h75kg",
+   "type": "item",
+   "fr": "L'ASSIETTE",
+   "en": "Pain brioché, œufs brouillés, avocat, houmous, fromage frais, salade et fruits de saison",
+   "price": ""
+  },
+  {
+   "id": "b45_a4o1d",
+   "type": "item",
+   "fr": "AU CHOIX",
+   "en": "Saumon fumé, poulet ou pastrami",
+   "price": ""
+  },
+  {
+   "id": "b46_8kckd",
+   "type": "item",
+   "fr": "LA DOUCEUR",
+   "en": "Pancakes, sirop d'érable et fruits rouges, ou fromage blanc, granola et miel",
+   "price": ""
+  },
+  {
+   "id": "b47_jin8o",
+   "type": "note",
+   "text": "La formule complète comprend le jus, la boisson chaude, l'assiette et la douceur."
+  }
+ ]
+}

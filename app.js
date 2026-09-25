@@ -3,236 +3,118 @@
 let uidCounter = 1;
 function newId(){ return 'b' + (uidCounter++) + '_' + Math.random().toString(36).slice(2,7); }
 
-/* Carte café — dépliant 3 volets (2 planches paysage).
-   Chaque planche = 3 volets, séparés par des blocs `colbreak` ;
-   `pagebreak` démarre la planche suivante. */
-function defaultDoc(){
-  const b = (type, fields) => ({ id: newId(), type, ...fields });
-  return [
-    /* ===================== PLANCHE 1 (boissons & desserts) ===================== */
+/* Le contenu réel de chaque carte est chargé depuis le cloud (versions/<clé>/).
+   En attendant, on part d'un document vide. */
+function defaultDoc(){ return []; }
 
-    /* ---------- Volet 1 : jus, apéro, boissons, vins ---------- */
+/* Tous les blocs possibles. Le sélecteur n'en propose qu'un sous-ensemble par
+   carte (voir MENU_BLOCK_PRESETS dans menus-config.js), adapté à sa DA réelle. */
+const BLOCK_DEFS = {
+  section:          {type:'section', ttl:'Titre de section', desc:'Ex : « ENTRÉES / Starters »', make:()=>({fr:'NOUVELLE SECTION', en:'New section'})},
+  item:             {type:'item', ttl:'Plat', desc:'Nom FR, nom EN, prix', make:()=>({fr:'NOUVEAU PLAT', en:'New dish', price:'0€'})},
+  formule:          {type:'formule', ttl:'Ligne formule', desc:'Texte en couleur (accent de la carte)', make:()=>({text:'NOUVELLE FORMULE'})},
+  'formule-heading':{type:'formule', ttl:'Sous-titre', desc:'Ex : « LES SPRITZ », « BULLES »', make:()=>({text:'NOUVEAU SOUS-TITRE', heading:true})},
+  note:             {type:'note', ttl:'Note / mention', desc:'Petit texte italique gris', make:()=>({text:'Note...'})},
+  image:            {type:'image', ttl:'Image / logo', desc:'Logo ou visuel centré (cliquer pour remplacer)', make:()=>({src:'assets/badge.png', widthPct:45})},
+  divider:          {type:'divider', ttl:'Séparateur', desc:'Ligne fine de séparation', make:()=>({})},
+  pagebreak:        {type:'pagebreak', ttl:'Saut de page', desc:'Démarre une nouvelle page PDF', make:()=>({})},
+};
 
-    /* ---------- Volet 2 : desserts, cafés, lattes ---------- */
-    b('section', {fr:'CAFÉS', en:null, big:true}),
-    b('item', {fr:'EXPRESSO / DÉCA', en:'', price:'2.5', half:true}),
-    b('item', {fr:'NOISETTE', en:'', price:'3', half:true}),
-    b('item', {fr:'DOUBLE / ALLONGÉ', en:'', price:'3.5', half:true}),
-    b('item', {fr:'CAPPUCCINO', en:'', price:'4.5', half:true}),
-    b('item', {fr:'FLAT WHITE', en:'', price:'4.5', half:true}),
-    b('item', {fr:'CHOCOLAT CHAUD', en:'', price:'5', half:true}),
-    b('note', {text:'Lait végétal +0.5€ · sirop vanille ou caramel +0.5€'}),
-
-    b('section', {fr:'LES LATTES', en:'signature', big:true, price:'6.5'}),
-    b('item', {fr:'MATCHA LATTE', en:'Thé vert matcha, lait mousseux', price:''}),
-    b('item', {fr:'GOLDEN LATTE', en:'Curcuma, gingembre, cannelle, poivre', price:''}),
-    b('item', {fr:'CHAÏ LATTE', en:'Thé noir épicé, cardamome, cannelle', price:''}),
-    b('item', {fr:'BETTERAVE LATTE', en:'Betterave, vanille, lait mousseux', price:''}),
-
-    b('section', {fr:'THÉS & INFUSIONS', en:'bio', big:true, price:'5'}),
-    b('note', {text:'Vert sencha, menthe, Earl Grey, rooibos vanille, verveine, infusion détox'}),
-
-    b('section', {fr:'DESSERTS', en:null, big:true}),
-    b('item', {fr:'PAVLOVA FRUITS ROUGES', en:'Meringue, chantilly légère, coulis maison', price:'8'}),
-    b('item', {fr:'MOUSSE CHOCOLAT NOIR', en:'Éclats de fève de cacao', price:'7.5'}),
-    b('item', {fr:'CRUMBLE POMME-POIRE', en:'Servi tiède, glace vanille', price:'7.5'}),
-    b('item', {fr:'CHEESECAKE VANILLE', en:'Base spéculoos, cœur fruits rouges', price:'8.5'}),
-    b('item', {fr:'FONDANT CHOCOLAT', sg:true, en:'Cœur coulant, crème anglaise', price:'8'}),
-    b('item', {fr:'COOKIE MAISON', en:'Chocolat & noix de pécan', price:'4.5'}),
-    b('item', {fr:'BOWL AÇAÏ', veg:true, en:'Açaï, banane, granola, coco, myrtille', price:'11'}),
-    b('item', {fr:'CAFÉ & MIGNARDISES', en:'Expresso & trois douceurs du jour', price:'9'}),
-
-    b('section', {fr:'GLACES & YAOURT GLACÉ', veg:true, en:'2 toppings au choix', big:true, price:'8.5'}),
-    b('note', {text:'Yaourt glacé nature, faible en sucre'}),
-    b('note', {text:'Toppings : fruits frais, granola, caramel beurre salé, miel, noix, sirop d’érable'}),
-
-    b('colbreak', {}),
-    b('section', {fr:'JUS PRESSÉS À FROID', en:'40 cl', price:'7.5'}),
-    b('formule', {text:'Boost superaliment au choix +1.5€'}),
-    b('item', {fr:'VERT VIF', en:'Pomme, concombre, épinard, citron', price:'', half:true}),
-    b('item', {fr:'SOLEIL LEVANT', en:'Carotte, orange, curcuma, gingembre', price:'', half:true}),
-    b('item', {fr:'ROSE DU DÉSERT', en:'Pastèque, fraise, menthe', price:'', half:true}),
-    b('item', {fr:'SOUS LES TROPIQUES', en:'Ananas, mangue, lait de coco', price:'', half:true}),
-    b('item', {fr:'AURORE', en:'Betterave, pomme, framboise', price:'', half:true}),
-    b('item', {fr:'GRAND MATIN', en:'Kiwi, poire, citron vert', price:'', half:true}),
-
-    b('section', {fr:'SHOTS', en:'7 cl', price:'4'}),
-    b('item', {fr:'SHOT FEU', en:'Gingembre, citron, piment', price:'', half:true}),
-    b('item', {fr:'SHOT VERT', en:'Pomme, menthe, spiruline', price:'', half:true}),
-
-    b('section', {fr:'BOISSONS FRAÎCHES', en:null}),
-    b('item', {fr:'EAU DE SOURCE', en:'Plate ou pétillante 75 cl', price:'5', inline:true}),
-    b('item', {fr:'EAU INFUSÉE MAISON', en:'Concombre & menthe 75 cl', price:'5.5', inline:true}),
-    b('item', {fr:'THÉ GLACÉ MAISON', en:'Hibiscus, citronnelle, fruits rouges', price:'6', inline:true}),
-    b('item', {fr:'LIMONADE ARTISANALE', en:'33 cl', price:'5', inline:true}),
-    b('item', {fr:'SODA / COLA', en:'33 cl', price:'5', inline:true}),
-    b('item', {fr:'BIÈRE BLONDE PRESSION', en:'25 cl / 50 cl', price:'5.5 / 8', inline:true}),
-    b('item', {fr:'BIÈRE BLANCHE', en:'25 cl / 50 cl', price:'6 / 8.5', inline:true}),
-
-    b('section', {fr:'À L’APÉRO', en:null}),
-    b('item', {fr:'SPRITZ MAISON', en:'Apérol, mousseux, eau pétillante', price:'8.5'}),
-    b('item', {fr:'MOJITO DU COMPTOIR', en:'Rhum ambré, citron vert, menthe, cassonade', price:'9.5'}),
-    b('item', {fr:'AMOUR SPRITZ', en:'Fleur de sureau, mousseux, eau pétillante', price:'10.5'}),
-
-    b('section', {fr:'VINS', en:'au verre / bouteille'}),
-    b('pricehead', {cols:2, h1:'VERRE\n12 cl', h2:'BTL\n75 cl'}),
-    b('formule', {text:'ROUGES', heading:true}),
-    b('item', {fr:'Côtes du Rhône — Bio', en:'', cols:2, p1:'6', p2:'27'}),
-    b('item', {fr:'Saumur-Champigny', en:'', cols:2, p1:'6.5', p2:'29'}),
-    b('formule', {text:'BLANCS', heading:true}),
-    b('item', {fr:'Sauvignon Val de Loire', en:'', cols:2, p1:'6', p2:'27'}),
-    b('item', {fr:'Chardonnay Bourgogne', en:'', cols:2, p1:'8', p2:'38'}),
-    b('formule', {text:'ROSÉ & BULLES', heading:true}),
-    b('item', {fr:'Rosé de Provence', en:'', cols:2, p1:'6', p2:'27'}),
-    b('item', {fr:'Crémant Brut', en:'', cols:2, p1:'8', p2:'36'}),
-    b('note', {text:'L’abus d’alcool est dangereux pour la santé. À consommer avec modération.', center:true}),
-
-    b('colbreak', {}),
-
-    /* ---------- Volet 3 : panneau vert (nom + signature éditables) ---------- */
-    b('panel', {img:null, kicker:'BRUNCH', name:'VIKTO LABS CAFÉ', caption:'Fait maison, <em>du matin au soir</em>', foot:'MENU · ÉTÉ 2026'}),
-
-    b('pagebreak', {}),
-
-    /* ===================== PLANCHE 2 (brunch & food) ===================== */
-
-    /* ---------- Volet 1 : le brunch + tartines ---------- */
-    b('brunch', {
-      title:'LE<br>BRUNCH',
-      subtitle:'Samedi, dimanche & jours fériés',
-      offer:'ASSIETTE <i>22</i><br>FORMULE COMPLÈTE <i>29</i>',
-      d1t:'UN JUS PRESSÉ',
-      d1b:'Vert vif, Soleil levant <i>ou</i> orange pressée<br>(Mimosa +6€)',
-      d2t:'UNE BOISSON CHAUDE',
-      d2b:'Café, chocolat, thé <i>ou</i> infusion<br>(Cappuccino ou latte +1€)',
-      d3t:'L’ASSIETTE',
-      d3b:'Pain brioché, œufs brouillés, avocat, houmous, fromage frais, salade & fruits de saison<br>+ au choix : saumon fumé, poulet <i>ou</i> pastrami',
-      d4t:'LA DOUCEUR',
-      d4b:'Pancakes, sirop d’érable & fruits rouges<br>ou fromage blanc, granola & miel',
-    }),
-
-    b('section', {fr:'TARTINES', en:null, big:true}),
-    b('note', {text:'Pain de campagne au levain', strong:true}),
-    b('item', {fr:'AVOCAT & ŒUF', veg:true, en:'Avocat écrasé, œuf poché, féta, grenade, sésame', price:'14'}),
-    b('item', {fr:'SAUMON & FRAIS', en:'Fromage frais, saumon fumé, aneth, citron', price:'15'}),
-    b('item', {fr:'CHÈVRE & MIEL', veg:true, en:'Chèvre chaud, miel, noix, roquette', price:'13'}),
-
-    b('colbreak', {}),
-
-    /* ---------- Volet 2 : salades, plats chauds, à côté ---------- */
-    b('section', {fr:'SALADES', en:null, big:true}),
-    b('item', {fr:'CÉSAR REVISITÉE', en:'Romaine, poulet grillé, parmesan, croûtons, sauce césar légère', price:'16'}),
-    b('item', {fr:'GRECQUE', sg:true, veg:true, en:'Concombre, tomate, féta, olives, oignon rouge, origan', price:'15'}),
-    b('item', {fr:'BOWL SAUMON', sg:true, en:'Saumon mariné, quinoa, edamame, avocat, concombre, sésame', price:'18'}),
-    b('item', {fr:'POULET-QUINOA', en:'Poulet, quinoa, avocat, grenade, épinard, amandes', price:'17'}),
-    b('item', {fr:'VÉGÉ GOURMANDE', veg:true, en:'Halloumi grillé, patate douce, pois chiches, houmous, roquette', price:'16'}),
-    b('note', {text:'Version veggie possible sur toutes nos salades'}),
-
-    b('section', {fr:'PLATS CHAUDS', en:null, big:true}),
-    b('item', {fr:'SAUMON RÔTI', sg:true, en:'Riz vénéré, légumes de saison sautés', price:'21'}),
-    b('item', {fr:'POULET FERMIER', sg:true, en:'Marinade citron-gingembre, patate douce, haricots verts', price:'19'}),
-    b('item', {fr:'CURRY DE LÉGUMES', veg:true, en:'Lait de coco, riz basmati, coriandre', price:'16'}),
-    b('item', {fr:'PARMIGIANA', veg:true, en:'Aubergine, mozzarella, coulis de tomate, basilic', price:'16'}),
-
-    b('colbreak', {}),
-
-    /* ---------- Volet 3 : piadinas, clubs, menu enfant ---------- */
-    b('section', {fr:'PIADINAS', en:null, big:true}),
-    b('note', {text:'Galette italienne toastée', strong:true}),
-    b('item', {fr:'VEGGIE', veg:true, en:'Légumes grillés, pesto, mozzarella, roquette', price:'14'}),
-    b('item', {fr:'POULET', en:'Poulet, tomates confites, mozzarella, salade', price:'15'}),
-    b('item', {fr:'ITALIENNE', en:'Jambon cru, burrata, roquette, pesto', price:'16'}),
-
-    b('section', {fr:'CLUBS & BURGERS', en:null, big:true}),
-    b('item', {fr:'CLUB CLASSIQUE', en:'Poulet, œuf, tomate, salade, mayo maison, frites', price:'16'}),
-    b('item', {fr:'CLUB NORDIQUE', en:'Saumon fumé, avocat, fromage frais, frites', price:'17'}),
-    b('item', {fr:'BURGER MAISON', en:'Bœuf, cheddar, oignons confits, cornichons, frites', price:'17'}),
-
-    b('section', {fr:'À CÔTÉ', en:null, big:true}),
-    b('item', {fr:'ŒUF POCHÉ', en:'', price:'2.5', half:true}),
-    b('item', {fr:'AVOCAT', en:'', price:'3', half:true}),
-    b('item', {fr:'HALLOUMI GRILLÉ', en:'', price:'5', half:true}),
-    b('item', {fr:'PATATE DOUCE RÔTIE', en:'', price:'4', half:true}),
-    b('item', {fr:'SALADE VERTE', en:'', price:'4', half:true}),
-    b('item', {fr:'FRITES MAISON', en:'', price:'5', half:true}),
-
-    b('enfant', {
-      title:'Menu Enfant',
-      offer:'PLAT • BOISSON • DESSERT <i>10</i>',
-      body:'Mini burger, nuggets maison <i>ou</i> pâtes<br>Sirop à l’eau <i>ou</i> jus de fruits<br>Boule de glace <i>ou</i> compote',
-    }),
-
-    b('note', {text:'Prix nets en euros, service compris. Une carafe d’eau est offerte sur demande. Liste des allergènes disponible sur demande.', center:true, legend:true}),
-  ];
+function currentBlockLibrary(){
+  const keys = (window.MENU_BLOCK_PRESETS && window.MENU_BLOCK_PRESETS[window.currentMenuKey()]) || Object.keys(BLOCK_DEFS);
+  return keys.map(k => BLOCK_DEFS[k]).filter(Boolean);
 }
 
-const BLOCK_LIBRARY = [
-  {type:'section', ttl:'Titre de section', desc:'Ex : « DESSERTS » ; « FROZEN YOGURT / V »', make:()=>({fr:'NOUVELLE SECTION', en:null})},
-  {type:'item', ttl:'Plat', desc:'Nom, description, prix', make:()=>({fr:'NOUVEAU PLAT', en:'Description', price:'0'})},
-  {type:'formule', ttl:'Ligne formule', desc:'Texte en vert (ex. prix partagé)', make:()=>({text:'NOUVELLE FORMULE'})},
-  {type:'note', ttl:'Note / mention', desc:'Petit texte italique', make:()=>({text:'Note...'})},
-  {type:'item', ttl:'Plat — 2 colonnes', desc:'Plat compact réparti sur 2 sous-colonnes (cocktails, petits plus…)', make:()=>({fr:'NOUVEAU PLAT', en:'Description', price:'', half:true})},
-  {type:'item', ttl:'Plat — inline', desc:'Nom + qualificatif sur une seule ligne (« 33 cl »)', make:()=>({fr:'NOUVEAU PLAT', en:'33 cl', price:'0', inline:true})},
-  {type:'item', ttl:'Vin — 3 prix', desc:'Ligne avec 3 colonnes de prix (verre/verre/btl)', make:()=>({fr:'Nom du vin — Domaine', en:'', cols:3, p1:'6', p2:'9', p3:'29'})},
-  {type:'pricehead', ttl:'En-tête colonnes prix', desc:'Libellés au-dessus des colonnes de prix (Verre / Btl)', make:()=>({cols:3, h1:'Verre 14 cl', h2:'Verre 25 cl', h3:'Btl 75 cl'})},
-  {type:'divider', ttl:'Séparateur', desc:'Ligne fine de séparation', make:()=>({})},
-  {type:'colbreak', ttl:'Nouvelle colonne', desc:'Passe au volet suivant de la planche', make:()=>({})},
-  {type:'pagebreak', ttl:'Nouvelle planche', desc:'Démarre une nouvelle planche (PDF)', make:()=>({})},
-  {type:'panel', ttl:'Panneau couverture', desc:'Couverture typographique éditable (volet entier)', make:()=>({img:null, kicker:'CAFÉ · BRUNCH', name:'Comptoir', caption:'Fait maison, du matin au soir', foot:'MENU · ÉTÉ 2026'})},
-  {type:'brunch', ttl:'Cadre « Brunch »', desc:'Cadre botanique ovale avec texte éditable', make:()=>({title:'LE BRUNCH', subtitle:'Samedi, dimanche & jours fériés', offer:'ASSIETTE BRUNCH 24 · FORMULE 32', d1t:'BOISSON', d1b:'…', d2t:'BOISSON CHAUDE', d2b:'…', d3t:'ASSIETTE', d3b:'…', d4t:'DESSERT', d4b:'…'})},
-  {type:'enfant', ttl:'Pastille « Menu Enfant »', desc:'Pastille botanique avec texte éditable', make:()=>({title:'Menu Enfant', offer:'PLAT · BOISSON · DESSERT  10', body:'…'})},
-  {type:'deco', ttl:'Déco — tampon', desc:'Motif soleil-agrume (déplaçable)', make:()=>({img:'assets/deco-stamp.png', x:120, y:120, w:120, rot:0})},
-  {type:'deco', ttl:'Déco — fleur', desc:'Fleur botanique (déplaçable)', make:()=>({img:'assets/deco-flower.png', x:150, y:150, w:90, rot:0})},
-  {type:'deco', ttl:'Déco — image…', desc:'Votre propre illustration (déplaçable)', make:()=>({img:'assets/deco-stamp.png', x:130, y:130, w:120, rot:0})},
-];
-
-/* Champs mono-lignes : Entrée = valider, pas de retour à la ligne.
-   Les champs multilignes gardent les <br>. */
-const MULTILINE_FIELDS = new Set(['insta','wifi','d1b','d2b','d3b','d4b','body']);
+/* Champs mono-lignes : Entrée = valider, pas de retour à la ligne */
+const MULTILINE_FIELDS = new Set(['insta','wifi']);
 
 /* ===================== Apparence (polices & couleurs) ===================== */
 
 const FONT_CHOICES = {
   title: [
-    {name:'Syne', gq:'Syne:wght@600;700;800'},
-    {name:'Playfair Display', gq:'Playfair+Display:wght@400;700;800'},
+    {name:'Playfair Display', gq:'Playfair+Display:wght@700;800'},
     {name:'Cormorant Garamond', gq:'Cormorant+Garamond:wght@600;700'},
     {name:'DM Serif Display', gq:'DM+Serif+Display'},
     {name:'Libre Baskerville', gq:'Libre+Baskerville:wght@400;700'},
+    {name:'Oswald', gq:'Oswald:wght@500;600'},
     {name:'Marcellus', gq:'Marcellus'},
   ],
   body: [
-    {name:'EB Garamond', gq:'EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500'},
-    {name:'Cormorant Garamond', gq:'Cormorant+Garamond:ital,wght@0,500;0,600;1,500'},
     {name:'Poppins', gq:'Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500'},
+    {name:'Jost', gq:'Jost:ital,wght@0,400;0,500;0,600;1,400'},
     {name:'Lato', gq:'Lato:ital,wght@0,400;0,700;1,400'},
+    {name:'Montserrat', gq:'Montserrat:ital,wght@0,400;0,600;0,700;1,400'},
     {name:'Source Sans 3', gq:'Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400'},
+    {name:'EB Garamond', gq:'EB+Garamond:ital,wght@0,400;0,600;1,400'},
   ],
+};
+
+/* Formats de page réels (px @96dpi + mm pour le PDF) */
+const PAGE_FORMATS = {
+  a4:      { label:'A4 portrait (21 × 29,7 cm)',  w:794,  h:1123, mm:[210,297] },
+  a4l:     { label:'A4 paysage (29,7 × 21 cm)',   w:1123, h:794,  mm:[297,210] },
+  carte34: { label:'Carte haute (14 × 34 cm)',    w:529,  h:1285, mm:[140,340] },
+  a5:      { label:'Demi-A4 / A5 (14,85 × 21 cm)', w:561,  h:794,  mm:[148.5,210] },
+};
+/* Anciens presets (rétro-compatibilité) -> valeurs en mm */
+const LEGACY_MARGINS = {
+  compacte: {t:7,  r:8,  b:8,  l:8},
+  normale:  {t:12, r:14, b:14, l:14},
+  large:    {t:16, r:18, b:18, l:18},
+};
+const MM2PX = 96/25.4;
+function normMargins(st){
+  if(st.marginMm && typeof st.marginMm.t === 'number') return st.marginMm;
+  return LEGACY_MARGINS[st.margin] || LEGACY_MARGINS.normale;
+}
+const PAGE_THEMES = {
+  classique: { label:'Classique' },
+  vigne:     { label:'Vigne (ornements)' },
 };
 
 function defaultStyle(){
   return {
-    titleFont:'Syne',
-    bodyFont:'EB Garamond',
-    titleColor:'#2e2b26',   // charbon chaud (encre)
-    accent:'#a9432f',       // terre cuite — le rouge VIKTO LABS (#e52824)
-                            // assourdi pour le papier : il signe la marque
-                            // sans crier sur une carte de café
-    pageBg:'#f6f2e9',       // ivoire chaud
-    leaders:false,          // pas de pointillés par défaut (comme l'imprimé)
+    titleFont:'Playfair Display',
+    bodyFont:'Poppins',
+    titleColor:'#1a1a1a',
+    accent:'#227a75',
+    pageBg:'#ffffff',
+    leaders:true,           // pointillés entre plat et prix
+    format:'a4',
+    marginMm:{t:12, r:14, b:14, l:14},
+    mirror:false,
+    theme:'classique',
+    sectionUnderline:true,
+    itemSpacing:2,           // padding vertical (px) de chaque ligne plat/boisson
   };
 }
 
 function applyStyle(){
   const st = state.style;
+  const fmt = PAGE_FORMATS[st.format] || PAGE_FORMATS.a4;
+  const m = normMargins(st);
+  const px = mm => Math.round(mm * MM2PX) + 'px';
   const root = document.documentElement;
-  root.style.setProperty('--font-title', `'${st.titleFont}', ${st.titleFont === 'Syne' ? 'sans-serif' : 'serif'}`);
-  root.style.setProperty('--font-body', `'${st.bodyFont}', serif`);
+  root.style.setProperty('--font-title', `'${st.titleFont}', serif`);
+  root.style.setProperty('--font-body', `'${st.bodyFont}', sans-serif`);
   root.style.setProperty('--title-color', st.titleColor);
   root.style.setProperty('--accent', st.accent);
   root.style.setProperty('--page-bg', st.pageBg);
+  root.style.setProperty('--page-w', fmt.w + 'px');
+  root.style.setProperty('--page-h', fmt.h + 'px');
+  root.style.setProperty('--page-pad', `${px(m.t)} ${px(m.r)} ${px(m.b)} ${px(m.l)}`);
+  // pages paires : marges en miroir (reliure) si demandé
+  const me = st.mirror ? {t:m.t, r:m.l, b:m.b, l:m.r} : m;
+  root.style.setProperty('--page-pad-even', `${px(me.t)} ${px(me.r)} ${px(me.b)} ${px(me.l)}`);
   document.body.classList.toggle('leaders-off', !st.leaders);
+  document.body.classList.toggle('theme-vigne', st.theme === 'vigne');
+  document.body.classList.toggle('no-section-underline', st.sectionUnderline === false);
+  root.style.setProperty('--item-pad-v', (st.itemSpacing != null ? st.itemSpacing : 2) + 'px');
   loadFonts(st);
+}
+
+function currentPageH(){
+  return (PAGE_FORMATS[state.style.format] || PAGE_FORMATS.a4).h;
 }
 
 function loadFonts(st){
@@ -259,8 +141,8 @@ const state = {
   doc: defaultDoc(),
   style: defaultStyle(),
   selectedId: null,
-  dirty: false,
-  baseVersion: null,
+  dirty: false,           // modifications non enregistrées dans le cloud
+  baseVersion: null,      // nom de la version cloud dont on est parti (détection de conflit)
 };
 
 /* ===================== Historique (annuler / rétablir) ===================== */
@@ -288,6 +170,7 @@ function restoreFromHistory(){
   state.selectedId = null;
   applyStyle();
   render();
+  // sauvegarde du brouillon sans nouvel élément d'historique
   state.dirty = true;
   updateSyncStatus();
   clearTimeout(draftTimer);
@@ -306,18 +189,19 @@ function updateHistoryButtons(){
 
 /* ===================== Brouillon local (sécurité) ===================== */
 
-const DRAFT_KEY = 'carte_ds_draft_v2';
+const DRAFT_KEY = 'vlcafe_draft_' + window.currentMenuKey();
 
 function saveDraft(){
   try{
     localStorage.setItem(DRAFT_KEY, JSON.stringify({ts: new Date().toISOString(), doc: state.doc, style: state.style}));
-  }catch(e){ /* stockage plein : le brouillon est un filet de sécurité */ }
+  }catch(e){ /* stockage plein : tant pis, le brouillon est un filet de sécurité */ }
 }
 function clearDraft(){ localStorage.removeItem(DRAFT_KEY); state.dirty = false; updateSyncStatus(); }
 function getDraft(){
   try{
     const raw = localStorage.getItem(DRAFT_KEY);
     const d = raw ? JSON.parse(raw) : null;
+    // un brouillon vide (tout supprimé) ne vaut rien : on l'ignore et on le purge
     if(d && (!Array.isArray(d.doc) || d.doc.length === 0)){ localStorage.removeItem(DRAFT_KEY); return null; }
     return d;
   }catch(e){ return null; }
@@ -348,7 +232,14 @@ function updateSyncStatus(){
   }
 }
 
-/* ===================== Rendu (planches 3 volets) ===================== */
+/* Pictogrammes de plat (extraits des PDF sources) */
+const TAG_ICONS = {
+  veg:  { src:'assets/icon-veg.svg',  label:'Végétarien' },
+  spec: { src:'assets/icon-spec.svg', label:'Spécialité de la maison' },
+};
+const TAG_CYCLE = [null, 'veg', 'spec'];
+
+/* ===================== Rendu ===================== */
 
 const canvasWrap = document.getElementById('canvasWrap');
 
@@ -363,222 +254,123 @@ function ed(id, field, value, extraClass, tag){
   return `<${tag} class="${extraClass||''}" contenteditable="true" data-id="${id}" data-field="${field}">${value||''}</${tag}>`;
 }
 
-/* Pictos régime (sans gluten / végétarien) affichés après un nom */
-function dietIcons(blk){
-  let s = '';
-  if(blk.sg)  s += '<img class="diet" src="assets/icon-sg.png" alt="sans gluten">';
-  if(blk.veg) s += '<img class="diet" src="assets/icon-veg.png" alt="végétarien">';
-  return s;
-}
-/* Légende des pictos, avec les icônes */
-function dietLegend(){
-  return `<span class="diet-legend"><img class="diet" src="assets/icon-sg.png"> = sans gluten` +
-         `&nbsp;&nbsp;<img class="diet" src="assets/icon-veg.png"> = végétarien</span>`;
-}
-
 function renderBlockInner(blk){
   switch(blk.type){
-    case 'panel':
+    case 'header':
       return `
-        <div class="panel-type">
-          <div class="panel-kicker">${ed(blk.id,'kicker',esc(blk.kicker),'','div')}</div>
-          <div class="panel-mid">
-            <div class="panel-name">${ed(blk.id,'name',esc(blk.name),'','div')}</div>
-            <div class="panel-rule"></div>
-            <div class="panel-caption">${ed(blk.id,'caption',blk.caption,'','div')}</div>
+        <div class="titles">
+          <h1>${ed(blk.id,'line1',esc(blk.line1))}<br>${ed(blk.id,'line2',esc(blk.line2))}</h1>
+        </div>
+        <div class="badgeRow img-slot" data-id="${blk.id}" data-field="logoImg" title="Cliquer pour remplacer le logo">
+          <img src="${blk.logoImg || 'assets/badge.png'}" class="logo-badge" alt="logo">
+        </div>
+        <div class="side">
+          <div class="chef">${ed(blk.id,'chef',esc(blk.chef))}</div>
+          <div class="insta">${ed(blk.id,'insta',blk.insta)}</div>
+          <div class="qr-box img-slot" data-id="${blk.id}" data-field="qrImg" title="Cliquer pour remplacer le QR code">
+            <img src="${blk.qrImg || 'assets/qr.png'}" alt="QR code">
           </div>
-          <div class="panel-foot">${ed(blk.id,'foot',esc(blk.foot),'','div')}</div>
-        </div>`;
-    case 'brunch':
-      return `
-        <div class="brunch-inner">
-          <div class="brunch-title">${ed(blk.id,'title',blk.title,'','div')}</div>
-          <div class="brunch-sub">${ed(blk.id,'subtitle',esc(blk.subtitle),'','div')}</div>
-          <div class="brunch-offer">${ed(blk.id,'offer',blk.offer,'','div')}</div>
-          <div class="brunch-sep">—</div>
-          <div class="brunch-h">${ed(blk.id,'d1t',esc(blk.d1t),'','div')}</div>
-          <div class="brunch-b">${ed(blk.id,'d1b',blk.d1b,'','div')}</div>
-          <div class="brunch-sep">—</div>
-          <div class="brunch-h">${ed(blk.id,'d2t',esc(blk.d2t),'','div')}</div>
-          <div class="brunch-b">${ed(blk.id,'d2b',blk.d2b,'','div')}</div>
-          <div class="brunch-sep">—</div>
-          <div class="brunch-h">${ed(blk.id,'d3t',esc(blk.d3t),'','div')}</div>
-          <div class="brunch-b">${ed(blk.id,'d3b',blk.d3b,'','div')}</div>
-          <div class="brunch-sep">—</div>
-          <div class="brunch-h">${ed(blk.id,'d4t',esc(blk.d4t),'','div')}</div>
-          <div class="brunch-b">${ed(blk.id,'d4b',blk.d4b,'','div')}</div>
-        </div>`;
-    case 'enfant':
-      return `
-        <div class="enfant-inner">
-          <div class="enfant-title">${ed(blk.id,'title',esc(blk.title),'','div')}</div>
-          <div class="enfant-offer">${ed(blk.id,'offer',blk.offer,'','div')}</div>
-          <div class="enfant-b">${ed(blk.id,'body',blk.body,'','div')}</div>
+          <div class="wifi" style="margin-top:8px;">${ed(blk.id,'wifi',blk.wifi)}</div>
         </div>`;
     case 'section':
-      return `<h2>${ed(blk.id,'fr',esc(blk.fr))}${blk.en != null ? ' <span class="en'+(/^\(\s*\d+\s*cl\s*\)$/.test(blk.en)?' unit':'')+'">'+ed(blk.id,'en',esc(blk.en))+'</span>' : ''}${dietIcons(blk)}${blk.price != null ? '<span class="sec-price">'+ed(blk.id,'price',esc(blk.price))+'</span>' : ''}</h2>`;
+      return `<h2>${ed(blk.id,'fr',esc(blk.fr))}${blk.en != null ? ' <span class="en">/ '+ed(blk.id,'en',esc(blk.en))+'</span>' : ''}</h2>`;
     case 'item': {
-      if(blk.cols){
-        let cells = '';
-        for(let i=1;i<=blk.cols;i++) cells += `<span class="pcell">${ed(blk.id,'p'+i,esc(blk['p'+i]))}</span>`;
-        return `
-          <div class="txt">
-            <div class="fr">${ed(blk.id,'fr',esc(blk.fr))}${dietIcons(blk)}</div>
-            <div class="en">${ed(blk.id,'en',esc(blk.en))}</div>
-          </div>
-          <div class="pcols">${cells}</div>`;
-      }
+      const tags = (blk.tags||[]).map(t => `<img class="item-tag" src="${TAG_ICONS[t]?.src||''}" title="${TAG_ICONS[t]?.label||''}" alt="${TAG_ICONS[t]?.label||''}">`).join('');
       return `
         <div class="txt">
-          <div class="fr">${ed(blk.id,'fr',esc(blk.fr))}${dietIcons(blk)}</div>
+          <div class="fr">${ed(blk.id,'fr',esc(blk.fr))}${tags}</div>
           <div class="en">${ed(blk.id,'en',esc(blk.en))}</div>
         </div>
         <div class="leader"></div>
         <div class="price">${ed(blk.id,'price',esc(blk.price))}</div>`;
     }
-    case 'pricehead': {
-      let cells = '';
-      for(let i=1;i<=(blk.cols||3);i++) cells += `<span class="pcell head">${ed(blk.id,'h'+i,esc(blk['h'+i]))}</span>`;
-      return `<div class="ph-spacer"></div><div class="pcols">${cells}</div>`;
-    }
-    case 'deco':
-      return `
-        <img class="deco-img" src="${blk.img || 'assets/deco-stamp.png'}" alt="décor" draggable="false">
-        <div class="deco-resize" title="Redimensionner"></div>`;
     case 'formule':
       return ed(blk.id,'text',esc(blk.text),'', 'div');
     case 'note':
-      return ed(blk.id,'text',esc(blk.text),'', 'div') + (blk.legend ? dietLegend() : '');
+      return ed(blk.id,'text',esc(blk.text),'', 'div');
+    case 'image':
+      return `<div class="img-slot img-block-slot" data-id="${blk.id}" data-field="src" title="Cliquer pour remplacer l'image">
+        <img src="${blk.src || 'assets/badge.png'}" style="width:${blk.widthPct || 45}%" alt="">
+      </div>`;
     case 'divider':
       return '';
-    case 'colbreak':
-      return '⇥ Nouvelle colonne';
     case 'pagebreak':
-      return '↴ Nouvelle planche (PDF)';
+      return '↴ Nouvelle page (PDF)';
     default:
       return '';
   }
 }
 
 function blockClass(blk){
-  const map = {section:'blk-section', item:'blk-item', formule:'blk-formule', note:'blk-note', divider:'blk-divider', pagebreak:'blk-pagebreak', colbreak:'blk-colbreak', panel:'blk-panel', brunch:'blk-brunch', enfant:'blk-enfant', pricehead:'blk-pricehead', deco:'blk-deco'};
+  const map = {header:'blk-header', section:'blk-section', item:'blk-item', formule:'blk-formule', note:'blk-note', divider:'blk-divider', pagebreak:'blk-pagebreak', image:'blk-image'};
   let c = map[blk.type] || '';
   if(blk.type==='formule' && blk.italic) c += ' italic';
   if(blk.type==='formule' && blk.heading) c += ' heading';
-  if(blk.type==='section' && blk.big) c += ' big';
-  if(blk.type==='note' && blk.center) c += ' center';
-  if(blk.type==='note' && blk.strong) c += ' strong';
-  if(blk.type==='item' && blk.inline) c += ' inline';
-  if(blk.type==='item' && blk.cols) c += ' wine';
   if(blk.hidden) c += ' is-hidden';
   return c;
 }
 
-/* La selection ne peut pas declencher render() : cela reconstruirait le DOM
-   et ferait perdre le curseur en pleine saisie. On deplace donc la classe a la
-   main. Sans cela, cliquer un bloc posait la selection sans rien afficher, et
-   les pointillés surgissaient au rendu suivant — donc apres une action sans
-   rapport — puis ne partaient plus, faute de quoi que ce soit qui les efface. */
-function majSelection(id){
-  if(state.selectedId === id) return;
-  state.selectedId = id;
-  document.querySelectorAll('.block.selected').forEach(b => b.classList.remove('selected'));
-  if(id){
-    const el = document.querySelector(`[data-block-id="${id}"]`);
-    if(el) el.classList.add('selected');
-  }
-}
+/* Blocs qu'on peut masquer temporairement (pas le saut de page) */
+const HIDEABLE = new Set(['item','section','formule','note','image','divider']);
 
 function render(){
   canvasWrap.innerHTML = '';
-  let sheetEl = null, voletEl = null, sheetNum = 0;
+  let pageBlocks = [];
+  let pageNum = 1;
 
-  const newVolet = () => {
-    voletEl = document.createElement('div');
-    voletEl.className = 'volet';
-    sheetEl.insertBefore(voletEl, sheetEl.querySelector('.sheet-overflow-warning'));
-  };
-  const newSheet = () => {
-    sheetNum++;
-    sheetEl = document.createElement('div');
-    sheetEl.className = 'sheet';
+  const flushPage = () => {
+    const pageEl = document.createElement('div');
+    pageEl.className = 'pdf-page' + (pageNum % 2 === 0 ? ' page-even' : '');
+    const fmt = PAGE_FORMATS[state.style.format] || PAGE_FORMATS.a4;
+    const [wMm, hMm] = fmt.mm;
     const label = document.createElement('div');
-    label.className = 'sheet-label';
-    label.textContent = 'Planche ' + sheetNum;
-    sheetEl.appendChild(label);
+    label.className = 'page-label';
+    label.innerHTML = `Page ${pageNum} <span class="page-fmt">— ${wMm} × ${hMm} mm (${fmt.label.replace(/ \(.*\)/,'')})</span>`;
+    pageEl.appendChild(label);
+    if(pageBlocks.length === 0){
+      const hint = document.createElement('div');
+      hint.className = 'page-empty-hint';
+      hint.textContent = 'Page vide — ajoutez un bloc';
+      pageEl.appendChild(hint);
+    }
+    pageBlocks.forEach(blk => {
+      pageEl.appendChild(buildInsertBar(state.doc.indexOf(blk) - 1));
+      pageEl.appendChild(buildBlockEl(blk));
+    });
+    if(pageBlocks.length > 0){
+      pageEl.appendChild(buildInsertBar(state.doc.indexOf(pageBlocks[pageBlocks.length-1])));
+    }
     const warn = document.createElement('div');
-    warn.className = 'sheet-overflow-warning';
-    warn.textContent = '⚠️ Une colonne dépasse la hauteur de la planche — déplacez ou retirez des blocs';
-    sheetEl.appendChild(warn);
-    canvasWrap.appendChild(sheetEl);
-    newVolet();
+    warn.className = 'page-overflow-warning';
+    warn.textContent = '⚠️ Le contenu dépasse la page — déplacez des blocs ou ajoutez un saut de page';
+    pageEl.appendChild(warn);
+    canvasWrap.appendChild(pageEl);
+    pageNum++;
+    pageBlocks = [];
   };
 
-  newSheet();
-
-  let gridEl = null;    // conteneur 2 sous-colonnes pour les items « half »
-  let groupEl = null;   // groupe « section + ses lignes » (pour répartir l'espace)
-  const ensureGroup = () => {
-    if(!groupEl){ groupEl = document.createElement('div'); groupEl.className = 'section-group'; voletEl.appendChild(groupEl); }
-    return groupEl;
-  };
-
-  state.doc.forEach((blk, idx) => {
-    // Éléments décoratifs : positionnés en absolu sur la planche, hors flux
-    if(blk.type === 'deco'){ sheetEl.appendChild(buildDecoEl(blk)); return; }
-
-    // Marqueurs de colonne / planche : au niveau du volet, hors groupe
-    if(blk.type === 'colbreak' || blk.type === 'pagebreak'){
-      gridEl = null; groupEl = null;
-      voletEl.appendChild(buildInsertBar(idx - 1));
-      voletEl.appendChild(buildBlockEl(blk));
-      if(blk.type === 'pagebreak') newSheet(); else newVolet();
-      return;
-    }
-    // Panneau vert : occupe tout le volet, hors groupe
-    if(blk.type === 'panel'){
-      gridEl = null; groupEl = null;
-      voletEl.appendChild(buildInsertBar(idx - 1));
-      voletEl.appendChild(buildBlockEl(blk));
-      return;
-    }
-    // Nouvelle section / bloc autonome → nouveau groupe (pour la répartition)
-    if(blk.type === 'section' || blk.type === 'brunch' || blk.type === 'enfant') groupEl = null;
-    const g = ensureGroup();
-
-    // Items « half » (cocktails, shots, petits plus) → 2 sous-colonnes
-    if(blk.type === 'item' && blk.half){
-      if(!gridEl){ gridEl = document.createElement('div'); gridEl.className = 'item-grid'; g.appendChild(gridEl); }
-      gridEl.appendChild(buildBlockEl(blk));
-      return;
-    }
-    gridEl = null;
-    g.appendChild(buildInsertBar(idx - 1));
-    g.appendChild(buildBlockEl(blk));
+  state.doc.forEach(blk => {
+    pageBlocks.push(blk);
+    if(blk.type === 'pagebreak') flushPage();
   });
-
-  // Nombre de lignes de chaque grille a deux colonnes : la moitie des plats,
-  // arrondie au-dessus, pour que le remplissage en colonnes reproduise
-  // l'ordre de l'imprime (voir .item-grid dans styles.css).
-  document.querySelectorAll('.item-grid').forEach(g => {
-    g.style.setProperty('--lignes', Math.ceil(g.children.length / 2));
-  });
+  flushPage();
 
   requestAnimationFrame(checkOverflow);
 }
 
 function checkOverflow(){
-  if(!window.innerWidth || matchMedia('(max-width:1100px)').matches){
-    document.querySelectorAll('.sheet').forEach(s => s.classList.remove('overflowing'));
+  // Mesure valable uniquement en mise en page A4 (pas en vue mobile,
+  // ni quand la fenêtre n'est pas encore dimensionnée)
+  if(!window.innerWidth || matchMedia('(max-width:900px)').matches){
+    document.querySelectorAll('.pdf-page').forEach(p => p.classList.remove('overflowing'));
     return;
   }
-  document.querySelectorAll('.sheet').forEach(sheet => {
-    sheet.classList.remove('overflowing');
-    let over = false;
-    sheet.querySelectorAll('.volet').forEach(v => {
-      if(v.scrollHeight > v.clientHeight + 6) over = true;
-    });
-    sheet.classList.toggle('overflowing', over);
+  const pageH = currentPageH();
+  document.querySelectorAll('.pdf-page').forEach(page => {
+    // retirer d'abord la classe : le bandeau d'avertissement (30px sous la page)
+    // gonflerait scrollHeight et rendrait l'état collant
+    page.classList.remove('overflowing');
+    page.classList.toggle('overflowing', page.scrollHeight > pageH + 2);
   });
 }
 
@@ -597,112 +389,73 @@ function buildBlockEl(blk){
   wrap.className = 'block ' + blockClass(blk) + (state.selectedId===blk.id ? ' selected' : '');
   wrap.dataset.blockId = blk.id;
   wrap.innerHTML = renderBlockInner(blk);
+  if(blk.type === 'formule' && blk.color) wrap.style.setProperty('--formule-color-override', blk.color);
+  if(blk.hidden){
+    const badge = document.createElement('span');
+    badge.className = 'hidden-badge';
+    badge.textContent = '👁 Masqué du site';
+    wrap.appendChild(badge);
+  }
 
   const controls = document.createElement('div');
   controls.className = 'row-controls';
-  // Toggles régime (végétarien / sans gluten) — sur plats & sections uniquement.
-  // Cliquer ajoute ou retire le picto ; on peut en activer 1, plusieurs ou aucun.
-  const dietToggles = (blk.type === 'item' || blk.type === 'section') ? `
-    <button class="rctrl diet-tgl ${blk.veg?'on':''}" data-act="tveg" title="Végétarien (afficher/masquer le picto)"><img src="assets/icon-veg.png" alt=""><span>V</span></button>
-    <button class="rctrl diet-tgl ${blk.sg?'on':''}" data-act="tsg" title="Sans gluten (afficher/masquer le picto)"><img src="assets/icon-sg.png" alt=""><span>SG</span></button>` : '';
-  /* Masquage temporaire : retirer un produit epuise SANS le supprimer. */
-  const HIDEABLE = new Set(['item','section','formule','note','divider','panel','brunch','enfant','pricehead','deco']);
-  const hideBtn = HIDEABLE.has(blk.type) ? `
-    <button class="rctrl ${blk.hidden?'is-off':''}" data-act="hide" title="${blk.hidden?'Réafficher':'Masquer temporairement (rupture)'}">${blk.hidden?'🚫':'👁'}</button>` : '';
+  const tagBtn = blk.type === 'item'
+    ? `<button class="rctrl" data-act="tag" title="Pictogramme (végétarien / spécialité)">${blk.tags && blk.tags[0] ? `<img src="${TAG_ICONS[blk.tags[0]].src}" alt="">` : '🏷'}</button>`
+    : '';
+  const hideBtn = HIDEABLE.has(blk.type)
+    ? `<button class="rctrl${blk.hidden ? ' is-off' : ''}" data-act="hide" title="${blk.hidden ? 'Réafficher sur le site' : 'Masquer temporairement (rupture…)'}">${blk.hidden ? '🚫' : '👁'}</button>`
+    : '';
   controls.innerHTML = `
-    <button class="rctrl grip" data-act="grip" title="Glisser pour déplacer où vous voulez">⠿</button>
-    ${dietToggles}${hideBtn}
     <button class="rctrl del" data-act="del" title="Supprimer">✕</button>
     <button class="rctrl" data-act="dup" title="Dupliquer">⧉</button>
     <button class="rctrl" data-act="up" title="Monter">↑</button>
-    <button class="rctrl" data-act="down" title="Descendre">↓</button>`;
+    <button class="rctrl" data-act="down" title="Descendre">↓</button>${hideBtn}${tagBtn}`;
   wrap.appendChild(controls);
-  const grip = controls.querySelector('.grip');
-  if(grip) grip.addEventListener('mousedown', (e)=> startBlockDrag(e, blk));
 
   wrap.addEventListener('click', (e) => {
     if(e.target.closest('.rctrl')) return;
     if(e.target.closest('.img-slot')) return;
-    majSelection(blk.id);
+    state.selectedId = blk.id;
   });
-
-  /* Apres une action on rend le focus a un bouton pour que la palette reste
-     ouverte et qu'on puisse enchainer. Sans contrepartie, elle le restait
-     indefiniment : en s'eloignant, on laissait derriere soi un rectangle
-     flou en surimpression sur la carte. Quitter la ligne rend donc la main. */
-  wrap.addEventListener('mouseleave', () => {
-    if(wrap.contains(document.activeElement)) document.activeElement.blur();
-    controls.classList.remove('is-open');
-  });
-
-  /* Dépliage apres un court arret sur la poignee. Un dépliage immediat au
-     survol ouvrait une palette a chaque ligne traversee dans la gouttiere ;
-     rendre la poignee inerte en dehors du survol de la ligne l'empechait de
-     repondre quand on venait directement a elle. Le delai concilie les deux. */
-  let ouverture = null;
-  const ouvrir = () => {
-    if(ouverture || controls.classList.contains('is-open')) return;
-    ouverture = setTimeout(() => { controls.classList.add('is-open'); ouverture = null; }, 150);
-  };
-  const fermer = () => {
-    clearTimeout(ouverture); ouverture = null;
-    controls.classList.remove('is-open');
-  };
-  controls.addEventListener('mouseenter', ouvrir);
-  controls.addEventListener('mousemove', ouvrir);
-  controls.addEventListener('mouseleave', fermer);
 
   controls.addEventListener('click', (e) => {
-    const btn = e.target.closest('.rctrl');
-    if(!btn) return;
-    const act = btn.dataset.act;
+    const btn = e.target.closest('[data-act]');
+    const act = btn && btn.dataset.act;
     if(!act) return;
     const idx = state.doc.findIndex(x=>x.id===blk.id);
     if(idx < 0) return;
-
-    /* Chaque action reconstruit le DOM : le bouton sur lequel on vient de
-       cliquer disparait avec l'ancien, la palette perd son survol et se
-       referme sous la souris. On rend donc le focus au bouton equivalent du
-       nouveau DOM ; le :focus-within de la feuille de style garde alors la
-       palette ouverte, et on peut enchainer les clics. */
-    const rendre = () => {
-      render();
-      const palette = document.querySelector(
-        `[data-block-id="${blk.id}"] > .row-controls`);
-      if(!palette) return;
-      // On deplie d'abord : un bouton en display:none ne peut pas prendre le
-      // focus, et la palette est repliee tant que rien ne la survole.
-      palette.classList.add('is-open');
-      const cible = palette.querySelector(`.rctrl[data-act="${act}"]`);
-      if(cible) cible.focus({ preventScroll: true });
-      // is-open n'a servi qu'a rendre le bouton focusable : on le retire
-      // aussitot, le :focus-within prend le relais. Laisse en place, il
-      // restait colle quand le DOM etait reconstruit sans que la souris ne
-      // quitte la palette, et plus aucune poignee ne repondait ensuite.
-      setTimeout(() => palette.classList.remove('is-open'), 0);
-    };
-    if(act==='hide'){ state.doc[idx].hidden = !state.doc[idx].hidden; markDirty(); rendre(); return; }
-    if(act==='tveg'){ state.doc[idx].veg = !state.doc[idx].veg; markDirty(); rendre(); return; }
-    if(act==='tsg'){ state.doc[idx].sg = !state.doc[idx].sg; markDirty(); rendre(); return; }
+    if(act==='tag'){
+      const cur = (blk.tags && blk.tags[0]) || null;
+      const next = TAG_CYCLE[(TAG_CYCLE.indexOf(cur) + 1) % TAG_CYCLE.length];
+      blk.tags = next ? [next] : [];
+      markDirty(); render();
+      return;
+    }
+    if(act==='hide'){
+      blk.hidden = !blk.hidden;
+      markDirty(); render();
+      toast(blk.hidden ? 'Masqué du site (pensez à Enregistrer + Publier)' : 'Réaffiché sur le site');
+      return;
+    }
     if(act==='up' && idx>0){
       [state.doc[idx-1],state.doc[idx]]=[state.doc[idx],state.doc[idx-1]];
-      markDirty(); rendre();
+      markDirty(); render();
     }
     if(act==='down' && idx<state.doc.length-1){
       [state.doc[idx+1],state.doc[idx]]=[state.doc[idx],state.doc[idx+1]];
-      markDirty(); rendre();
+      markDirty(); render();
     }
     if(act==='dup'){
       const copy = JSON.parse(JSON.stringify(state.doc[idx]));
       copy.id = newId();
       state.doc.splice(idx+1, 0, copy);
       state.selectedId = copy.id;
-      markDirty(); rendre();
+      markDirty(); render();
     }
     if(act==='del'){
       if(state.selectedId === blk.id) state.selectedId = null;
       state.doc.splice(idx,1);
-      markDirty(); rendre();
+      markDirty(); render();
       toast('Bloc supprimé', 'Annuler', undo);
     }
   });
@@ -712,250 +465,6 @@ function buildBlockEl(blk){
   });
 
   return wrap;
-}
-
-/* Cliquer hors de tout bloc efface la selection : sinon les pointillés
-   restaient indefiniment sur le dernier bloc touche. */
-document.addEventListener('click', (e) => {
-  if(e.target.closest('.block')) return;
-  if(e.target.closest('.row-controls')) return;
-  majSelection(null);
-});
-
-/* ===================== Glisser-déposer d'un bloc (aimanté à la grille) ===================== */
-
-let dragState = null;
-
-function startBlockDrag(e, blk){
-  e.preventDefault(); e.stopPropagation();
-  const wrap = e.target.closest('.block');
-  if(!wrap) return;
-  wrap.classList.add('dragging');
-  document.body.classList.add('dragging-block');
-  const indicator = document.createElement('div');
-  indicator.className = 'drop-indicator';
-  indicator.style.display = 'none';
-  document.body.appendChild(indicator);
-  dragState = { id: blk.id, beforeId: null, indicator };
-
-  const move = (ev) => {
-    const t = findDropTarget(ev.clientX, ev.clientY, blk.id);
-    if(t){
-      dragState.beforeId = t.beforeId;
-      dragState.hasTarget = true;
-      indicator.style.display = 'block';
-      indicator.style.left = t.x + 'px';
-      indicator.style.top = t.y + 'px';
-      indicator.style.width = t.w + 'px';
-    } else {
-      dragState.hasTarget = false;
-      indicator.style.display = 'none';
-    }
-  };
-  const up = () => {
-    document.removeEventListener('mousemove', move);
-    document.removeEventListener('mouseup', up);
-    wrap.classList.remove('dragging');
-    document.body.classList.remove('dragging-block');
-    indicator.remove();
-    if(dragState && dragState.hasTarget) moveBlockBefore(dragState.id, dragState.beforeId);
-    dragState = null;
-  };
-  document.addEventListener('mousemove', move);
-  document.addEventListener('mouseup', up);
-}
-
-/* Trouve la position d'insertion la plus proche (volet sous le curseur, puis position verticale). */
-function findDropTarget(cx, cy, draggedId){
-  const volets = [...document.querySelectorAll('.volet')];
-  if(!volets.length) return null;
-  let vol = null, bestd = Infinity;
-  for(const v of volets){
-    const r = v.getBoundingClientRect();
-    if(cx >= r.left && cx <= r.right){ vol = v; break; }
-    const d = Math.min(Math.abs(cx - r.left), Math.abs(cx - r.right));
-    if(d < bestd){ bestd = d; vol = v; }
-  }
-  if(!vol) return null;
-  const vr = vol.getBoundingClientRect();
-  const cands = [...vol.querySelectorAll('[data-block-id]')].filter(el =>
-    el.dataset.blockId !== draggedId && !el.classList.contains('blk-deco'));
-  cands.sort((a,b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top);
-  let beforeEl = null;
-  for(const el of cands){
-    const r = el.getBoundingClientRect();
-    if(cy < r.top + r.height/2){ beforeEl = el; break; }
-  }
-  if(beforeEl){
-    const r = beforeEl.getBoundingClientRect();
-    return { beforeId: beforeEl.dataset.blockId, x: vr.left, y: r.top - 1.5, w: vr.width };
-  }
-  // sous tous les blocs : insérer avant le marqueur de fin de volet (reste dans ce volet)
-  const marker = cands.find(el => el.classList.contains('blk-colbreak') || el.classList.contains('blk-pagebreak'));
-  if(marker){
-    const r = marker.getBoundingClientRect();
-    return { beforeId: marker.dataset.blockId, x: vr.left, y: r.top - 1.5, w: vr.width };
-  }
-  const last = cands[cands.length-1];
-  const y = last ? last.getBoundingClientRect().bottom + 1 : vr.top;
-  return { beforeId: null, x: vr.left, y, w: vr.width };
-}
-
-function moveBlockBefore(dragId, beforeId){
-  const from = state.doc.findIndex(b => b.id === dragId);
-  if(from < 0) return;
-  const [blk] = state.doc.splice(from, 1);
-  let to;
-  if(beforeId == null){ to = state.doc.length; }
-  else {
-    to = state.doc.findIndex(b => b.id === beforeId);
-    if(to < 0) to = state.doc.length;
-  }
-  state.doc.splice(to, 0, blk);
-  state.selectedId = dragId;
-  markDirty(); render();
-}
-
-/* ===================== Ajout d'un bloc « au curseur » (clic pour placer) ===================== */
-
-let placingState = null;
-
-function startPlacing(opt){
-  cancelPlacing();
-  const blk = { id: newId(), type: opt.type, ...opt.make() };
-  const label = document.createElement('div');
-  label.className = 'placing-label';
-  label.innerHTML = `<b>${opt.ttl}</b><span>cliquez pour placer · Échap pour annuler</span>`;
-  document.body.appendChild(label);
-  const indicator = document.createElement('div');
-  indicator.className = 'drop-indicator';
-  indicator.style.display = 'none';
-  document.body.appendChild(indicator);
-  document.body.classList.add('placing-block');
-  placingState = { blk, opt, label, indicator, beforeId: null, hasTarget: false };
-
-  const move = (ev) => {
-    label.style.left = (ev.clientX + 16) + 'px';
-    label.style.top = (ev.clientY + 16) + 'px';
-    if(blk.type === 'deco'){ indicator.style.display = 'none'; placingState.hasTarget = true; return; }
-    const t = findDropTarget(ev.clientX, ev.clientY, null);
-    if(t){
-      placingState.beforeId = t.beforeId; placingState.hasTarget = true;
-      indicator.style.display = 'block';
-      indicator.style.left = t.x + 'px'; indicator.style.top = t.y + 'px'; indicator.style.width = t.w + 'px';
-    } else { placingState.hasTarget = false; indicator.style.display = 'none'; }
-  };
-  const down = (ev) => {
-    const tgt = ev.target;
-    if(!tgt || typeof tgt.closest !== 'function'){ return; }
-    if(tgt.closest('#toolbar') || tgt.closest('.modal-backdrop')){ return; }
-    if(!tgt.closest('#canvasWrap')){ cancelPlacing(); return; }
-    ev.preventDefault(); ev.stopPropagation();
-    finishPlacing(ev.clientX, ev.clientY);
-  };
-  const key = (ev) => { if(ev.key === 'Escape'){ ev.preventDefault(); cancelPlacing(); } };
-  placingState.move = move; placingState.down = down; placingState.key = key;
-  document.addEventListener('mousemove', move);
-  document.addEventListener('keydown', key);
-  // différer l'écouteur de clic pour ne pas capter le clic qui a fermé le sélecteur
-  setTimeout(() => { if(placingState) document.addEventListener('mousedown', down, true); }, 0);
-  H_toast('Placez « ' + opt.ttl + ' » — cliquez à l\'endroit voulu');
-}
-
-function finishPlacing(cx, cy){
-  if(!placingState) return;
-  const blk = placingState.blk;
-  if(blk.type === 'deco'){
-    const sheets = [...document.querySelectorAll('.sheet')];
-    let sheetEl = sheets.find(s => { const r = s.getBoundingClientRect(); return cx>=r.left&&cx<=r.right&&cy>=r.top&&cy<=r.bottom; }) || sheets[0];
-    if(sheetEl){
-      const r = sheetEl.getBoundingClientRect();
-      blk.x = Math.round(cx - r.left - (blk.w||120)/2);
-      blk.y = Math.round(cy - r.top - 20);
-      const firstId = sheetEl.querySelector('[data-block-id]')?.dataset.blockId;
-      let to = firstId ? state.doc.findIndex(b => b.id === firstId) : state.doc.length;
-      if(to < 0) to = state.doc.length;
-      state.doc.splice(to, 0, blk);
-    } else { state.doc.push(blk); }
-  } else {
-    if(!placingState.hasTarget){ cancelPlacing(); return; }
-    const beforeId = placingState.beforeId;
-    let to = beforeId == null ? state.doc.length : state.doc.findIndex(b => b.id === beforeId);
-    if(to < 0) to = state.doc.length;
-    state.doc.splice(to, 0, blk);
-  }
-  state.selectedId = blk.id;
-  cleanupPlacing();
-  markDirty(); render();
-  H_toast('Bloc ajouté ✓');
-}
-
-function cancelPlacing(){ if(placingState) cleanupPlacing(); }
-
-function cleanupPlacing(){
-  if(!placingState) return;
-  document.removeEventListener('mousemove', placingState.move);
-  document.removeEventListener('mousedown', placingState.down, true);
-  document.removeEventListener('keydown', placingState.key);
-  if(placingState.label) placingState.label.remove();
-  if(placingState.indicator) placingState.indicator.remove();
-  document.body.classList.remove('placing-block');
-  placingState = null;
-}
-
-/* toast accessible avant la définition de toast() (hoisting des function declarations) */
-function H_toast(m){ try{ toast(m); }catch(e){} }
-
-/* Élément décoratif : positionné en absolu, déplaçable / redimensionnable / pivotable */
-function buildDecoEl(blk){
-  const el = document.createElement('div');
-  el.className = 'block blk-deco' + (state.selectedId===blk.id ? ' selected' : '');
-  el.dataset.blockId = blk.id;
-  el.style.left = (blk.x||40) + 'px';
-  el.style.top = (blk.y||40) + 'px';
-  el.style.width = (blk.w||120) + 'px';
-  if(blk.rot) el.style.transform = 'rotate(' + blk.rot + 'deg)';
-  el.innerHTML = renderBlockInner(blk);
-
-  const controls = document.createElement('div');
-  controls.className = 'deco-controls';
-  controls.innerHTML = `
-    <button class="rctrl del" data-act="del" title="Supprimer">✕</button>
-    <button class="rctrl" data-act="img" title="Changer l'image">🖼</button>
-    <button class="rctrl" data-act="rot" title="Pivoter">⟳</button>`;
-  el.appendChild(controls);
-  controls.addEventListener('mousedown', e=> e.stopPropagation());
-  controls.addEventListener('click', (e)=>{
-    const act = e.target.dataset.act; if(!act) return;
-    e.stopPropagation();
-    const idx = state.doc.findIndex(x=>x.id===blk.id); if(idx<0) return;
-    if(act==='del'){ if(state.selectedId===blk.id) state.selectedId=null; state.doc.splice(idx,1); markDirty(); render(); toast('Déco supprimée','Annuler',undo); }
-    if(act==='img'){ triggerImageUpload(blk.id,'img'); }
-    if(act==='rot'){ blk.rot = ((blk.rot||0) + 15) % 360; el.style.transform='rotate('+blk.rot+'deg)'; markDirty(); }
-  });
-
-  el.addEventListener('mousedown', (e)=>{
-    if(e.target.closest('.deco-controls') || e.target.closest('.deco-resize')) return;
-    e.preventDefault();
-    state.selectedId = blk.id;
-    document.querySelectorAll('.blk-deco.selected').forEach(d=>d.classList.remove('selected'));
-    el.classList.add('selected');
-    const sx=e.clientX, sy=e.clientY, ox=blk.x||40, oy=blk.y||40;
-    const move=(ev)=>{ blk.x = Math.round(ox + (ev.clientX-sx)); blk.y = Math.round(oy + (ev.clientY-sy)); el.style.left=blk.x+'px'; el.style.top=blk.y+'px'; };
-    const up=()=>{ document.removeEventListener('mousemove',move); document.removeEventListener('mouseup',up); markDirty(); };
-    document.addEventListener('mousemove',move); document.addEventListener('mouseup',up);
-  });
-
-  const handle = el.querySelector('.deco-resize');
-  if(handle) handle.addEventListener('mousedown', (e)=>{
-    e.preventDefault(); e.stopPropagation();
-    const sx=e.clientX, ow=blk.w||120;
-    const move=(ev)=>{ blk.w = Math.max(24, Math.round(ow + (ev.clientX-sx))); el.style.width=blk.w+'px'; };
-    const up=()=>{ document.removeEventListener('mousemove',move); document.removeEventListener('mouseup',up); markDirty(); };
-    document.addEventListener('mousemove',move); document.addEventListener('mouseup',up);
-  });
-
-  return el;
 }
 
 function triggerImageUpload(blockId, field){
@@ -979,6 +488,7 @@ function triggerImageUpload(blockId, field){
 
 /* ===================== Édition inline ===================== */
 
+/* Validation à la sortie du champ */
 canvasWrap.addEventListener('blur', (e) => {
   const el = e.target;
   if(!el.matches || !el.matches('[contenteditable="true"]')) return;
@@ -994,6 +504,7 @@ canvasWrap.addEventListener('blur', (e) => {
   }
 }, true);
 
+/* Entrée = valider (sauf champs multilignes) ; Échap = valider aussi */
 canvasWrap.addEventListener('keydown', (e) => {
   const el = e.target;
   if(!el.matches || !el.matches('[contenteditable="true"]')) return;
@@ -1004,6 +515,7 @@ canvasWrap.addEventListener('keydown', (e) => {
   }
 });
 
+/* Coller en texte brut (évite d'importer du gras/couleurs de Word etc.) */
 canvasWrap.addEventListener('paste', (e) => {
   const el = e.target;
   if(!el.matches || !el.closest('[contenteditable="true"]')) return;
@@ -1020,6 +532,8 @@ let pendingInsertIndex = null;
 
 function openBlockPicker(afterIndex){
   pendingInsertIndex = afterIndex;
+  const sub = document.getElementById('pickerSub');
+  if(sub) sub.textContent = `Blocs adaptés à la carte « ${window.currentMenuLabel()} ». Inséré juste après le bloc sélectionné (ou à la fin).`;
   pickerBackdrop.classList.add('open');
 }
 document.getElementById('addBlockBtn').addEventListener('click', ()=>{
@@ -1029,13 +543,17 @@ document.getElementById('addBlockBtn').addEventListener('click', ()=>{
 document.getElementById('pickerClose').addEventListener('click', ()=> pickerBackdrop.classList.remove('open'));
 pickerBackdrop.addEventListener('click', (e)=>{ if(e.target===pickerBackdrop) pickerBackdrop.classList.remove('open'); });
 
-BLOCK_LIBRARY.forEach(opt=>{
+currentBlockLibrary().forEach(opt=>{
   const el = document.createElement('button');
   el.className = 'block-opt';
   el.innerHTML = `<div class="ttl">${opt.ttl}</div><div class="desc">${opt.desc}</div>`;
   el.onclick = () => {
+    const newBlk = { id:newId(), type:opt.type, ...opt.make() };
+    const insertAt = (pendingInsertIndex==null ? state.doc.length-1 : pendingInsertIndex) + 1;
+    state.doc.splice(insertAt, 0, newBlk);
+    state.selectedId = newBlk.id;
     pickerBackdrop.classList.remove('open');
-    startPlacing(opt);
+    markDirty(); render();
   };
   blockGrid.appendChild(el);
 });
@@ -1062,6 +580,7 @@ function toast(msg, actionLabel, actionFn){
 document.getElementById('undoBtn').addEventListener('click', undo);
 document.getElementById('redoBtn').addEventListener('click', redo);
 document.addEventListener('keydown', (e) => {
+  // dans un champ en cours d'édition, laisser l'annulation native du texte
   const el = document.activeElement;
   if(el && el.isContentEditable) return;
   const mod = e.metaKey || e.ctrlKey;
@@ -1085,10 +604,22 @@ function fillAppearanceForm(){
   const selB = document.getElementById('bodyFontSel');
   selT.innerHTML = FONT_CHOICES.title.map(f => `<option${f.name===st.titleFont?' selected':''}>${f.name}</option>`).join('');
   selB.innerHTML = FONT_CHOICES.body.map(f => `<option${f.name===st.bodyFont?' selected':''}>${f.name}</option>`).join('');
+  document.getElementById('formatSel').innerHTML = Object.entries(PAGE_FORMATS)
+    .map(([k,f]) => `<option value="${k}"${k===(st.format||'a4')?' selected':''}>${f.label}</option>`).join('');
+  const m = normMargins(st);
+  document.getElementById('marginT').value = m.t;
+  document.getElementById('marginR').value = m.r;
+  document.getElementById('marginB').value = m.b;
+  document.getElementById('marginL').value = m.l;
+  document.getElementById('mirrorChk').checked = !!st.mirror;
+  document.getElementById('themeSel').innerHTML = Object.entries(PAGE_THEMES)
+    .map(([k,t]) => `<option value="${k}"${k===(st.theme||'classique')?' selected':''}>${t.label}</option>`).join('');
   document.getElementById('titleColorInp').value = st.titleColor;
   document.getElementById('accentColorInp').value = st.accent;
   document.getElementById('pageBgSel').value = st.pageBg;
   document.getElementById('leadersChk').checked = !!st.leaders;
+  document.getElementById('underlineChk').checked = st.sectionUnderline !== false;
+  document.getElementById('itemSpacingInp').value = st.itemSpacing != null ? st.itemSpacing : 2;
 }
 
 function readAppearanceForm(){
@@ -1099,6 +630,17 @@ function readAppearanceForm(){
     accent: document.getElementById('accentColorInp').value,
     pageBg: document.getElementById('pageBgSel').value,
     leaders: document.getElementById('leadersChk').checked,
+    sectionUnderline: document.getElementById('underlineChk').checked,
+    itemSpacing: parseFloat(document.getElementById('itemSpacingInp').value) || 0,
+    format: document.getElementById('formatSel').value,
+    marginMm: {
+      t: parseFloat(document.getElementById('marginT').value) || 0,
+      r: parseFloat(document.getElementById('marginR').value) || 0,
+      b: parseFloat(document.getElementById('marginB').value) || 0,
+      l: parseFloat(document.getElementById('marginL').value) || 0,
+    },
+    mirror: document.getElementById('mirrorChk').checked,
+    theme: document.getElementById('themeSel').value,
   };
   applyStyle();
   markDirty();
@@ -1111,7 +653,7 @@ document.getElementById('appearanceBtn').addEventListener('click', () => {
 });
 document.getElementById('appearanceClose').addEventListener('click', ()=> appearanceBackdrop.classList.remove('open'));
 appearanceBackdrop.addEventListener('click', (e)=>{ if(e.target===appearanceBackdrop) appearanceBackdrop.classList.remove('open'); });
-['titleFontSel','bodyFontSel','titleColorInp','accentColorInp','pageBgSel','leadersChk'].forEach(id => {
+['titleFontSel','bodyFontSel','titleColorInp','accentColorInp','pageBgSel','leadersChk','underlineChk','itemSpacingInp','formatSel','marginT','marginR','marginB','marginL','mirrorChk','themeSel'].forEach(id => {
   document.getElementById(id).addEventListener('change', readAppearanceForm);
 });
 document.getElementById('appearanceReset').addEventListener('click', () => {
@@ -1121,15 +663,38 @@ document.getElementById('appearanceReset').addEventListener('click', () => {
   markDirty();
 });
 
+/* ===================== Onglets des cartes ===================== */
+
+function buildMenuTabs(){
+  const bar = document.getElementById('menuTabs');
+  if(!bar) return;
+  const active = window.currentMenuKey();
+  bar.innerHTML = '';
+  window.COURSIVE_MENUS.forEach(m => {
+    const a = document.createElement('a');
+    a.href = '?menu=' + m.key;
+    a.className = 'menu-tab' + (m.key === active ? ' active' : '');
+    a.innerHTML = `<span class="lbl">${m.label}</span>${m.hint ? `<span class="hint">${m.hint}</span>` : ''}`;
+    bar.appendChild(a);
+  });
+  const pub = document.createElement('a');
+  pub.href = 'publier.html';
+  pub.className = 'menu-tab publish-tab';
+  pub.innerHTML = '<span class="lbl">📱 Publier / QR</span>';
+  bar.appendChild(pub);
+
+  const badge = document.getElementById('menuBadge');
+  if(badge) badge.textContent = window.currentMenuLabel();
+}
+
 /* ===================== Boot ===================== */
 
+buildMenuTabs();
 applyStyle();
 render();
 resetHistory();
 
-/* Mode aperçu propre (?print) : masque toute l'UI d'édition (comme l'export) */
-if(/[?&]print\b/.test(location.search)) document.body.classList.add('exporting');
-
+/* La mesure de débordement n'est fiable qu'une fois styles + polices chargés */
 window.addEventListener('load', checkOverflow);
 if(document.fonts && document.fonts.ready) document.fonts.ready.then(checkOverflow);
 let resizeTimer = null;
@@ -1144,4 +709,5 @@ window.__CARTE_RENDER__ = render;
 window.__CARTE_HELPERS__ = {
   toast, markDirty, clearDraft, getDraft, updateSyncStatus,
   applyStyle, resetHistory, defaultStyle, checkOverflow,
+  PAGE_FORMATS,
 };

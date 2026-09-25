@@ -1,0 +1,889 @@
+{
+ "updatedAt": "2026-09-25T21:00:00.000Z",
+ "menus": [
+  {
+   "key": "carte",
+   "label": "Carte",
+   "style": {
+    "titleFont": "Playfair Display",
+    "bodyFont": "Poppins",
+    "titleColor": "#D8402B",
+    "accent": "#D8402B",
+    "pageBg": "#ffffff",
+    "leaders": true,
+    "format": "a4",
+    "theme": "classique",
+    "marginMm": {
+     "t": 18,
+     "r": 11,
+     "b": 18,
+     "l": 15
+    },
+    "mirror": false,
+    "sectionUnderline": false
+   },
+   "blocks": [
+    {
+     "id": "b1_za0bk",
+     "type": "header",
+     "line1": "VIKTO LABS",
+     "line2": "Café",
+     "chef": "Fait maison, du matin au soir",
+     "insta": "Suivez-nous sur Instagram<br>@viktolabs.cafe",
+     "wifi": "Wifi : VIKTO-CAFE<br>mdp : bonjour2026",
+     "logoImg": "assets/badge.png",
+     "qrImg": "assets/qr.png"
+    },
+    {
+     "id": "b2_htekf",
+     "type": "section",
+     "fr": "ENTRÉES",
+     "en": "Starters"
+    },
+    {
+     "id": "b3_9o49y",
+     "type": "item",
+     "fr": "BURRATA DI PUGLIA",
+     "en": "Tomates anciennes, basilic, huile d'olive",
+     "price": "14€",
+     "tags": [
+      "veg"
+     ]
+    },
+    {
+     "id": "b4_yu11y",
+     "type": "item",
+     "fr": "HOUMOUS & PAIN PITA",
+     "en": "Pois chiches, tahini, zaatar",
+     "price": "9€",
+     "tags": [
+      "veg"
+     ]
+    },
+    {
+     "id": "b5_u8utg",
+     "type": "section",
+     "fr": "TARTINES",
+     "en": "Toasts"
+    },
+    {
+     "id": "b6_mw4my",
+     "type": "note",
+     "text": "Sur pain de campagne au levain"
+    },
+    {
+     "id": "b7_to9lk",
+     "type": "item",
+     "fr": "AVOCAT & ŒUF POCHÉ",
+     "en": "Avocat écrasé, féta, grenade, sésame",
+     "price": "14€",
+     "tags": [
+      "veg"
+     ]
+    },
+    {
+     "id": "b8_ekr9y",
+     "type": "item",
+     "fr": "SAUMON & FROMAGE FRAIS",
+     "en": "Saumon fumé, aneth, citron",
+     "price": "15€"
+    },
+    {
+     "id": "b9_0voy4",
+     "type": "item",
+     "fr": "CHÈVRE CHAUD & MIEL",
+     "en": "Noix, roquette",
+     "price": "13€",
+     "tags": [
+      "veg"
+     ]
+    },
+    {
+     "id": "b10_8cl93",
+     "type": "section",
+     "fr": "SALADES",
+     "en": "Salads"
+    },
+    {
+     "id": "b11_iewgc",
+     "type": "item",
+     "fr": "CÉSAR REVISITÉE",
+     "en": "Romaine, poulet grillé, parmesan, croûtons, sauce césar légère",
+     "price": "16€",
+     "tags": [
+      "spec"
+     ]
+    },
+    {
+     "id": "b12_t2yro",
+     "type": "item",
+     "fr": "GRECQUE",
+     "en": "Concombre, tomate, féta, olives, oignon rouge, origan",
+     "price": "15€",
+     "tags": [
+      "veg"
+     ]
+    },
+    {
+     "id": "b13_li1r7",
+     "type": "item",
+     "fr": "BOWL SAUMON",
+     "en": "Saumon mariné, quinoa, edamame, avocat, sésame",
+     "price": "18€"
+    },
+    {
+     "id": "b14_0407x",
+     "type": "item",
+     "fr": "VÉGÉ GOURMANDE",
+     "en": "Halloumi grillé, patate douce, pois chiches, houmous",
+     "price": "16€",
+     "tags": [
+      "veg"
+     ]
+    },
+    {
+     "id": "b15_o7nzn",
+     "type": "section",
+     "fr": "PLATS CHAUDS",
+     "en": "Hot dishes"
+    },
+    {
+     "id": "b16_evnze",
+     "type": "item",
+     "fr": "SAUMON RÔTI",
+     "en": "Riz vénéré, légumes de saison sautés",
+     "price": "21€"
+    },
+    {
+     "id": "b17_ya4xx",
+     "type": "item",
+     "fr": "POULET FERMIER",
+     "en": "Marinade citron-gingembre, patate douce, haricots verts",
+     "price": "19€",
+     "tags": [
+      "spec"
+     ]
+    },
+    {
+     "id": "b18_5yn3a",
+     "type": "item",
+     "fr": "CURRY DE LÉGUMES",
+     "en": "Lait de coco, riz basmati, coriandre",
+     "price": "16€",
+     "tags": [
+      "veg"
+     ]
+    },
+    {
+     "id": "b19_5i565",
+     "type": "pagebreak"
+    },
+    {
+     "id": "b20_c5f6v",
+     "type": "section",
+     "fr": "PIADINAS",
+     "en": "Italian flatbreads"
+    },
+    {
+     "id": "b21_ud8z0",
+     "type": "note",
+     "text": "Galette italienne toastée"
+    },
+    {
+     "id": "b22_y77wv",
+     "type": "item",
+     "fr": "VEGGIE",
+     "en": "Légumes grillés, pesto, mozzarella, roquette",
+     "price": "14€",
+     "tags": [
+      "veg"
+     ]
+    },
+    {
+     "id": "b23_34scd",
+     "type": "item",
+     "fr": "POULET",
+     "en": "Poulet, tomates confites, mozzarella, salade",
+     "price": "15€"
+    },
+    {
+     "id": "b24_cakh9",
+     "type": "item",
+     "fr": "ITALIENNE",
+     "en": "Jambon cru, burrata, roquette, pesto",
+     "price": "16€"
+    },
+    {
+     "id": "b25_6yjvg",
+     "type": "section",
+     "fr": "CLUBS & BURGERS",
+     "en": "Clubs & burgers"
+    },
+    {
+     "id": "b26_mbckg",
+     "type": "item",
+     "fr": "CLUB CLASSIQUE",
+     "en": "Poulet, œuf, tomate, salade, mayo maison, frites",
+     "price": "16€"
+    },
+    {
+     "id": "b27_qmi3h",
+     "type": "item",
+     "fr": "CLUB NORDIQUE",
+     "en": "Saumon fumé, avocat, fromage frais, frites",
+     "price": "17€"
+    },
+    {
+     "id": "b28_8x98p",
+     "type": "item",
+     "fr": "BURGER MAISON",
+     "en": "Bœuf, cheddar, oignons confits, cornichons, frites",
+     "price": "17€",
+     "tags": [
+      "spec"
+     ]
+    },
+    {
+     "id": "b29_95t9g",
+     "type": "section",
+     "fr": "À CÔTÉ",
+     "en": "Sides"
+    },
+    {
+     "id": "b30_kqq0b",
+     "type": "item",
+     "fr": "FRITES MAISON",
+     "en": "",
+     "price": "5€"
+    },
+    {
+     "id": "b31_e7hnn",
+     "type": "item",
+     "fr": "SALADE VERTE",
+     "en": "",
+     "price": "4€"
+    },
+    {
+     "id": "b32_34fx9",
+     "type": "item",
+     "fr": "PATATE DOUCE RÔTIE",
+     "en": "",
+     "price": "4€"
+    },
+    {
+     "id": "b33_j2jln",
+     "type": "item",
+     "fr": "HALLOUMI GRILLÉ",
+     "en": "",
+     "price": "5€"
+    },
+    {
+     "id": "b34_ld03b",
+     "type": "section",
+     "fr": "MENU ENFANT",
+     "en": "Kids menu"
+    },
+    {
+     "id": "b35_q6rhz",
+     "type": "formule",
+     "text": "Plat · boisson · dessert — 10€"
+    },
+    {
+     "id": "b36_cxg17",
+     "type": "note",
+     "text": "Mini burger, nuggets maison ou pâtes · sirop à l'eau ou jus de fruits · boule de glace ou compote"
+    },
+    {
+     "id": "b37_ykpo5",
+     "type": "note",
+     "text": "Prix nets en euros, service compris. Liste des allergènes disponible sur demande."
+    }
+   ]
+  },
+  {
+   "key": "brunch",
+   "label": "Brunch",
+   "style": {
+    "titleFont": "Playfair Display",
+    "bodyFont": "Poppins",
+    "titleColor": "#C4622D",
+    "accent": "#C4622D",
+    "pageBg": "#ffffff",
+    "leaders": false,
+    "format": "a5",
+    "theme": "classique",
+    "marginMm": {
+     "t": 12,
+     "r": 12,
+     "b": 12,
+     "l": 12
+    },
+    "mirror": false,
+    "sectionUnderline": false
+   },
+   "blocks": [
+    {
+     "id": "b38_4yopb",
+     "type": "image",
+     "src": "assets/badge.png",
+     "widthPct": 36
+    },
+    {
+     "id": "b39_uid88",
+     "type": "section",
+     "fr": "LE BRUNCH",
+     "en": "Weekend brunch"
+    },
+    {
+     "id": "b40_bo1uo",
+     "type": "note",
+     "text": "Samedi, dimanche et jours fériés, de 10 h à 15 h"
+    },
+    {
+     "id": "b41_janbo",
+     "type": "formule",
+     "text": "L'assiette 22€ · la formule complète 29€"
+    },
+    {
+     "id": "b42_ouiot",
+     "type": "item",
+     "fr": "UN JUS PRESSÉ",
+     "en": "Vert vif, Soleil levant ou orange pressée (Mimosa +6€)",
+     "price": ""
+    },
+    {
+     "id": "b43_6ajbb",
+     "type": "item",
+     "fr": "UNE BOISSON CHAUDE",
+     "en": "Café, chocolat, thé ou infusion (cappuccino ou latte +1€)",
+     "price": ""
+    },
+    {
+     "id": "b44_h75kg",
+     "type": "item",
+     "fr": "L'ASSIETTE",
+     "en": "Pain brioché, œufs brouillés, avocat, houmous, fromage frais, salade et fruits de saison",
+     "price": ""
+    },
+    {
+     "id": "b45_a4o1d",
+     "type": "item",
+     "fr": "AU CHOIX",
+     "en": "Saumon fumé, poulet ou pastrami",
+     "price": ""
+    },
+    {
+     "id": "b46_8kckd",
+     "type": "item",
+     "fr": "LA DOUCEUR",
+     "en": "Pancakes, sirop d'érable et fruits rouges, ou fromage blanc, granola et miel",
+     "price": ""
+    },
+    {
+     "id": "b47_jin8o",
+     "type": "note",
+     "text": "La formule complète comprend le jus, la boisson chaude, l'assiette et la douceur."
+    }
+   ]
+  },
+  {
+   "key": "desserts",
+   "label": "Desserts",
+   "style": {
+    "titleFont": "Playfair Display",
+    "bodyFont": "Poppins",
+    "titleColor": "#B5476B",
+    "accent": "#B5476B",
+    "pageBg": "#ffffff",
+    "leaders": true,
+    "format": "carte34",
+    "theme": "classique",
+    "marginMm": {
+     "t": 10,
+     "r": 8,
+     "b": 10,
+     "l": 8
+    },
+    "mirror": false,
+    "sectionUnderline": false,
+    "itemSpacing": 11
+   },
+   "blocks": [
+    {
+     "id": "b48_dxkdd",
+     "type": "image",
+     "src": "assets/badge.png",
+     "widthPct": 50
+    },
+    {
+     "id": "b49_reerl",
+     "type": "section",
+     "fr": "DESSERTS",
+     "en": "Homemade"
+    },
+    {
+     "id": "b50_m0w19",
+     "type": "item",
+     "fr": "TARTE AU CITRON",
+     "en": "Meringue flambée",
+     "price": "7€"
+    },
+    {
+     "id": "b51_ke5sx",
+     "type": "item",
+     "fr": "PAVLOVA FRUITS ROUGES",
+     "en": "Meringue, chantilly légère, coulis maison",
+     "price": "8€"
+    },
+    {
+     "id": "b52_s1t1t",
+     "type": "item",
+     "fr": "MOUSSE AU CHOCOLAT NOIR",
+     "en": "Éclats de fève de cacao",
+     "price": "7,50€"
+    },
+    {
+     "id": "b53_14l79",
+     "type": "item",
+     "fr": "CRUMBLE POMME-POIRE",
+     "en": "Servi tiède, glace vanille",
+     "price": "7,50€"
+    },
+    {
+     "id": "b54_u49ie",
+     "type": "item",
+     "fr": "CHEESECAKE VANILLE",
+     "en": "Base spéculoos, cœur fruits rouges",
+     "price": "8,50€",
+     "tags": [
+      "spec"
+     ]
+    },
+    {
+     "id": "b55_vvbin",
+     "type": "item",
+     "fr": "FONDANT AU CHOCOLAT",
+     "en": "Cœur coulant, crème anglaise",
+     "price": "8€"
+    },
+    {
+     "id": "b56_dgauc",
+     "type": "item",
+     "fr": "BOWL AÇAÏ",
+     "en": "Açaï, banane, granola, coco, myrtille",
+     "price": "11€",
+     "tags": [
+      "veg"
+     ]
+    },
+    {
+     "id": "b57_bxc8o",
+     "type": "item",
+     "fr": "COOKIE MAISON",
+     "en": "Chocolat et noix de pécan",
+     "price": "4,50€"
+    },
+    {
+     "id": "b58_mba82",
+     "type": "item",
+     "fr": "CAFÉ GOURMAND",
+     "en": "Expresso et trois mignardises du jour",
+     "price": "9€"
+    },
+    {
+     "id": "b59_o7c9e",
+     "type": "section",
+     "fr": "GLACES",
+     "en": "Ice cream"
+    },
+    {
+     "id": "b60_8gspt",
+     "type": "formule",
+     "text": "Yaourt glacé, 2 toppings au choix — 8,50€"
+    },
+    {
+     "id": "b61_oc4pl",
+     "type": "note",
+     "text": "Fruits frais, granola, caramel beurre salé, miel, noix, sirop d'érable"
+    }
+   ]
+  },
+  {
+   "key": "boissons",
+   "label": "Boissons",
+   "style": {
+    "titleFont": "Playfair Display",
+    "bodyFont": "Poppins",
+    "titleColor": "#2F5D50",
+    "accent": "#2F8F5B",
+    "pageBg": "#ffffff",
+    "leaders": true,
+    "format": "a4",
+    "theme": "classique",
+    "marginMm": {
+     "t": 15,
+     "r": 12,
+     "b": 15,
+     "l": 15
+    },
+    "mirror": false,
+    "sectionUnderline": false
+   },
+   "blocks": [
+    {
+     "id": "b62_yet5b",
+     "type": "section",
+     "fr": "CAFÉS",
+     "en": "Coffees"
+    },
+    {
+     "id": "b63_eskiy",
+     "type": "item",
+     "fr": "EXPRESSO / DÉCA",
+     "en": "",
+     "price": "2,50€"
+    },
+    {
+     "id": "b64_iddmv",
+     "type": "item",
+     "fr": "NOISETTE",
+     "en": "",
+     "price": "3€"
+    },
+    {
+     "id": "b65_joj58",
+     "type": "item",
+     "fr": "DOUBLE / ALLONGÉ",
+     "en": "",
+     "price": "3,50€"
+    },
+    {
+     "id": "b66_7rx57",
+     "type": "item",
+     "fr": "CAPPUCCINO",
+     "en": "",
+     "price": "4,50€"
+    },
+    {
+     "id": "b67_rpb26",
+     "type": "item",
+     "fr": "FLAT WHITE",
+     "en": "",
+     "price": "4,50€"
+    },
+    {
+     "id": "b68_iqf2z",
+     "type": "item",
+     "fr": "CHOCOLAT CHAUD",
+     "en": "",
+     "price": "5€"
+    },
+    {
+     "id": "b69_l9255",
+     "type": "note",
+     "text": "Lait végétal +0,50€ · sirop vanille ou caramel +0,50€"
+    },
+    {
+     "id": "b70_0wh0x",
+     "type": "section",
+     "fr": "LES LATTES",
+     "en": "Signature lattes"
+    },
+    {
+     "id": "b71_gt27n",
+     "type": "item",
+     "fr": "MATCHA LATTE",
+     "en": "Thé vert matcha, lait mousseux",
+     "price": "6,50€"
+    },
+    {
+     "id": "b72_ggjax",
+     "type": "item",
+     "fr": "GOLDEN LATTE",
+     "en": "Curcuma, gingembre, cannelle, poivre",
+     "price": "6,50€"
+    },
+    {
+     "id": "b73_rbk5n",
+     "type": "item",
+     "fr": "CHAÏ LATTE",
+     "en": "Thé noir épicé, cardamome, cannelle",
+     "price": "6,50€"
+    },
+    {
+     "id": "b74_g6w6s",
+     "type": "item",
+     "fr": "BETTERAVE LATTE",
+     "en": "Betterave, vanille, lait mousseux",
+     "price": "6,50€"
+    },
+    {
+     "id": "b75_ffvs3",
+     "type": "section",
+     "fr": "THÉS & INFUSIONS",
+     "en": "Organic teas"
+    },
+    {
+     "id": "b76_7487r",
+     "type": "item",
+     "fr": "THÉ OU INFUSION BIO",
+     "en": "Vert sencha, menthe, Earl Grey, rooibos vanille, verveine",
+     "price": "5€"
+    },
+    {
+     "id": "b77_2tdsm",
+     "type": "pagebreak"
+    },
+    {
+     "id": "b78_pwc84",
+     "type": "section",
+     "fr": "JUS PRESSÉS À FROID",
+     "en": "Cold-pressed · 40 cl"
+    },
+    {
+     "id": "b79_xedu2",
+     "type": "formule",
+     "text": "Boost superaliment au choix +1,50€"
+    },
+    {
+     "id": "b80_otain",
+     "type": "item",
+     "fr": "VERT VIF",
+     "en": "Pomme, concombre, épinard, citron",
+     "price": "7,50€"
+    },
+    {
+     "id": "b81_9vc6t",
+     "type": "item",
+     "fr": "SOLEIL LEVANT",
+     "en": "Carotte, orange, curcuma, gingembre",
+     "price": "7,50€"
+    },
+    {
+     "id": "b82_fkgun",
+     "type": "item",
+     "fr": "ROSE DU DÉSERT",
+     "en": "Pastèque, fraise, menthe",
+     "price": "7,50€"
+    },
+    {
+     "id": "b83_vlm8y",
+     "type": "item",
+     "fr": "SOUS LES TROPIQUES",
+     "en": "Ananas, mangue, lait de coco",
+     "price": "7,50€"
+    },
+    {
+     "id": "b84_iaj1h",
+     "type": "item",
+     "fr": "AURORE",
+     "en": "Betterave, pomme, framboise",
+     "price": "7,50€"
+    },
+    {
+     "id": "b85_58izy",
+     "type": "section",
+     "fr": "SHOTS",
+     "en": "7 cl"
+    },
+    {
+     "id": "b86_z6bok",
+     "type": "item",
+     "fr": "SHOT FEU",
+     "en": "Gingembre, citron, piment",
+     "price": "4€"
+    },
+    {
+     "id": "b87_z2zm6",
+     "type": "item",
+     "fr": "SHOT VERT",
+     "en": "Pomme, menthe, spiruline",
+     "price": "4€"
+    },
+    {
+     "id": "b88_52ghu",
+     "type": "section",
+     "fr": "BOISSONS FRAÎCHES",
+     "en": "Soft drinks"
+    },
+    {
+     "id": "b89_lyizl",
+     "type": "item",
+     "fr": "EAU DE SOURCE",
+     "en": "Plate ou pétillante · 75 cl",
+     "price": "5€"
+    },
+    {
+     "id": "b90_6hysc",
+     "type": "item",
+     "fr": "EAU INFUSÉE MAISON",
+     "en": "Concombre et menthe · 75 cl",
+     "price": "5,50€"
+    },
+    {
+     "id": "b91_hzt0m",
+     "type": "item",
+     "fr": "THÉ GLACÉ MAISON",
+     "en": "Hibiscus, citronnelle, fruits rouges",
+     "price": "6€"
+    },
+    {
+     "id": "b92_6x8d0",
+     "type": "item",
+     "fr": "LIMONADE ARTISANALE",
+     "en": "33 cl",
+     "price": "5€"
+    },
+    {
+     "id": "b93_wgtkj",
+     "type": "item",
+     "fr": "SODA / COLA",
+     "en": "33 cl",
+     "price": "5€"
+    }
+   ]
+  },
+  {
+   "key": "vins",
+   "label": "Vins & apéro",
+   "style": {
+    "titleFont": "Cormorant Garamond",
+    "bodyFont": "Poppins",
+    "titleColor": "#1a1a1a",
+    "accent": "#8C2E24",
+    "pageBg": "#ffffff",
+    "leaders": true,
+    "format": "a4",
+    "theme": "vigne",
+    "marginMm": {
+     "t": 21,
+     "r": 12,
+     "b": 20,
+     "l": 55
+    },
+    "mirror": true,
+    "sectionUnderline": false
+   },
+   "blocks": [
+    {
+     "id": "b94_jq6jb",
+     "type": "section",
+     "fr": "À L'APÉRO",
+     "en": "Aperitifs"
+    },
+    {
+     "id": "b95_rc3wm",
+     "type": "item",
+     "fr": "SPRITZ MAISON",
+     "en": "Apérol, mousseux, eau pétillante",
+     "price": "8,50€"
+    },
+    {
+     "id": "b96_4h9yt",
+     "type": "item",
+     "fr": "MOJITO DU COMPTOIR",
+     "en": "Rhum ambré, citron vert, menthe, cassonade",
+     "price": "9,50€"
+    },
+    {
+     "id": "b97_gzs6a",
+     "type": "item",
+     "fr": "AMOUR SPRITZ",
+     "en": "Fleur de sureau, mousseux, eau pétillante",
+     "price": "10,50€"
+    },
+    {
+     "id": "b98_hp57o",
+     "type": "section",
+     "fr": "LES VINS",
+     "en": "Verre 12 cl · bouteille 75 cl"
+    },
+    {
+     "id": "b99_zq8wt",
+     "type": "formule",
+     "text": "Rouges",
+     "heading": true
+    },
+    {
+     "id": "b100_oe0yw",
+     "type": "item",
+     "fr": "Côtes du Rhône — Bio",
+     "en": "",
+     "price": "6€ / 27€"
+    },
+    {
+     "id": "b101_mqkhs",
+     "type": "item",
+     "fr": "Saumur-Champigny",
+     "en": "",
+     "price": "6,50€ / 29€"
+    },
+    {
+     "id": "b102_3o4z9",
+     "type": "formule",
+     "text": "Blancs",
+     "heading": true
+    },
+    {
+     "id": "b103_qf9xn",
+     "type": "item",
+     "fr": "Sauvignon, Val de Loire",
+     "en": "",
+     "price": "6€ / 27€"
+    },
+    {
+     "id": "b104_3496w",
+     "type": "item",
+     "fr": "Chardonnay, Bourgogne",
+     "en": "",
+     "price": "8€ / 38€"
+    },
+    {
+     "id": "b105_18hq1",
+     "type": "formule",
+     "text": "Rosé & bulles",
+     "heading": true
+    },
+    {
+     "id": "b106_sagq3",
+     "type": "item",
+     "fr": "Rosé de Provence",
+     "en": "",
+     "price": "6€ / 27€"
+    },
+    {
+     "id": "b107_1xwdk",
+     "type": "item",
+     "fr": "Crémant de Loire brut",
+     "en": "",
+     "price": "8€ / 36€"
+    },
+    {
+     "id": "b108_a8t5l",
+     "type": "section",
+     "fr": "BIÈRES",
+     "en": "Beers · 25 cl / 50 cl"
+    },
+    {
+     "id": "b109_patoa",
+     "type": "item",
+     "fr": "Blonde pression",
+     "en": "",
+     "price": "5,50€ / 8€"
+    },
+    {
+     "id": "b110_3jr6u",
+     "type": "item",
+     "fr": "Blanche",
+     "en": "",
+     "price": "6€ / 8,50€"
+    },
+    {
+     "id": "b111_wjiun",
+     "type": "note",
+     "text": "L'abus d'alcool est dangereux pour la santé. À consommer avec modération."
+    }
+   ]
+  }
+ ]
+}

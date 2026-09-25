@@ -1,0 +1,140 @@
+{
+ "style": {
+  "titleFont": "Cormorant Garamond",
+  "bodyFont": "Poppins",
+  "titleColor": "#1a1a1a",
+  "accent": "#8C2E24",
+  "pageBg": "#ffffff",
+  "leaders": true,
+  "format": "a4",
+  "theme": "vigne",
+  "marginMm": {
+   "t": 21,
+   "r": 12,
+   "b": 20,
+   "l": 55
+  },
+  "mirror": true,
+  "sectionUnderline": false
+ },
+ "blocks": [
+  {
+   "id": "b94_jq6jb",
+   "type": "section",
+   "fr": "À L'APÉRO",
+   "en": "Aperitifs"
+  },
+  {
+   "id": "b95_rc3wm",
+   "type": "item",
+   "fr": "SPRITZ MAISON",
+   "en": "Apérol, mousseux, eau pétillante",
+   "price": "8,50€"
+  },
+  {
+   "id": "b96_4h9yt",
+   "type": "item",
+   "fr": "MOJITO DU COMPTOIR",
+   "en": "Rhum ambré, citron vert, menthe, cassonade",
+   "price": "9,50€"
+  },
+  {
+   "id": "b97_gzs6a",
+   "type": "item",
+   "fr": "AMOUR SPRITZ",
+   "en": "Fleur de sureau, mousseux, eau pétillante",
+   "price": "10,50€"
+  },
+  {
+   "id": "b98_hp57o",
+   "type": "section",
+   "fr": "LES VINS",
+   "en": "Verre 12 cl · bouteille 75 cl"
+  },
+  {
+   "id": "b99_zq8wt",
+   "type": "formule",
+   "text": "Rouges",
+   "heading": true
+  },
+  {
+   "id": "b100_oe0yw",
+   "type": "item",
+   "fr": "Côtes du Rhône — Bio",
+   "en": "",
+   "price": "6€ / 27€"
+  },
+  {
+   "id": "b101_mqkhs",
+   "type": "item",
+   "fr": "Saumur-Champigny",
+   "en": "",
+   "price": "6,50€ / 29€"
+  },
+  {
+   "id": "b102_3o4z9",
+   "type": "formule",
+   "text": "Blancs",
+   "heading": true
+  },
+  {
+   "id": "b103_qf9xn",
+   "type": "item",
+   "fr": "Sauvignon, Val de Loire",
+   "en": "",
+   "price": "6€ / 27€"
+  },
+  {
+   "id": "b104_3496w",
+   "type": "item",
+   "fr": "Chardonnay, Bourgogne",
+   "en": "",
+   "price": "8€ / 38€"
+  },
+  {
+   "id": "b105_18hq1",
+   "type": "formule",
+   "text": "Rosé & bulles",
+   "heading": true
+  },
+  {
+   "id": "b106_sagq3",
+   "type": "item",
+   "fr": "Rosé de Provence",
+   "en": "",
+   "price": "6€ / 27€"
+  },
+  {
+   "id": "b107_1xwdk",
+   "type": "item",
+   "fr": "Crémant de Loire brut",
+   "en": "",
+   "price": "8€ / 36€"
+  },
+  {
+   "id": "b108_a8t5l",
+   "type": "section",
+   "fr": "BIÈRES",
+   "en": "Beers · 25 cl / 50 cl"
+  },
+  {
+   "id": "b109_patoa",
+   "type": "item",
+   "fr": "Blonde pression",
+   "en": "",
+   "price": "5,50€ / 8€"
+  },
+  {
+   "id": "b110_3jr6u",
+   "type": "item",
+   "fr": "Blanche",
+   "en": "",
+   "price": "6€ / 8,50€"
+  },
+  {
+   "id": "b111_wjiun",
+   "type": "note",
+   "text": "L'abus d'alcool est dangereux pour la santé. À consommer avec modération."
+  }
+ ]
+}

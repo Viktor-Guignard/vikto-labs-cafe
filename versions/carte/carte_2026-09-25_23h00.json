@@ -1,0 +1,297 @@
+{
+ "style": {
+  "titleFont": "Playfair Display",
+  "bodyFont": "Poppins",
+  "titleColor": "#D8402B",
+  "accent": "#D8402B",
+  "pageBg": "#ffffff",
+  "leaders": true,
+  "format": "a4",
+  "theme": "classique",
+  "marginMm": {
+   "t": 18,
+   "r": 11,
+   "b": 18,
+   "l": 15
+  },
+  "mirror": false,
+  "sectionUnderline": false
+ },
+ "blocks": [
+  {
+   "id": "b1_za0bk",
+   "type": "header",
+   "line1": "VIKTO LABS",
+   "line2": "Café",
+   "chef": "Fait maison, du matin au soir",
+   "insta": "Suivez-nous sur Instagram<br>@viktolabs.cafe",
+   "wifi": "Wifi : VIKTO-CAFE<br>mdp : bonjour2026",
+   "logoImg": "assets/badge.png",
+   "qrImg": "assets/qr.png"
+  },
+  {
+   "id": "b2_htekf",
+   "type": "section",
+   "fr": "ENTRÉES",
+   "en": "Starters"
+  },
+  {
+   "id": "b3_9o49y",
+   "type": "item",
+   "fr": "BURRATA DI PUGLIA",
+   "en": "Tomates anciennes, basilic, huile d'olive",
+   "price": "14€",
+   "tags": [
+    "veg"
+   ]
+  },
+  {
+   "id": "b4_yu11y",
+   "type": "item",
+   "fr": "HOUMOUS & PAIN PITA",
+   "en": "Pois chiches, tahini, zaatar",
+   "price": "9€",
+   "tags": [
+    "veg"
+   ]
+  },
+  {
+   "id": "b5_u8utg",
+   "type": "section",
+   "fr": "TARTINES",
+   "en": "Toasts"
+  },
+  {
+   "id": "b6_mw4my",
+   "type": "note",
+   "text": "Sur pain de campagne au levain"
+  },
+  {
+   "id": "b7_to9lk",
+   "type": "item",
+   "fr": "AVOCAT & ŒUF POCHÉ",
+   "en": "Avocat écrasé, féta, grenade, sésame",
+   "price": "14€",
+   "tags": [
+    "veg"
+   ]
+  },
+  {
+   "id": "b8_ekr9y",
+   "type": "item",
+   "fr": "SAUMON & FROMAGE FRAIS",
+   "en": "Saumon fumé, aneth, citron",
+   "price": "15€"
+  },
+  {
+   "id": "b9_0voy4",
+   "type": "item",
+   "fr": "CHÈVRE CHAUD & MIEL",
+   "en": "Noix, roquette",
+   "price": "13€",
+   "tags": [
+    "veg"
+   ]
+  },
+  {
+   "id": "b10_8cl93",
+   "type": "section",
+   "fr": "SALADES",
+   "en": "Salads"
+  },
+  {
+   "id": "b11_iewgc",
+   "type": "item",
+   "fr": "CÉSAR REVISITÉE",
+   "en": "Romaine, poulet grillé, parmesan, croûtons, sauce césar légère",
+   "price": "16€",
+   "tags": [
+    "spec"
+   ]
+  },
+  {
+   "id": "b12_t2yro",
+   "type": "item",
+   "fr": "GRECQUE",
+   "en": "Concombre, tomate, féta, olives, oignon rouge, origan",
+   "price": "15€",
+   "tags": [
+    "veg"
+   ]
+  },
+  {
+   "id": "b13_li1r7",
+   "type": "item",
+   "fr": "BOWL SAUMON",
+   "en": "Saumon mariné, quinoa, edamame, avocat, sésame",
+   "price": "18€"
+  },
+  {
+   "id": "b14_0407x",
+   "type": "item",
+   "fr": "VÉGÉ GOURMANDE",
+   "en": "Halloumi grillé, patate douce, pois chiches, houmous",
+   "price": "16€",
+   "tags": [
+    "veg"
+   ]
+  },
+  {
+   "id": "b15_o7nzn",
+   "type": "section",
+   "fr": "PLATS CHAUDS",
+   "en": "Hot dishes"
+  },
+  {
+   "id": "b16_evnze",
+   "type": "item",
+   "fr": "SAUMON RÔTI",
+   "en": "Riz vénéré, légumes de saison sautés",
+   "price": "21€"
+  },
+  {
+   "id": "b17_ya4xx",
+   "type": "item",
+   "fr": "POULET FERMIER",
+   "en": "Marinade citron-gingembre, patate douce, haricots verts",
+   "price": "19€",
+   "tags": [
+    "spec"
+   ]
+  },
+  {
+   "id": "b18_5yn3a",
+   "type": "item",
+   "fr": "CURRY DE LÉGUMES",
+   "en": "Lait de coco, riz basmati, coriandre",
+   "price": "16€",
+   "tags": [
+    "veg"
+   ]
+  },
+  {
+   "id": "b19_5i565",
+   "type": "pagebreak"
+  },
+  {
+   "id": "b20_c5f6v",
+   "type": "section",
+   "fr": "PIADINAS",
+   "en": "Italian flatbreads"
+  },
+  {
+   "id": "b21_ud8z0",
+   "type": "note",
+   "text": "Galette italienne toastée"
+  },
+  {
+   "id": "b22_y77wv",
+   "type": "item",
+   "fr": "VEGGIE",
+   "en": "Légumes grillés, pesto, mozzarella, roquette",
+   "price": "14€",
+   "tags": [
+    "veg"
+   ]
+  },
+  {
+   "id": "b23_34scd",
+   "type": "item",
+   "fr": "POULET",
+   "en": "Poulet, tomates confites, mozzarella, salade",
+   "price": "15€"
+  },
+  {
+   "id": "b24_cakh9",
+   "type": "item",
+   "fr": "ITALIENNE",
+   "en": "Jambon cru, burrata, roquette, pesto",
+   "price": "16€"
+  },
+  {
+   "id": "b25_6yjvg",
+   "type": "section",
+   "fr": "CLUBS & BURGERS",
+   "en": "Clubs & burgers"
+  },
+  {
+   "id": "b26_mbckg",
+   "type": "item",
+   "fr": "CLUB CLASSIQUE",
+   "en": "Poulet, œuf, tomate, salade, mayo maison, frites",
+   "price": "16€"
+  },
+  {
+   "id": "b27_qmi3h",
+   "type": "item",
+   "fr": "CLUB NORDIQUE",
+   "en": "Saumon fumé, avocat, fromage frais, frites",
+   "price": "17€"
+  },
+  {
+   "id": "b28_8x98p",
+   "type": "item",
+   "fr": "BURGER MAISON",
+   "en": "Bœuf, cheddar, oignons confits, cornichons, frites",
+   "price": "17€",
+   "tags": [
+    "spec"
+   ]
+  },
+  {
+   "id": "b29_95t9g",
+   "type": "section",
+   "fr": "À CÔTÉ",
+   "en": "Sides"
+  },
+  {
+   "id": "b30_kqq0b",
+   "type": "item",
+   "fr": "FRITES MAISON",
+   "en": "",
+   "price": "5€"
+  },
+  {
+   "id": "b31_e7hnn",
+   "type": "item",
+   "fr": "SALADE VERTE",
+   "en": "",
+   "price": "4€"
+  },
+  {
+   "id": "b32_34fx9",
+   "type": "item",
+   "fr": "PATATE DOUCE RÔTIE",
+   "en": "",
+   "price": "4€"
+  },
+  {
+   "id": "b33_j2jln",
+   "type": "item",
+   "fr": "HALLOUMI GRILLÉ",
+   "en": "",
+   "price": "5€"
+  },
+  {
+   "id": "b34_ld03b",
+   "type": "section",
+   "fr": "MENU ENFANT",
+   "en": "Kids menu"
+  },
+  {
+   "id": "b35_q6rhz",
+   "type": "formule",
+   "text": "Plat · boisson · dessert — 10€"
+  },
+  {
+   "id": "b36_cxg17",
+   "type": "note",
+   "text": "Mini burger, nuggets maison ou pâtes · sirop à l'eau ou jus de fruits · boule de glace ou compote"
+  },
+  {
+   "id": "b37_ykpo5",
+   "type": "note",
+   "text": "Prix nets en euros, service compris. Liste des allergènes disponible sur demande."
+  }
+ ]
+}

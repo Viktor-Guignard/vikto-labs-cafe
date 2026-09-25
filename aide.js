@@ -2,7 +2,7 @@
    Assistant d'aide — FAQ conversationnelle, 100 % locale.
    Aucune IA, aucun appel réseau : simple moteur de correspondance
    par mots-clés sur une base de questions/réponses.
-   Utilisé par l'éditeur (index.html).
+   Utilisé par l'éditeur (index.html) et la page Publier (publier.html).
    ========================================================= */
 (function () {
 
@@ -48,41 +48,41 @@
     {
       id: 'deplacer',
       cat: 'Modifier',
-      q: 'Comment déplacer un plat ou changer l\'ordre ?',
-      k: 'deplacer bouger ordre monter descendre changer place reorganiser glisser deposer trier colonne volet ranger',
-      a: `<p>Deux façons, au choix :</p>
-        <ol>
-          <li><b>↑</b> et <b>↓</b> dans les contrôles de la ligne — pour un décalage d'un cran</li>
-          <li><b>⠿</b> — maintenez et faites glisser où vous voulez, y compris dans une autre colonne ou une autre planche</li>
-        </ol>
-        <p class="tip">Une erreur ? <b>↶</b> annule le déplacement (ou Cmd/Ctrl + Z).</p>`
+      q: 'Comment déplacer / réorganiser les plats ?',
+      k: 'deplacer bouger monter descendre ordre reorganiser haut bas ranger position inverser',
+      a: `<p>Survolez la ligne, puis utilisez les flèches à droite :</p>
+        <ul>
+          <li><b>↑</b> monte le plat d'un cran</li>
+          <li><b>↓</b> le descend d'un cran</li>
+          <li><b>⧉</b> le duplique (pratique pour créer un plat similaire)</li>
+        </ul>`
     },
     {
       id: 'picto',
       cat: 'Modifier',
-      q: 'Comment ajouter le pictogramme végétarien ou sans gluten ?',
-      k: 'picto pictogramme symbole icone vegetarien vegan vege sans gluten sg allergie regime logo feuille epi signaler indiquer',
-      a: `<p>Survolez la ligne du plat : deux boutons apparaissent dans les contrôles à droite.</p>
-        <ol>
-          <li><b>V</b> — végétarien</li>
-          <li><b>SG</b> — sans gluten</li>
+      q: 'Comment mettre le pictogramme végétarien sur un plat ?',
+      k: 'picto pictogramme icone logo vegetarien vegan vege specialite maison symbole etoile feuille signe',
+      a: `<ol>
+          <li>Survolez la ligne du plat</li>
+          <li>Cliquez sur le bouton <b>🏷</b> (le dernier de la rangée à droite)</li>
         </ol>
-        <p>Un clic active le pictogramme, un autre le retire. Vous pouvez en mettre un, les deux, ou aucun.</p>
-        <p class="tip">Les pictogrammes fonctionnent aussi sur les titres de section — pratique pour signaler une rubrique entièrement végétarienne.</p>`
+        <p>Chaque clic fait défiler : <b>aucun → 🌿 végétarien → ⭐ spécialité maison → aucun</b>.</p>
+        <p class="tip">Ces pictogrammes existent sur la carte cuisine. Pour en créer d'autres (sans gluten, épicé…), demandez à Viktor.</p>`
     },
     {
       id: 'masquer',
       cat: 'Modifier',
-      q: 'Comment retirer un produit en rupture (sans le supprimer) ?',
-      k: 'masquer cacher rupture stock indisponible plus dispo temporaire retirer momentane epuise fini absent enlever provisoire desactiver reactiver reafficher oeil saison',
-      a: `<p>Pour retirer un produit <b>sans le supprimer</b> (rupture, fin de saison…) :</p>
+      q: 'Comment masquer un plat en rupture (sans le supprimer) ?',
+      k: 'masquer cacher rupture stock indisponible plus dispo temporaire retirer momentane epuise fini absent enlever provisoire desactiver reactiver reafficher oeil',
+      a: `<p>Pour retirer un plat du site <b>sans le supprimer</b> (rupture, produit du jour épuisé…) :</p>
         <ol>
-          <li>Survolez la ligne, cliquez sur <b>👁</b></li>
-          <li>Elle s'affiche <b>grisée et barrée</b> avec l'étiquette « Masqué »</li>
-          <li>Pour le remettre : recliquez sur <b>🚫</b></li>
+          <li>Survolez la ligne du plat</li>
+          <li>Cliquez sur le bouton <b>👁</b> dans les contrôles à droite</li>
+          <li>Le plat s'affiche <b>grisé et barré</b> avec l'étiquette « Masqué du site »</li>
+          <li><b>💾 Enregistrer</b>, puis <b>Publier</b> pour appliquer côté clients</li>
         </ol>
-        <p>Le produit masqué <b>n'apparaît pas dans le PDF</b> que vous téléchargez, mais il reste dans votre carte, prêt à revenir d'un clic.</p>
-        <p class="tip">Idéal pour les produits saisonniers : vous les masquez l'hiver, vous les réaffichez au printemps sans avoir à les ressaisir.</p>`
+        <p>Le plat <b>disparaît du QR et du site</b>, mais reste dans votre carte. Pour le remettre : recliquez sur <b>🚫</b>, enregistrez et republiez.</p>
+        <p class="tip">Le plat masqué disparaît <b>partout</b> : du QR, du site et du <b>PDF téléchargé</b>. Il reste seulement visible (grisé) dans l'éditeur.</p>`
     },
     {
       id: 'section',
@@ -94,7 +94,7 @@
           <li>Choisissez <b>Titre de section</b></li>
           <li>Modifiez le texte français, puis la traduction anglaise après le « / »</li>
         </ol>
-        <p class="tip">Sur les cartes <b>Vins</b> et <b>Alcools &amp; boissons</b>, il existe aussi <b>Sous-titre</b> pour les groupes secondaires type « LES SPRITZ » ou « BULLES ».</p>`
+        <p class="tip">Sur les cartes <b>Boissons</b> et <b>Vins &amp; apéro</b>, il existe aussi <b>Sous-titre</b> pour les groupes secondaires type « ROUGES » ou « BULLES ».</p>`
     },
     {
       id: 'couleurs',
@@ -158,14 +158,48 @@
         <p class="warn">⚠️ C'est la seule action <b>définitive</b> de l'outil : une version supprimée ne peut pas être récupérée.</p>`
     },
     {
+      id: 'publier',
+      cat: 'Publier',
+      q: 'Comment publier la carte pour les clients ?',
+      k: 'publier publication mettre en ligne client visible qr diffuser sortir live',
+      a: `<ol>
+          <li>Enregistrez d'abord vos modifications (<b>💾</b>)</li>
+          <li>Allez sur l'onglet <b>📱 Publier / QR</b></li>
+          <li>Cochez les cartes à rendre visibles</li>
+          <li>Cliquez sur <b>Publier la sélection sur le QR</b></li>
+        </ol>
+        <p class="tip">Tant que vous n'avez pas cliqué « Publier », vos modifications restent invisibles pour les clients : vous pouvez préparer une carte tranquillement.</p>`
+    },
+    {
+      id: 'qr-pas-jour',
+      cat: 'Publier',
+      q: "J'ai publié mais le QR code n'affiche pas les changements",
+      k: 'qr pas jour marche pas fonctionne pas rien change attendre delai lent bug probleme actualise',
+      a: `<p>C'est normal : comptez <b>jusqu'à 5 minutes</b> de propagation après avoir cliqué Publier.</p>
+        <p>Pour vérifier sans attendre :</p>
+        <ul>
+          <li>Ouvrez la page en navigation privée</li>
+          <li>Ou ajoutez <code>?x=1</code> à la fin de l'adresse pour forcer le rechargement</li>
+        </ul>
+        <p class="tip">Si rien ne change après 10 minutes, vérifiez que vous avez bien <b>enregistré</b> avant de publier.</p>`
+    },
+    {
+      id: 'qr-code',
+      cat: 'Publier',
+      q: 'Comment récupérer le QR code pour les tables ?',
+      k: 'qr code telecharger table image png recuperer afficher sticker chevalet flashcode',
+      a: `<p>Onglet <b>📱 Publier / QR</b> → bouton <b>⬇️ Télécharger le QR</b>.</p>
+        <p>Le QR est <b>fixe et définitif</b> : imprimez-le une fois, il restera valable même quand vous modifiez la carte.</p>`
+    },
+    {
       id: 'pdf',
       cat: 'Imprimer',
       q: 'Comment obtenir le PDF pour l\'imprimeur ?',
-      k: 'pdf imprimeur telecharger export fichier papier impression editer sortir planche depliant volet',
+      k: 'pdf imprimer imprimeur telecharger export fichier papier impression editer sortir',
       a: `<p>Cliquez sur <b>⬇️ PDF</b> en haut : le fichier se télécharge directement, nommé avec la date et l'heure. Rien à régler.</p>
-        <p>Chaque <b>planche</b> du dépliant devient une page du PDF, aux dimensions exactes affichées à l'écran, sans fond perdu ni traits de coupe.</p>
-        <p>Le texte reste du <b>vrai texte</b> : net à n'importe quelle taille d'impression, et votre imprimeur peut le sélectionner pour vérifier un accent ou un prix.</p>
-        <p class="tip">La toute première génération prend une seconde de plus, le temps de charger les polices. Les suivantes sont immédiates.</p>`
+        <p>Le PDF sort <b>exactement au format choisi</b> dans 🎨 Apparence (A4, 14×34 cm…), sans fond perdu ni traits de coupe, et <b>identique à ce que vous voyez à l'écran</b>.</p>
+        <p>Le texte reste du <b>vrai texte</b> : net à n'importe quelle taille d'impression, et votre imprimeur peut le sélectionner pour vérifier les accents ou les prix.</p>
+        <p class="tip">Le PDF ne concerne que la carte de l'onglet en cours — répétez l'opération pour chaque carte.</p>`
     },
     {
       id: 'autre-ordi',
@@ -226,6 +260,27 @@
       a: `<p>Cliquez directement sur l'image dans la carte : un sélecteur de fichier s'ouvre.</p>
         <p>Ça marche pour le logo, le QR code de l'en-tête, et tous les blocs image.</p>
         <p class="tip">Pour ajouter une nouvelle image : « + ajouter ici » → <b>Image / logo</b>.</p>`
+    },
+    {
+      id: 'site-vs-qr',
+      cat: 'Général',
+      q: 'Quelle différence entre le site web et le QR code ?',
+      k: 'site web internet vitrine difference qr deux lien url adresse ou',
+      a: `<p>Les deux affichent la <b>même carte publiée</b>, mais pour des usages différents :</p>
+        <ul>
+          <li><b>Le QR code</b> : pour les clients à table, sur leur téléphone. Toutes les cartes (cuisine, brunch, desserts, boissons, vins…)</li>
+          <li><b>Le site internet</b> : la vitrine du restaurant, avec photos et infos pratiques. Affiche la carte cuisine</li>
+        </ul>
+        <p class="tip">Une seule publication met les deux à jour en même temps.</p>`
+    },
+    {
+      id: 'onglets',
+      cat: 'Général',
+      q: 'À quoi servent les onglets en haut ?',
+      k: 'onglet tab carte brunch desserts vins boissons apero naviguer changer passer',
+      a: `<p>Chaque onglet est une <b>carte indépendante</b> : Carte (cuisine), Brunch, Desserts, Boissons, Vins &amp; apéro.</p>
+        <p>Chacune a son propre contenu, son format, ses couleurs, ses versions et son PDF.</p>
+        <p class="tip">Le dernier onglet <b>📱 Publier / QR</b> n'est pas une carte : c'est là qu'on rend les modifications visibles aux clients.</p>`
     },
     {
       id: 'annuler',
@@ -323,7 +378,7 @@
   /* ---------- Repli : écrire à VIKTO LABS ---------- */
   const MAIL = 'vikto.labs@gmail.com';
   function mailtoUrl(question) {
-    const isPublier = false;   // pas de page Publier dans cet éditeur
+    const isPublier = /publier\.html/.test(location.pathname);
     const ctx = isPublier
       ? 'Page Publier / QR'
       : 'Éditeur — carte : ' + (typeof window.currentMenuLabel === 'function' ? window.currentMenuLabel() : '?');
@@ -416,13 +471,13 @@
     /* --- accueil, contextuel à l'onglet ouvert --- */
     function welcome() {
       body.innerHTML = '';
-      const isPublier = false;   // pas de page Publier dans cet éditeur
+      const isPublier = /publier\.html/.test(location.pathname);
       const menu = (typeof window.currentMenuLabel === 'function' && !isPublier)
         ? window.currentMenuLabel() : null;
       addBot(`Bonjour 👋<br>Je réponds aux questions sur l'éditeur de carte${menu ? ` — vous êtes sur la carte <b>${esc(menu)}</b>` : ''}.`);
       const starters = isPublier
-        ? []
-        : ['modifier-texte', 'ajouter-plat', 'masquer', 'enregistrer', 'pdf'];
+        ? ['publier', 'qr-pas-jour', 'qr-code', 'site-vs-qr']
+        : ['modifier-texte', 'ajouter-plat', 'enregistrer', 'publier', 'pdf'];
       addChips(starters.map(id => FAQ.find(e => e.id === id)).filter(Boolean), 'Questions fréquentes');
     }
 
@@ -437,7 +492,7 @@
       if (!found.length) {
         addBot(`Je n'ai pas trouvé de réponse à cette question 😕`);
         addMail(q);
-        addChips(FAQ.filter(e => ['modifier-texte','ajouter-plat','masquer','enregistrer','pdf'].includes(e.id)), 'Ou consultez ces sujets');
+        addChips(FAQ.filter(e => ['modifier-texte','ajouter-plat','enregistrer','publier','pdf'].includes(e.id)), 'Ou consultez ces sujets');
       } else if (found.length === 1) {
         answer(found[0]);
       } else {

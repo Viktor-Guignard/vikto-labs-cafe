@@ -1,0 +1,120 @@
+{
+ "style": {
+  "titleFont": "Playfair Display",
+  "bodyFont": "Poppins",
+  "titleColor": "#B5476B",
+  "accent": "#B5476B",
+  "pageBg": "#ffffff",
+  "leaders": true,
+  "format": "carte34",
+  "theme": "classique",
+  "marginMm": {
+   "t": 10,
+   "r": 8,
+   "b": 10,
+   "l": 8
+  },
+  "mirror": false,
+  "sectionUnderline": false,
+  "itemSpacing": 11
+ },
+ "blocks": [
+  {
+   "id": "b48_dxkdd",
+   "type": "image",
+   "src": "assets/badge.png",
+   "widthPct": 50
+  },
+  {
+   "id": "b49_reerl",
+   "type": "section",
+   "fr": "DESSERTS",
+   "en": "Homemade"
+  },
+  {
+   "id": "b50_m0w19",
+   "type": "item",
+   "fr": "TARTE AU CITRON",
+   "en": "Meringue flambée",
+   "price": "7€"
+  },
+  {
+   "id": "b51_ke5sx",
+   "type": "item",
+   "fr": "PAVLOVA FRUITS ROUGES",
+   "en": "Meringue, chantilly légère, coulis maison",
+   "price": "8€"
+  },
+  {
+   "id": "b52_s1t1t",
+   "type": "item",
+   "fr": "MOUSSE AU CHOCOLAT NOIR",
+   "en": "Éclats de fève de cacao",
+   "price": "7,50€"
+  },
+  {
+   "id": "b53_14l79",
+   "type": "item",
+   "fr": "CRUMBLE POMME-POIRE",
+   "en": "Servi tiède, glace vanille",
+   "price": "7,50€"
+  },
+  {
+   "id": "b54_u49ie",
+   "type": "item",
+   "fr": "CHEESECAKE VANILLE",
+   "en": "Base spéculoos, cœur fruits rouges",
+   "price": "8,50€",
+   "tags": [
+    "spec"
+   ]
+  },
+  {
+   "id": "b55_vvbin",
+   "type": "item",
+   "fr": "FONDANT AU CHOCOLAT",
+   "en": "Cœur coulant, crème anglaise",
+   "price": "8€"
+  },
+  {
+   "id": "b56_dgauc",
+   "type": "item",
+   "fr": "BOWL AÇAÏ",
+   "en": "Açaï, banane, granola, coco, myrtille",
+   "price": "11€",
+   "tags": [
+    "veg"
+   ]
+  },
+  {
+   "id": "b57_bxc8o",
+   "type": "item",
+   "fr": "COOKIE MAISON",
+   "en": "Chocolat et noix de pécan",
+   "price": "4,50€"
+  },
+  {
+   "id": "b58_mba82",
+   "type": "item",
+   "fr": "CAFÉ GOURMAND",
+   "en": "Expresso et trois mignardises du jour",
+   "price": "9€"
+  },
+  {
+   "id": "b59_o7c9e",
+   "type": "section",
+   "fr": "GLACES",
+   "en": "Ice cream"
+  },
+  {
+   "id": "b60_8gspt",
+   "type": "formule",
+   "text": "Yaourt glacé, 2 toppings au choix — 8,50€"
+  },
+  {
+   "id": "b61_oc4pl",
+   "type": "note",
+   "text": "Fruits frais, granola, caramel beurre salé, miel, noix, sirop d'érable"
+  }
+ ]
+}

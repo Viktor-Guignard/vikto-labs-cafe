@@ -1,0 +1,233 @@
+{
+ "style": {
+  "titleFont": "Playfair Display",
+  "bodyFont": "Poppins",
+  "titleColor": "#2F5D50",
+  "accent": "#2F8F5B",
+  "pageBg": "#ffffff",
+  "leaders": true,
+  "format": "a4",
+  "theme": "classique",
+  "marginMm": {
+   "t": 15,
+   "r": 12,
+   "b": 15,
+   "l": 15
+  },
+  "mirror": false,
+  "sectionUnderline": false
+ },
+ "blocks": [
+  {
+   "id": "b62_yet5b",
+   "type": "section",
+   "fr": "CAFÉS",
+   "en": "Coffees"
+  },
+  {
+   "id": "b63_eskiy",
+   "type": "item",
+   "fr": "EXPRESSO / DÉCA",
+   "en": "",
+   "price": "2,50€"
+  },
+  {
+   "id": "b64_iddmv",
+   "type": "item",
+   "fr": "NOISETTE",
+   "en": "",
+   "price": "3€"
+  },
+  {
+   "id": "b65_joj58",
+   "type": "item",
+   "fr": "DOUBLE / ALLONGÉ",
+   "en": "",
+   "price": "3,50€"
+  },
+  {
+   "id": "b66_7rx57",
+   "type": "item",
+   "fr": "CAPPUCCINO",
+   "en": "",
+   "price": "4,50€"
+  },
+  {
+   "id": "b67_rpb26",
+   "type": "item",
+   "fr": "FLAT WHITE",
+   "en": "",
+   "price": "4,50€"
+  },
+  {
+   "id": "b68_iqf2z",
+   "type": "item",
+   "fr": "CHOCOLAT CHAUD",
+   "en": "",
+   "price": "5€"
+  },
+  {
+   "id": "b69_l9255",
+   "type": "note",
+   "text": "Lait végétal +0,50€ · sirop vanille ou caramel +0,50€"
+  },
+  {
+   "id": "b70_0wh0x",
+   "type": "section",
+   "fr": "LES LATTES",
+   "en": "Signature lattes"
+  },
+  {
+   "id": "b71_gt27n",
+   "type": "item",
+   "fr": "MATCHA LATTE",
+   "en": "Thé vert matcha, lait mousseux",
+   "price": "6,50€"
+  },
+  {
+   "id": "b72_ggjax",
+   "type": "item",
+   "fr": "GOLDEN LATTE",
+   "en": "Curcuma, gingembre, cannelle, poivre",
+   "price": "6,50€"
+  },
+  {
+   "id": "b73_rbk5n",
+   "type": "item",
+   "fr": "CHAÏ LATTE",
+   "en": "Thé noir épicé, cardamome, cannelle",
+   "price": "6,50€"
+  },
+  {
+   "id": "b74_g6w6s",
+   "type": "item",
+   "fr": "BETTERAVE LATTE",
+   "en": "Betterave, vanille, lait mousseux",
+   "price": "6,50€"
+  },
+  {
+   "id": "b75_ffvs3",
+   "type": "section",
+   "fr": "THÉS & INFUSIONS",
+   "en": "Organic teas"
+  },
+  {
+   "id": "b76_7487r",
+   "type": "item",
+   "fr": "THÉ OU INFUSION BIO",
+   "en": "Vert sencha, menthe, Earl Grey, rooibos vanille, verveine",
+   "price": "5€"
+  },
+  {
+   "id": "b77_2tdsm",
+   "type": "pagebreak"
+  },
+  {
+   "id": "b78_pwc84",
+   "type": "section",
+   "fr": "JUS PRESSÉS À FROID",
+   "en": "Cold-pressed · 40 cl"
+  },
+  {
+   "id": "b79_xedu2",
+   "type": "formule",
+   "text": "Boost superaliment au choix +1,50€"
+  },
+  {
+   "id": "b80_otain",
+   "type": "item",
+   "fr": "VERT VIF",
+   "en": "Pomme, concombre, épinard, citron",
+   "price": "7,50€"
+  },
+  {
+   "id": "b81_9vc6t",
+   "type": "item",
+   "fr": "SOLEIL LEVANT",
+   "en": "Carotte, orange, curcuma, gingembre",
+   "price": "7,50€"
+  },
+  {
+   "id": "b82_fkgun",
+   "type": "item",
+   "fr": "ROSE DU DÉSERT",
+   "en": "Pastèque, fraise, menthe",
+   "price": "7,50€"
+  },
+  {
+   "id": "b83_vlm8y",
+   "type": "item",
+   "fr": "SOUS LES TROPIQUES",
+   "en": "Ananas, mangue, lait de coco",
+   "price": "7,50€"
+  },
+  {
+   "id": "b84_iaj1h",
+   "type": "item",
+   "fr": "AURORE",
+   "en": "Betterave, pomme, framboise",
+   "price": "7,50€"
+  },
+  {
+   "id": "b85_58izy",
+   "type": "section",
+   "fr": "SHOTS",
+   "en": "7 cl"
+  },
+  {
+   "id": "b86_z6bok",
+   "type": "item",
+   "fr": "SHOT FEU",
+   "en": "Gingembre, citron, piment",
+   "price": "4€"
+  },
+  {
+   "id": "b87_z2zm6",
+   "type": "item",
+   "fr": "SHOT VERT",
+   "en": "Pomme, menthe, spiruline",
+   "price": "4€"
+  },
+  {
+   "id": "b88_52ghu",
+   "type": "section",
+   "fr": "BOISSONS FRAÎCHES",
+   "en": "Soft drinks"
+  },
+  {
+   "id": "b89_lyizl",
+   "type": "item",
+   "fr": "EAU DE SOURCE",
+   "en": "Plate ou pétillante · 75 cl",
+   "price": "5€"
+  },
+  {
+   "id": "b90_6hysc",
+   "type": "item",
+   "fr": "EAU INFUSÉE MAISON",
+   "en": "Concombre et menthe · 75 cl",
+   "price": "5,50€"
+  },
+  {
+   "id": "b91_hzt0m",
+   "type": "item",
+   "fr": "THÉ GLACÉ MAISON",
+   "en": "Hibiscus, citronnelle, fruits rouges",
+   "price": "6€"
+  },
+  {
+   "id": "b92_6x8d0",
+   "type": "item",
+   "fr": "LIMONADE ARTISANALE",
+   "en": "33 cl",
+   "price": "5€"
+  },
+  {
+   "id": "b93_wgtkj",
+   "type": "item",
+   "fr": "SODA / COLA",
+   "en": "33 cl",
+   "price": "5€"
+  }
+ ]
+}
