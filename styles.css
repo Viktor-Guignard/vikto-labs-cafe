@@ -98,7 +98,7 @@ body{
 }
 /* groupe « section + ses lignes » — espacement CONSTANT entre sections (rythme homogène d'une colonne à l'autre) */
 .section-group{display:flex; flex-direction:column; flex:0 0 auto;}
-.section-group + .section-group{margin-top:15px;}
+.section-group + .section-group{margin-top:calc(15px + 2 * var(--air, 0px));}   /* --air : voir aerer() dans app.js */
 
 /* ---------- Blocks (generic) ---------- */
 .block{
@@ -174,7 +174,7 @@ body.placing-block, body.placing-block *{cursor:crosshair !important;}
 .blk-section:first-child h2{margin-top:0;}
 
 /* ---------- Item row ---------- */
-.blk-item{display:flex; align-items:flex-start; gap:6px; padding:0 3px; margin-bottom:9px; line-height:1.05;}
+.blk-item{display:flex; align-items:flex-start; gap:6px; padding:0 3px; margin-bottom:calc(9px + var(--air, 0px)); line-height:1.05;}
 .blk-item.inline, .blk-item.wine{margin-bottom:1.5px;}
 .blk-item.inline{align-items:baseline;}
 .blk-item .txt{flex:1 1 auto; min-width:0;}

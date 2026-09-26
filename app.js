@@ -116,10 +116,17 @@ function defaultDoc(){
     b('item', {fr:'AVOCAT & ŒUF', veg:true, en:'Avocat écrasé, œuf poché, féta, grenade, sésame', price:'14'}),
     b('item', {fr:'SAUMON & FRAIS', en:'Fromage frais, saumon fumé, aneth, citron', price:'15'}),
     b('item', {fr:'CHÈVRE & MIEL', veg:true, en:'Chèvre chaud, miel, noix, roquette', price:'13'}),
+    b('item', {fr:'JAMBON & COMTÉ', en:'Jambon blanc, comté 18 mois, beurre demi-sel, cornichons', price:'13'}),
 
     b('colbreak', {}),
 
-    /* ---------- Volet 2 : salades, plats chauds, à côté ---------- */
+    /* ---------- Volet 2 : œufs, salades, plats chauds ---------- */
+    b('section', {fr:'ŒUFS', en:null, big:true}),
+    b('item', {fr:'ŒUFS BÉNÉDICTE', en:'Muffin anglais, jambon, sauce hollandaise, pousses', price:'15'}),
+    b('item', {fr:'ŒUFS NORDIQUES', en:'Muffin anglais, saumon fumé, sauce hollandaise, aneth', price:'16'}),
+    b('item', {fr:'SHAKSHUKA', veg:true, en:'Œufs pochés, tomates épicées, poivrons, féta, pain grillé', price:'14'}),
+    b('item', {fr:'OMELETTE DU JARDIN', sg:true, veg:true, en:'Herbes fraîches, champignons, comté, salade', price:'13'}),
+
     b('section', {fr:'SALADES', en:null, big:true}),
     b('item', {fr:'CÉSAR REVISITÉE', en:'Romaine, poulet grillé, parmesan, croûtons, sauce césar légère', price:'16'}),
     b('item', {fr:'GRECQUE', sg:true, veg:true, en:'Concombre, tomate, féta, olives, oignon rouge, origan', price:'15'}),
@@ -142,11 +149,13 @@ function defaultDoc(){
     b('item', {fr:'VEGGIE', veg:true, en:'Légumes grillés, pesto, mozzarella, roquette', price:'14'}),
     b('item', {fr:'POULET', en:'Poulet, tomates confites, mozzarella, salade', price:'15'}),
     b('item', {fr:'ITALIENNE', en:'Jambon cru, burrata, roquette, pesto', price:'16'}),
+    b('item', {fr:'NORDIQUE', en:'Saumon fumé, fromage frais, avocat, citron', price:'16'}),
 
     b('section', {fr:'CLUBS & BURGERS', en:null, big:true}),
     b('item', {fr:'CLUB CLASSIQUE', en:'Poulet, œuf, tomate, salade, mayo maison, frites', price:'16'}),
     b('item', {fr:'CLUB NORDIQUE', en:'Saumon fumé, avocat, fromage frais, frites', price:'17'}),
     b('item', {fr:'BURGER MAISON', en:'Bœuf, cheddar, oignons confits, cornichons, frites', price:'17'}),
+    b('item', {fr:'BURGER VÉGÉ', veg:true, en:'Galette de légumes, cheddar, oignons confits, frites', price:'16'}),
 
     b('section', {fr:'À CÔTÉ', en:null, big:true}),
     b('item', {fr:'ŒUF POCHÉ', en:'', price:'2.5', half:true}),
@@ -567,7 +576,35 @@ function render(){
   requestAnimationFrame(checkOverflow);
 }
 
+/* Aeration (demande de Viktor, 26 sept) : un volet peu rempli laissait un grand
+   blanc en bas de planche. On repartit ce blanc entre les plats (--air en plus
+   sous chaque ligne) et les rubriques (le double entre deux groupes), plafonne
+   a 10 px par ligne pour ne jamais « etirer » la carte. Le PDF lit les positions
+   a l'ecran : il suit. Sur mobile, les volets n'ont pas de hauteur fixe. */
+const AIR_MAX = 10;
+function aerer(){
+  const bureau = window.innerWidth && !matchMedia('(max-width:900px)').matches;
+  document.querySelectorAll('.volet').forEach(v => {
+    v.style.removeProperty('--air');
+    if(!bureau) return;
+    const lignes = [...v.querySelectorAll('.blk-item')].filter(b => !b.closest('.item-grid') && !b.matches('.inline, .wine')).length;
+    const groupes = v.querySelectorAll(':scope > .section-group').length;
+    const n = lignes + 2 * Math.max(groupes - 1, 0);
+    if(!n) return;
+    const haut = v.getBoundingClientRect().top;
+    let bas = haut;
+    for(const enfant of v.children){
+      const r = enfant.getBoundingClientRect();
+      if(r.height) bas = Math.max(bas, r.bottom);
+    }
+    const libre = v.clientHeight - (bas - haut) - 6;
+    if(libre <= 0) return;
+    v.style.setProperty('--air', Math.min(AIR_MAX, libre / n).toFixed(1) + 'px');
+  });
+}
+
 function checkOverflow(){
+  aerer();
   if(!window.innerWidth || matchMedia('(max-width:1100px)').matches){
     document.querySelectorAll('.sheet').forEach(s => s.classList.remove('overflowing'));
     return;
@@ -733,7 +770,10 @@ canvasWrap.addEventListener('mouseover', (e) => {
   if(bloc && !bloc.contains(e.relatedTarget)) placerOutils(bloc);
 });
 // le texte s'allonge pendant la saisie : la barre se pousse (ou remonte au-dessus)
-canvasWrap.addEventListener('input', (e) => placerOutils(e.target.closest('.block')));
+canvasWrap.addEventListener('input', (e) => {
+  placerOutils(e.target.closest('.block'));
+  requestAnimationFrame(checkOverflow);   // une ligne de plus : l'aération se resserre
+});
 
 /* Cliquer hors de tout bloc efface la selection : sinon les pointillés
    restaient indefiniment sur le dernier bloc touche. */
