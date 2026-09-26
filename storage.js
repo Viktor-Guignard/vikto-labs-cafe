@@ -199,7 +199,19 @@ versionsBackdrop.addEventListener('click', (e) => { if (e.target === versionsBac
     document.getElementById('draftDiscard').onclick = () => { H().clearDraft(); banner.classList.remove('show'); };
   }
 
+  /* Démo publique : la carte s'ouvre depuis published.json, servi par le site
+     lui-même (aucun quota). L'API GitHub, limitée à 60 requêtes/heure par
+     adresse IP sans jeton, n'est interrogée que par qui peut enregistrer. */
   try {
+    const r = await fetch('published.json?t=' + Date.now(), { cache: 'no-store' });
+    if (r.ok) {
+      const pub = await r.json();
+      const m = (pub.menus || []).find(x => x.key === MENU_KEY);
+      if (m && !draftResumed) applyLoaded({ style: m.style, blocks: m.blocks || [] }, null);
+    }
+  } catch (err) { console.warn('published.json indisponible', err); }
+
+  if (GHUB.hasToken()) try {
     const versions = await listVersions();
     if (versions.length && !draftResumed) {
       const data = await loadVersion(versions[0].path);
