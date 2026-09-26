@@ -109,9 +109,11 @@ body{
 
 
 /* Outils de ligne, comme l'éditeur de La Coursive : une seule rangée
-   ✕ ⧉ ↑ ↓ 👁 🏷. Dans le dépliant à plusieurs volets, la rangée apparaît
-   AU-DESSUS de la ligne survolée, alignée à droite : elle ne couvre ni la
-   ligne elle-même (son prix reste cliquable) ni le volet voisin. */
+   ✕ ⧉ ↑ ↓ 👁 🏷. Au survol, placerOutils() (app.js) la pose juste à côté
+   des textes de la ligne, dans le blanc avant le prix (.a-cote). Faute de
+   place, elle apparaît AU-DESSUS de la ligne, alignée à droite : elle ne
+   couvre alors ni la ligne elle-même (son prix reste cliquable) ni le volet
+   voisin. */
 .row-controls{
   position:absolute; right:0; bottom:calc(100% - 2px); z-index:30;
   display:flex; align-items:center; gap:3px; padding:3px;
@@ -121,6 +123,7 @@ body{
 }
 .block:hover > .row-controls,
 .row-controls:focus-within{opacity:1; visibility:visible;}
+.row-controls.a-cote{right:auto; bottom:auto;}   /* left / top posés par placerOutils() */
 .rctrl{
   width:22px; height:22px; border-radius:6px; border:1px solid var(--line);
   background:#fff; cursor:pointer; font-size:11px; line-height:1;

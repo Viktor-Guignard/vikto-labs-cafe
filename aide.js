@@ -50,7 +50,7 @@
       cat: 'Modifier',
       q: 'Comment déplacer un plat ou changer l\'ordre ?',
       k: 'deplacer bouger ordre monter descendre changer place reorganiser glisser deposer trier colonne volet ranger',
-      a: `<p>Survolez la ligne : ses outils apparaissent juste au-dessus, à droite.</p>
+      a: `<p>Survolez la ligne : ses outils apparaissent juste à côté du texte (au-dessus de la ligne quand la place manque).</p>
         <ol>
           <li><b>↑</b> monte le plat d'un cran, <b>↓</b> le descend — cliquez plusieurs fois pour aller plus loin, y compris vers la colonne voisine</li>
           <li><b>⧉</b> le duplique juste en dessous, <b>✕</b> le supprime (avec « Annuler » pendant quelques secondes)</li>

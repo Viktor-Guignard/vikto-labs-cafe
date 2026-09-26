@@ -23,9 +23,9 @@
     const rows = (opts.plats || PLATS).map((p, i) => `
       <div class="drow" data-row="${i}">
         <span class="nm">${p.nm}${p.en ? '<span class="en">' + p.en + '</span>' : ''}</span>
+        <span class="drow-ctrl"><span data-c="del">✕</span><span data-c="dup">⧉</span><span data-c="up">↑</span><span data-c="down">↓</span><span data-c="hide">👁</span><span data-c="veg">🏷</span></span>
         <span class="dots"></span>
         <span class="pr">${p.pr}</span>
-        <span class="drow-ctrl"><span data-c="del">✕</span><span data-c="dup">⧉</span><span data-c="up">↑</span><span data-c="down">↓</span><span data-c="hide">👁</span><span data-c="veg">🏷</span></span>
       </div>`).join('');
 
     return `

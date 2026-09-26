@@ -644,6 +644,7 @@ function buildBlockEl(blk){
        palette ouverte, et on peut enchainer les clics. */
     const rendre = () => {
       render();
+      placerOutils(document.querySelector(`[data-block-id="${blk.id}"]`));
       const barre = document.querySelector(`[data-block-id="${blk.id}"] > .row-controls`);
       const cible = barre && barre.querySelector(`.rctrl[data-act="${act}"]`);
       if(cible) cible.focus({ preventScroll: true });
@@ -688,6 +689,51 @@ function buildBlockEl(blk){
 
   return wrap;
 }
+
+/* Ou poser la rangee d'outils (demande de Viktor, 26 sept) : juste a cote des
+   textes de la ligne — apres le plus long du nom et de la description — dans le
+   blanc qui les separe du prix. Quand ce blanc est trop etroit (demi-colonnes,
+   notes pleine largeur) ou pour les grands blocs (panneau, brunch, enfant), elle
+   reste au-dessus de la ligne, alignee a droite. Sur mobile, la feuille de style
+   la range sous le bloc : rien a calculer. */
+const SURVOL_FIN = matchMedia('(hover:hover) and (min-width:901px)');
+const OUTILS_A_COTE = ['blk-item', 'blk-section', 'blk-formule', 'blk-note'];
+function rectsTexte(el){
+  const r = document.createRange();
+  r.selectNodeContents(el);
+  return [...r.getClientRects()].filter(q => q.width > 0);
+}
+function placerOutils(bloc){
+  const barre = bloc && bloc.querySelector(':scope > .row-controls');
+  if(!barre) return;
+  barre.classList.remove('a-cote');
+  barre.style.left = barre.style.top = '';
+  if(!SURVOL_FIN.matches || !OUTILS_A_COTE.some(c => bloc.classList.contains(c))) return;
+  const rb = bloc.getBoundingClientRect();
+  if(!rb.width) return;
+  const k = bloc.offsetWidth / rb.width;   // au cas où la planche serait mise à l'échelle
+  let droite = -Infinity, haut = Infinity, bas = -Infinity;
+  const prendre = (q) => { droite = Math.max(droite, q.right); haut = Math.min(haut, q.top); bas = Math.max(bas, q.bottom); };
+  bloc.querySelectorAll('[contenteditable]').forEach(el => {
+    if(!el.closest('.price, .pcols, .sec-price')) rectsTexte(el).forEach(prendre);
+  });
+  bloc.querySelectorAll('img.diet').forEach(img => { const q = img.getBoundingClientRect(); if(q.width) prendre(q); });
+  if(droite === -Infinity) return;
+  // la butée : le premier chiffre du prix (ou des prix d'un vin), sinon le bord du bloc
+  let butee = rb.right;
+  bloc.querySelectorAll('.price, .pcols, .sec-price').forEach(el => rectsTexte(el).forEach(q => { butee = Math.min(butee, q.left); }));
+  const gauche = (droite - rb.left) * k + 8;
+  if(gauche + barre.offsetWidth > (butee - rb.left) * k - 8) return;   // pas la place : au-dessus
+  barre.classList.add('a-cote');
+  barre.style.left = Math.round(gauche) + 'px';
+  barre.style.top = Math.round(((haut + bas) / 2 - rb.top) * k - barre.offsetHeight / 2) + 'px';
+}
+canvasWrap.addEventListener('mouseover', (e) => {
+  const bloc = e.target.closest('.block');
+  if(bloc && !bloc.contains(e.relatedTarget)) placerOutils(bloc);
+});
+// le texte s'allonge pendant la saisie : la barre se pousse (ou remonte au-dessus)
+canvasWrap.addEventListener('input', (e) => placerOutils(e.target.closest('.block')));
 
 /* Cliquer hors de tout bloc efface la selection : sinon les pointillés
    restaient indefiniment sur le dernier bloc touche. */

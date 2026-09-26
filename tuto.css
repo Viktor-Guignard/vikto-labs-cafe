@@ -115,9 +115,14 @@
   font-size:7.5px; background:#7a5b1e; color:#fff; border-radius:8px;
   padding:1px 5px; margin-left:5px; white-space:nowrap;
 }
+/* Les outils se posent juste après les textes, comme dans l'éditeur : un
+   élément de largeur nulle dont les boutons débordent par-dessus les pointillés,
+   pour que la ligne garde sa mise en page quand ils sont cachés. */
 .drow-ctrl{
-  margin-left:6px; display:flex; gap:3px; opacity:0; transition:opacity .25s;
+  flex:0 0 0; width:0; align-self:center; position:relative; z-index:1;
+  display:flex; gap:3px; opacity:0; transition:opacity .25s;
 }
+.drow-ctrl span{flex:0 0 auto;}
 .drow-ctrl span{
   font-size:9px; width:16px; height:16px; border-radius:4px; border:1px solid var(--line);
   background:#fff; display:grid; place-items:center;
