@@ -24,14 +24,19 @@
   /* Polices embarquées : famille CSS + graisse + style -> fichier.
      (sous-ensemble latin, licence SIL OFL — voir assets/fonts/OFL.txt) */
   const FONTS = [
-    { file: 'Poppins-Regular.ttf', name: 'Poppins', style: 'normal', weight: 'normal' },
-    { file: 'Poppins-Italic.ttf', name: 'Poppins', style: 'italic', weight: 'normal' },
-    { file: 'Poppins-SemiBold.ttf', name: 'Poppins', style: 'normal', weight: 'semibold' },
-    { file: 'Poppins-Bold.ttf', name: 'Poppins', style: 'normal', weight: 'bold' },
-    { file: 'PlayfairDisplay-Bold.ttf', name: 'Playfair Display', style: 'normal', weight: 'bold' },
+    { file: 'EBGaramond-Regular.ttf',      name: 'EB Garamond',      style: 'normal', weight: 'normal' },
+    { file: 'EBGaramond-Italic.ttf',       name: 'EB Garamond',      style: 'italic', weight: 'normal' },
+    { file: 'EBGaramond-Medium.ttf',       name: 'EB Garamond',      style: 'normal', weight: 'semibold' },
+    { file: 'EBGaramond-SemiBold.ttf',     name: 'EB Garamond',      style: 'normal', weight: 'bold' },
+    { file: 'Poppins-Regular.ttf',         name: 'Poppins',          style: 'normal', weight: 'normal' },
+    { file: 'Poppins-Italic.ttf',          name: 'Poppins',          style: 'italic', weight: 'normal' },
+    { file: 'Poppins-SemiBold.ttf',        name: 'Poppins',          style: 'normal', weight: 'semibold' },
+    { file: 'Poppins-Bold.ttf',            name: 'Poppins',          style: 'normal', weight: 'bold' },
+    { file: 'Syne-SemiBold.ttf',           name: 'Syne',             style: 'normal', weight: 'semibold' },
+    { file: 'Syne-Bold.ttf',               name: 'Syne',             style: 'normal', weight: 'bold' },
+    { file: 'Syne-ExtraBold.ttf',          name: 'Syne',             style: 'normal', weight: 'extrabold' },
+    { file: 'PlayfairDisplay-Bold.ttf',    name: 'Playfair Display', style: 'normal', weight: 'bold' },
     { file: 'PlayfairDisplay-ExtraBold.ttf', name: 'Playfair Display', style: 'normal', weight: 'extrabold' },
-    { file: 'CormorantGaramond-SemiBold.ttf', name: 'Cormorant Garamond', style: 'normal', weight: 'semibold' },
-    { file: 'CormorantGaramond-Bold.ttf', name: 'Cormorant Garamond', style: 'normal', weight: 'bold' },
   ];
 
   let fontCache = null;                 // { file: base64 } — chargé une fois
@@ -63,8 +68,9 @@
   /* Graisse CSS (100-900 ou mot-clé) -> graisse déclarée à jsPDF. */
   function pickWeight(family, cssWeight) {
     const w = parseInt(cssWeight, 10) || (cssWeight === 'bold' ? 700 : 400);
+    if (family === 'Syne') return w >= 800 ? 'extrabold' : (w >= 700 ? 'bold' : 'semibold');
     if (family === 'Playfair Display') return w >= 800 ? 'extrabold' : 'bold';
-    if (family === 'Cormorant Garamond') return w >= 700 ? 'bold' : 'semibold';
+    if (family === 'EB Garamond') return w >= 600 ? 'bold' : (w >= 500 ? 'semibold' : 'normal');
     if (w >= 700) return 'bold';
     if (w >= 500) return 'semibold';
     return 'normal';
@@ -72,7 +78,7 @@
 
   function familyOf(cs) {
     const first = (cs.fontFamily || '').split(',')[0].replace(/["']/g, '').trim();
-    return FONTS.some(f => f.name === first) ? first : 'Poppins';
+    return FONTS.some(f => f.name === first) ? first : 'EB Garamond';
   }
 
 
@@ -422,7 +428,7 @@
       const cs = getComputedStyle(parent);
       const fam = familyOf(cs);
       const weight = pickWeight(fam, cs.fontWeight);
-      const style = cs.fontStyle === 'italic' && fam === 'Poppins' ? 'italic' : 'normal';
+      const style = cs.fontStyle === 'italic' && (fam === 'Poppins' || fam === 'EB Garamond') ? 'italic' : 'normal';
       const size = parseFloat(cs.fontSize);
       const col = rgb(cs.color);
       const deco = cs.textDecorationLine || '';
@@ -472,34 +478,39 @@
     }
   }
 
-  /* ---------- Point d'entrée ---------- */
+  /* ---------- Point d'entrée ----------
+     Ici la carte est faite de planches paysage (.sheet, dépliant à
+     volets) : le format du PDF est repris des dimensions réelles de la
+     planche plutôt que d'une liste de formats fixes. */
   async function exportVectorPdf(opts) {
-    const st = (window.__CARTE_STATE__ || {}).style || {};
-    const H = window.__CARTE_HELPERS__;
-    const fmt = H.PAGE_FORMATS[st.format] || H.PAGE_FORMATS.a4;
-    const [wMm, hMm] = fmt.mm;
-    const orientation = wMm > hMm ? 'landscape' : 'portrait';
+    const sheets = document.querySelectorAll('.sheet');
+    if (!sheets.length) throw new Error('Aucune planche à exporter');
 
     const b64 = await loadFonts();
     if (opts && opts.onStep) opts.onStep('mise en page');
 
     const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF({ orientation, unit: 'mm', format: [wMm, hMm], compress: true });
-    registerFonts(pdf, b64);
+    let pdf = null;
 
-    /* Dimensions exactes garanties le temps du relevé (la vue mobile
-       écraserait sinon largeur et marges). */
     document.body.classList.add('exporting');
     try {
       try { await document.fonts.ready; } catch (_) { }
       document.body.offsetHeight;
       await new Promise(r => setTimeout(r, 250));
 
-      const pages = document.querySelectorAll('.pdf-page');
-      for (let i = 0; i < pages.length; i++) {
-        if (opts && opts.onStep) opts.onStep(`page ${i + 1}/${pages.length}`);
-        if (i > 0) pdf.addPage([wMm, hMm], orientation);
-        await renderPage(pdf, pages[i]);
+      for (let i = 0; i < sheets.length; i++) {
+        if (opts && opts.onStep) opts.onStep(`planche ${i + 1}/${sheets.length}`);
+        const el = sheets[i];
+        const wMm = el.offsetWidth * PX2MM;
+        const hMm = el.offsetHeight * PX2MM;
+        const orientation = wMm > hMm ? 'landscape' : 'portrait';
+        if (!pdf) {
+          pdf = new jsPDF({ orientation, unit: 'mm', format: [wMm, hMm], compress: true });
+          registerFonts(pdf, b64);
+        } else {
+          pdf.addPage([wMm, hMm], orientation);
+        }
+        await renderPage(pdf, el);
       }
     } finally {
       document.body.classList.remove('exporting');

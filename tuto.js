@@ -12,9 +12,9 @@
     </svg>`;
 
   const PLATS = [
-    { nm: 'CÉSAR REVISITÉE', en: 'Poulet grillé, parmesan, croûtons', pr: '16€' },
-    { nm: 'SAUMON RÔTI', en: 'Riz vénéré, légumes de saison', pr: '21€' },
-    { nm: 'BURRATA DI PUGLIA', en: 'Tomates anciennes, basilic', pr: '14€' },
+    { nm: 'MATCHA LATTE', en: 'Thé vert matcha, lait mousseux', pr: '6.5' },
+    { nm: 'GOLDEN LATTE', en: 'Curcuma, gingembre, cannelle, poivre', pr: '6.5' },
+    { nm: 'CHAÏ LATTE', en: 'Thé noir épicé, cardamome, cannelle', pr: '6.5' },
   ];
 
   /* ---------- Construction de la maquette ---------- */
@@ -25,7 +25,7 @@
         <span class="nm">${p.nm}${p.en ? '<span class="en">' + p.en + '</span>' : ''}</span>
         <span class="dots"></span>
         <span class="pr">${p.pr}</span>
-        <span class="drow-ctrl"><span data-c="del">✕</span><span data-c="hide">👁</span></span>
+        <span class="drow-ctrl"><span data-c="del">✕</span><span data-c="dup">⧉</span><span data-c="up">↑</span><span data-c="down">↓</span><span data-c="hide">👁</span><span data-c="veg">🏷</span></span>
       </div>`).join('');
 
     return `
@@ -33,15 +33,16 @@
         <span class="demo-brand">VIKTO LABS</span>
         <span class="dbtn" data-b="undo">↶</span>
         <span class="dbtn" data-b="add">+ Ajouter un bloc</span>
+        <span class="dbtn" data-b="app">🎨 Apparence</span>
         <span class="dbtn teal" data-b="save">💾 Enregistrer</span>
         <span class="dbtn" data-b="versions">🕑 Versions</span>
         <span class="dbtn dark" data-b="pdf">⬇️ PDF</span>
       </div>
       <div class="demo-tabs">
-        <span class="on">Carte</span><span>Brunch</span><span>Desserts</span><span>Boissons</span><span>Vins &amp; apéro</span>
+        <span class="on">Planche 1</span><span>Planche 2</span>
       </div>
       <div class="demo-page">
-        <div class="demo-h">SALADES &amp; PLATS <span style="color:#8a8a8a;font-size:10px;font-style:italic">/ Salads &amp; mains</span></div>
+        <div class="demo-h">LES LATTES <span style="color:#8a8a8a;font-size:10px;font-style:italic">signature</span></div>
         ${rows}
       </div>
       <div class="dsheet"><div class="dsheet-box"></div></div>
@@ -113,14 +114,14 @@
       const row = demo.querySelector('[data-row="0"]');
       const nm = row.querySelector('.nm');
       const original = nm.innerHTML;
-      a.dire('On veut renommer le premier plat.');
+      a.dire('On veut renommer la première boisson.');
       await a.versEl(nm, 40, 8);
       await a.clic();
       row.classList.add('editing');
       a.dire('Le texte devient modifiable : on tape directement dessus.');
       a.cacherCurseur();
       nm.innerHTML = '';
-      await a.taper(nm, 'CÉSAR AU POULET GRILLÉ');
+      await a.taper(nm, 'MATCHA LATTE BIO');
       await a.pause(500);
       const pr = row.querySelector('.pr');
       row.classList.remove('editing');
@@ -130,11 +131,11 @@
       row.classList.add('editing');
       a.cacherCurseur();
       pr.textContent = '';
-      await a.taper(pr, '17€');
+      await a.taper(pr, '7');
       row.classList.remove('editing');
       a.dire('Terminé — le texte est modifié sur la carte.');
       await a.pause(1400);
-      nm.innerHTML = original; pr.textContent = '16€';
+      nm.innerHTML = original; pr.textContent = '6.5';
       a.dire('Cliquez sur « Rejouer » pour revoir.');
     },
 
@@ -149,15 +150,15 @@
       await a.versEl(btn);
       await a.clic(btn);
       await a.panneau(`<h4>Ajouter un bloc</h4>
-        <div class="line"><span class="chk on">✓</span> Plat (nom + prix)</div>
-        <div class="line"><span class="chk"></span> Titre de section</div>
-        <div class="line"><span class="chk"></span> Note / mention</div>
-        <div class="line"><span class="chk"></span> Image ou logo</div>`, 1900);
+        <div class="line"><span class="chk on">✓</span> Produit (nom + prix)</div>
+        <div class="line"><span class="chk"></span> Titre de rubrique</div>
+        <div class="line"><span class="chk"></span> Encadré / panneau</div>
+        <div class="line"><span class="chk"></span> Saut de colonne</div>`, 1900);
       a.fermerPanneau();
       row.classList.remove('hl');
       const neuf = document.createElement('div');
       neuf.className = 'drow';
-      neuf.innerHTML = `<span class="nm">NOUVEAU PLAT<span class="en">à compléter</span></span>
+      neuf.innerHTML = `<span class="nm">NOUVEAU PRODUIT<span class="en">à compléter</span></span>
         <span class="dots"></span><span class="pr">—</span>`;
       neuf.style.background = 'rgba(47,158,151,.12)';
       row.after(neuf);
@@ -170,7 +171,7 @@
     async hide(demo, a) {
       const row = demo.querySelector('[data-row="2"]');
       const oeil = row.querySelector('[data-c="hide"]');
-      a.dire('Plus de burrata ce midi : on survole la ligne.');
+      a.dire('Plus de matcha : on survole la ligne.');
       await a.versEl(row);
       row.classList.add('hl');
       await a.pause(400);
@@ -179,13 +180,13 @@
       await a.clic(oeil);
       row.classList.add('masked');
       const b = document.createElement('span');
-      b.className = 'dbadge'; b.textContent = 'Masqué du site';
+      b.className = 'dbadge'; b.textContent = 'Masqué';
       row.querySelector('.nm').appendChild(b);
       row.classList.remove('hl');
       a.cacherCurseur();
-      a.dire('Le plat est grisé et barré — il reste dans votre carte.');
+      a.dire('La ligne est grisée et barrée — elle reste dans votre carte.');
       await a.pause(1500);
-      await a.toast('Masqué : disparaîtra du QR, du site et du PDF à la publication', 2300);
+      await a.toast('Masqué : ne sortira pas dans le PDF', 2000);
       a.dire('Pour le remettre, il suffit de recliquer sur l’icône.');
       await a.pause(1200);
       row.classList.remove('masked'); b.remove();
@@ -204,7 +205,7 @@
       await a.clic(btn);
       a.cacherCurseur();
       await a.pause(600);
-      await a.toast('Version enregistrée : carte_2026-07-26_18h40', 2400);
+      await a.toast('Version enregistrée : carte-cafe_2026-07-26_18h40', 2400);
       a.dire('Une version datée est créée dans le cloud — les précédentes restent intactes.');
       await a.pause(1400);
       a.dire('Cliquez sur « Rejouer » pour revoir.');
@@ -216,7 +217,7 @@
       const row = demo.querySelector('[data-row="0"]');
       const nm = row.querySelector('.nm');
       const original = nm.innerHTML;
-      nm.innerHTML = 'CÉSAR REVISTÉE';
+      nm.innerHTML = 'CROQUE ERREUR DE FRAPPE';
       a.dire('Oups, une faute vient d’être tapée.');
       await a.pause(1100);
       a.dire('↶ annule la dernière action.');
@@ -229,8 +230,8 @@
       await a.versEl(vers);
       await a.clic(vers);
       await a.panneau(`<h4>Versions enregistrées</h4>
-        <div class="line">carte · 26/07 à 18h40 <b style="margin-left:auto;color:#227a75">Charger</b></div>
-        <div class="line">carte · 26/07 à 14h05 <b style="margin-left:auto;color:#227a75">Charger</b></div>
+        <div class="line">carte-cafe · 26/07 à 18h40 <b style="margin-left:auto;color:#227a75">Charger</b></div>
+        <div class="line">carte-cafe · 26/07 à 14h05 <b style="margin-left:auto;color:#227a75">Charger</b></div>
         <div class="line">carte · 25/07 à 09h12 <b style="margin-left:auto;color:#227a75">Charger</b></div>`, 2300);
       a.fermerPanneau();
       a.dire('Chaque enregistrement reste consultable, daté à la minute.');
@@ -238,25 +239,29 @@
       a.dire('Cliquez sur « Rejouer » pour revoir.');
     },
 
-    async publish(demo, a) {
-      const tabs = demo.querySelector('.demo-tabs');
-      a.dire('Direction l’onglet Publier / QR.');
-      await a.versEl(tabs, 250, 12);
-      await a.clic();
-      await a.panneau(`<h4>Quelles cartes sur le QR ?</h4>
-        <div class="line"><span class="chk on">✓</span> Carte</div>
-        <div class="line"><span class="chk on">✓</span> Brunch</div>
-        <div class="line"><span class="chk"></span> Vins &amp; apéro</div>
-        <div class="line" style="margin-top:8px;justify-content:center">
-          <b style="background:#2f9e97;color:#fff;padding:5px 10px;border-radius:6px;font-size:9px">📱 Publier la sélection</b>
-        </div>`, 2400);
-      a.dire('On coche les cartes à montrer, puis on publie.');
-      await a.pause(900);
-      a.fermerPanneau();
+
+    async picto(demo, a) {
+      const row = demo.querySelector('[data-row="1"]');
+      const veg = row.querySelector('[data-c="veg"]');
+      a.dire('Signaler un produit végétarien ou sans gluten.');
+      await a.versEl(row);
+      row.classList.add('hl');
+      await a.pause(400);
+      a.dire('On clique sur 🏷 : végétarien.');
+      await a.versEl(veg);
+      await a.clic(veg);
+      const p = document.createElement('span');
+      p.textContent = ' ⓥ';
+      p.style.cssText = 'color:#5d7a3a;font-size:9px;font-weight:700';
+      /* juste apres le nom : la description (.en) est un bloc, un picto
+         ajoute a la fin tomberait a la ligne */
+      const nm = row.querySelector('.nm');
+      const desc = nm.querySelector('.en');
+      if (desc) nm.insertBefore(p, desc); else nm.appendChild(p);
+      row.classList.remove('hl');
       a.cacherCurseur();
-      await a.toast('Publié — visible par les clients d’ici 5 minutes', 2400);
-      a.dire('Le QR sur les tables ne change pas : c’est son contenu qui se met à jour.');
-      await a.pause(1500);
+      a.dire('Le pictogramme apparaît sur la carte. SG fait de même pour le sans gluten.');
+      await a.pause(1800);
       a.dire('Cliquez sur « Rejouer » pour revoir.');
     },
 
@@ -269,8 +274,8 @@
       btn.textContent = '⏳ Génération…';
       await a.pause(1500);
       btn.textContent = '⬇️ PDF';
-      await a.toast('PDF téléchargé : carte_v22_2026-07-26_18h42.pdf', 2400);
-      a.dire('Format exact, texte vectoriel — prêt pour l’imprimeur.');
+      await a.toast('PDF téléchargé : carte-cafe_v23_2026-07-26_18h42.pdf', 2400);
+      a.dire('Une page par planche, texte vectoriel — prêt pour l’imprimeur.');
       await a.pause(1400);
       a.dire('Cliquez sur « Rejouer » pour revoir.');
     },

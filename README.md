@@ -1,26 +1,47 @@
-# VIKTO LABS Café — éditeur de carte (démo)
+# VIKTO LABS CAFÉ
 
-**Site : https://viktor-guignard.github.io/vikto-labs-cafe/** — c'est la démo intégrée à [vikto-labs.fr](https://vikto-labs.fr).
+Éditeur de carte pour café / brunch.
 
-Même moteur, mêmes fonctions et même disposition que l'éditeur livré aux restaurants (La Coursive des Alpes) :
+Édition directe sur la carte, PDF vectoriel prêt pour l'imprimeur, versions horodatées dans le cloud.
+Dépliant **3 volets** (2 planches paysage), entièrement éditable.
+Application web statique, sans build ni serveur : elle s'héberge telle quelle sur **GitHub Pages**.
 
-- **Onglets** : une carte indépendante par onglet (Carte, Brunch, Desserts, Boissons, Vins & apéro), chacune avec son format, ses couleurs, ses versions et son PDF.
-- **Cliquer sur un texte** pour l'éditer directement (Entrée ou clic ailleurs pour valider).
-- **✕ au bout de chaque ligne** pour supprimer (avec « Annuler » pendant 6 s) ; au survol : **⧉ ↑ ↓** dupliquer, monter, descendre, **👁 masquer** temporairement (rupture), **🏷 pictogramme** (végétarien / spécialité).
-- **+ Ajouter un bloc** : blocs adaptés à chaque carte (section, plat, sous-titre, formule, note, image, saut de page).
-- **🎨 Apparence** : polices, couleurs, format de page (A4, A4 paysage, carte haute 14×34, A5), marges, miroir, thème « Vigne », pointillés, filets, espacement.
-- **⬇️ PDF**, **💾 Enregistrer**, **🕑 Versions**, **↶ / ↷**, brouillon local de sécurité.
-- **📱 Publier / QR** : choisir les cartes visibles par les clients ; le QR de table pointe vers `carte.html`, la page publique.
-- **🎓 Tuto** (démonstrations animées) et **?** (aide).
+## Ce que fait le site
 
-## Différences avec l'éditeur d'un restaurant
+- **Édition en direct** : cliquez sur n'importe quel texte de la carte pour le modifier. Ajoutez des blocs (sections, plats, formules, notes, séparateurs, **nouvelle colonne / volet**, nouvelle planche). Blocs spéciaux : panneau visuel (nom éditable), cadre « Brunch », pastille « Menu Enfant ».
+- **Outils de ligne** (comme l'éditeur de La Coursive) : au survol d'une ligne, une barre s'affiche au-dessus d'elle : ✕ supprimer · ⧉ dupliquer · ↑ ↓ monter / descendre (y compris vers le volet voisin) · 👁 masquer (la ligne reste dans l'éditeur, badge « Masqué », mais disparaît du PDF) · 🏷 pictos végétarien / sans gluten (un clic fait défiler : aucun → V → SG → V + SG).
+- **Apparence** (🎨) : polices et couleurs de la carte (vert forêt / crème par défaut).
+- **Enregistrement cloud** (💾) : chaque enregistrement crée une **version horodatée** stockée dans ce dépôt (dossier `versions/`), sans jamais écraser les précédentes. La plus récente se recharge automatiquement à l'ouverture.
+- **Versions** (🕑) : consulter, charger ou supprimer les versions enregistrées.
+- **Export PDF** (⬇️) : une planche paysage (3 volets) par page.
+- **Brouillon local** de sécurité (auto-sauvegarde dans le navigateur).
 
-- Contenu fictif (`versions/<carte>/…json`, `published.json`) et visuels propres à la démo (`assets/badge.png`, `assets/qr.png`).
-- Clés de stockage préfixées `vlcafe_` : la démo partage le domaine `viktor-guignard.github.io` avec les éditeurs des restaurants, il ne faut pas que brouillons et jetons se mélangent.
-- Sans jeton, la démo est en lecture seule côté cloud : on peut tout modifier à l'écran, pas enregistrer ni publier.
+## Structure
 
-## Technique
+| Fichier | Rôle |
+|---|---|
+| `index.html` | Page + fenêtres modales |
+| `styles.css` | Thème (couleurs, mise en page paysage 3 volets) |
+| `app.js` | Modèle de données, contenu par défaut de la carte, rendu, édition |
+| `storage.js` | Sauvegarde des versions dans le dépôt via l'API GitHub |
+| `pdf-export.js` | Export PDF paysage (html2canvas + jsPDF) |
+| `assets/logo.png` | Panneau vert botanique + nom éditable (volet 3, planche 1) |
+| `assets/brunch.png` | Cadre botanique du « Brunch » |
+| `assets/enfant.png` | Pastille botanique « Menu Enfant » (symétrique) |
+| `versions/` | Versions enregistrées de la carte (`.json`) |
 
-Site 100 % statique (HTML/CSS/JS, aucun build), hébergé sur GitHub Pages. Versions en JSON dans `versions/` via l'API GitHub Contents (lecture publique, écriture par jeton *fine-grained* limité à ce dépôt).
+## Activer l'enregistrement sur un ordinateur
 
-Développement local : `python3 -m http.server 8000` puis `http://localhost:8000` (la liste des versions lit le dépôt GitHub distant).
+La lecture est publique (aucun réglage). Pour **enregistrer** depuis un poste :
+
+1. Créez un jeton GitHub *fine-grained* limité au dépôt `vikto-labs-cafe`, permission **Contents : Read and write**.
+2. Dans le site : ⚙️ → collez le jeton. (Ou utilisez le « lien magique » pour vos autres postes.)
+
+Le jeton n'est stocké que dans le navigateur de ce poste.
+
+## Développement local
+
+```sh
+python3 -m http.server 8765
+# puis ouvrir http://localhost:8765
+```
