@@ -16,6 +16,13 @@ Application web statique, sans build ni serveur : elle s'héberge telle quelle s
 - **Export PDF** (⬇️) : une planche paysage (3 volets) par page.
 - **Brouillon local** de sécurité (auto-sauvegarde dans le navigateur).
 
+## Démo téléphone : « Ma carte »
+
+`telephone.html` est une page autonome pour mobile : on cherche un plat, on touche l'œil pour le masquer, on enregistre, puis on voit la carte côté client.
+- Sur vikto-labs.fr, elle remplace l'éditeur complet sur les écrans de 700 px et moins.
+- Son contenu est une copie figée de la carte par défaut (`defaultDoc`, 73 produits).
+- Tout reste en mémoire : rien n'est enregistré ni envoyé.
+
 ## Structure
 
 | Fichier | Rôle |

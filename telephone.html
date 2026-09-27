@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ma carte — démo téléphone · VIKTO LABS</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#fffdf9">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700&family=EB+Garamond:ital@1&family=Poppins:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<!-- Démo « Ma carte » pour téléphone, affichée à la place de l'éditeur complet
+     sur la page d'accueil de vikto-labs.fr en mobile (demande de Viktor, 27 sept).
+     Même contenu que la carte VIKTO LABS CAFÉ de l'éditeur (defaultDoc), figé ici.
+     Tout reste en mémoire : rien n'est enregistré, rien n'est envoyé. -->
+<style>
+  :root{
+    --paper:#fffdf9; --bg:#f6f2e9; --ink:#2e2b26; --line:#e7e1d4; --grey:#8a857b;
+    --accent:#a9432f; --charcoal:#33302a; --amber:#7a5b1e; --amber-bg:#f6ecd8; --ok:#2e7d4f;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--bg); color:var(--ink); font-family:Poppins,system-ui,sans-serif; font-size:14px;
+       -webkit-text-size-adjust:100%; padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+  button{font:inherit; color:inherit; cursor:pointer}
+
+  .top{position:sticky; top:0; z-index:20; background:var(--paper); border-bottom:1px solid var(--line);
+       padding:12px 16px 10px; box-shadow:0 6px 18px -14px rgba(0,0,0,.35)}
+  .top-row{display:flex; align-items:center; gap:10px}
+  .brand{font-family:"Playfair Display",serif; font-weight:700; font-size:19px; line-height:1}
+  .brand small{display:block; font-family:Poppins,sans-serif; font-weight:400; font-size:11px; color:var(--grey); margin-top:3px}
+  .demo-pill{margin-left:auto; background:var(--amber-bg); color:var(--amber); border:1px solid #e6d3ae;
+             font-size:11px; font-weight:600; padding:4px 10px; border-radius:20px}
+
+  .search{position:relative; margin-top:12px}
+  .search svg{position:absolute; left:13px; top:50%; width:18px; height:18px; transform:translateY(-50%); color:var(--grey)}
+  .search input{width:100%; height:46px; border:1.5px solid var(--line); border-radius:14px; background:#fff;
+                padding:0 44px 0 40px; font:inherit; font-size:16px; color:var(--ink); outline:none; -webkit-appearance:none}
+  .search input:focus{border-color:var(--charcoal); box-shadow:0 0 0 3px rgba(51,48,42,.12)}
+  .search input::-webkit-search-cancel-button{display:none}
+  .clear{position:absolute; right:6px; top:50%; transform:translateY(-50%); width:36px; height:36px; border:0;
+         border-radius:50%; background:transparent; color:var(--grey); font-size:15px}
+  .chips{display:flex; gap:7px; overflow-x:auto; margin:10px -16px 0; padding:0 16px 2px; scrollbar-width:none}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{flex:none; border:1.5px solid var(--line); background:#fff; border-radius:20px; padding:7px 13px;
+        font-size:13px; font-weight:500; white-space:nowrap}
+  .chip[aria-pressed="true"]{background:var(--charcoal); border-color:var(--charcoal); color:#fff}
+  .chip .nb{display:inline-block; min-width:18px; margin-left:5px; padding:0 5px; border-radius:9px;
+            background:var(--amber); color:#fff; font-size:11px; font-weight:600; text-align:center}
+
+  .hint{margin:12px 16px 0; background:#fff; border:1px solid var(--line); border-left:4px solid var(--accent);
+        border-radius:12px; padding:11px 40px 11px 13px; position:relative; font-size:13px; line-height:1.45}
+  .hint b{font-weight:600}
+  .hint button{position:absolute; right:4px; top:4px; width:34px; height:34px; border:0; background:transparent; color:var(--grey)}
+  .count{margin:14px 16px 4px; font-size:12px; color:var(--grey)}
+
+  .sec{margin:14px 0 0}
+  .sec h2{margin:0; padding:6px 16px; font-family:Syne,sans-serif; font-weight:700; font-size:13px; letter-spacing:.06em;
+          text-transform:uppercase; color:var(--ink); display:flex; align-items:baseline; gap:8px}
+  .sec h2::after{content:""; flex:1; height:1px; background:rgba(169,67,47,.3); transform:translateY(-3px)}
+  .row{display:flex; align-items:center; gap:10px; margin:6px 12px 0; padding:10px 8px 10px 12px;
+       background:var(--paper); border:1px solid var(--line); border-radius:12px; transition:opacity .2s, background .2s}
+  .row .txt{flex:1; min-width:0}
+  .nom{font-family:Syne,sans-serif; font-weight:700; font-size:13px; letter-spacing:.03em; text-transform:uppercase; line-height:1.25}
+  .desc{font-family:"EB Garamond",serif; font-style:italic; font-size:14.5px; color:#5b564d; line-height:1.3; margin-top:2px}
+  .pictos{font-family:Poppins,sans-serif; font-style:normal; font-size:10px; font-weight:600; color:#5d7a3a; margin-left:6px; letter-spacing:0; white-space:nowrap}
+  .prix{flex:none; font-family:"EB Garamond",serif; font-weight:600; font-size:16px; color:var(--accent); white-space:nowrap}
+  .oeil{flex:none; width:44px; height:44px; border-radius:50%; border:1.5px solid var(--line); background:#fff;
+        display:grid; place-items:center; transition:transform .12s, background .15s, border-color .15s}
+  .oeil:active{transform:scale(.9)}
+  .oeil svg{width:22px; height:22px}
+  .row.masque{background:#f1ece2; opacity:.72}
+  .row.masque .nom,.row.masque .desc,.row.masque .prix{text-decoration:line-through; text-decoration-color:rgba(0,0,0,.4)}
+  .row.masque .oeil{background:var(--amber-bg); border-color:#e1c998; color:var(--amber)}
+  .badge{display:inline-block; margin-left:6px; padding:1px 7px; border-radius:9px; background:var(--amber); color:#fff;
+         font-family:Poppins,sans-serif; font-size:10px; font-weight:600; letter-spacing:0; text-transform:none; vertical-align:2px}
+  .row.flash{animation:flash .9s ease}
+  @keyframes flash{0%{background:#fff5d6}100%{background:var(--paper)}}
+  mark{background:#ffe38a; color:inherit; border-radius:2px; padding:0 1px}
+  .vide{margin:30px 16px; text-align:center; color:var(--grey); line-height:1.5}
+  .pied{margin:26px 16px 8px; text-align:center; font-size:11.5px; color:var(--grey); line-height:1.5}
+  .pied a{color:var(--charcoal); font-weight:600}
+
+  .bar{position:fixed; left:0; right:0; bottom:0; z-index:30; display:flex; gap:10px; padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+       background:rgba(255,253,249,.96); border-top:1px solid var(--line); box-shadow:0 -8px 22px -16px rgba(0,0,0,.4);
+       transform:translateY(110%); transition:transform .25s cubic-bezier(.3,1.3,.5,1)}
+  .bar.on{transform:none}
+  .bar button{flex:1; height:48px; border-radius:12px; font-weight:600; font-size:15px}
+  .btn-ghost{background:#fff; border:1.5px solid var(--line)}
+  .btn-main{background:var(--charcoal); border:0; color:#fff}
+  .btn-client{background:#fff; border:1.5px solid var(--charcoal)}
+
+  .toast{position:fixed; left:50%; bottom:calc(84px + env(safe-area-inset-bottom)); z-index:40; transform:translate(-50%,20px);
+         width:max-content; max-width:calc(100% - 32px); background:var(--charcoal); color:#fff; font-size:13px; line-height:1.4;
+         padding:10px 14px; border-radius:12px; opacity:0; pointer-events:none; transition:opacity .2s, transform .25s}
+  .toast.on{opacity:1; transform:translate(-50%,0)}
+
+  .fond{position:fixed; inset:0; z-index:50; background:rgba(31,27,28,.45); display:flex; align-items:flex-end}
+  .fond[hidden]{display:none}
+  .feuille{width:100%; max-height:88%; overflow:auto; background:#fff; border-radius:20px 20px 0 0; padding:10px 18px calc(18px + env(safe-area-inset-bottom))}
+  .poignee{width:40px; height:4px; border-radius:2px; background:var(--line); margin:0 auto 12px}
+  .feuille h3{margin:0; font-family:"Playfair Display",serif; font-size:20px}
+  .feuille .sous{margin:4px 0 12px; font-size:12px; color:var(--ok); font-weight:600}
+  .retires{background:var(--amber-bg); border-radius:10px; padding:9px 12px; font-size:12.5px; color:var(--amber); margin-bottom:10px; line-height:1.45}
+  .cl-sec{font-family:Syne,sans-serif; font-weight:700; font-size:12px; letter-spacing:.06em; text-transform:uppercase; margin:14px 0 4px; color:var(--grey)}
+  .cl-row{display:flex; justify-content:space-between; gap:12px; padding:7px 0; border-bottom:1px solid #f0ebe0; font-size:14px}
+  .cl-row span:last-child{color:var(--accent); font-weight:600; white-space:nowrap}
+  .feuille .fermer{width:100%; height:46px; margin-top:16px; border-radius:12px; background:var(--charcoal); color:#fff; border:0; font-weight:600}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-row">
+    <div class="brand">VIKTO LABS<small>Café · Ma carte</small></div>
+    <span class="demo-pill">Démo</span>
+  </div>
+  <div class="search">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    <input id="q" type="search" placeholder="Rechercher un plat, une boisson…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" aria-label="Rechercher un produit">
+    <button id="effacer" class="clear" type="button" aria-label="Effacer la recherche" hidden>✕</button>
+  </div>
+  <nav id="chips" class="chips" aria-label="Filtrer la carte"></nav>
+</header>
+
+<div id="hint" class="hint">
+  <b>Essayez&nbsp;:</b> cherchez «&nbsp;matcha&nbsp;», puis touchez l'œil pour le masquer. Il disparaît du site et du QR code dès que vous enregistrez.
+  <button type="button" aria-label="Fermer le conseil" onclick="this.parentElement.remove()">✕</button>
+</div>
+
+<p id="compte" class="count" aria-live="polite"></p>
+<main id="liste"></main>
+<p class="pied">Démo VIKTO LABS : rien n'est réellement modifié.<br><a href="./" target="_blank" rel="noopener">Ouvrir l'éditeur complet ↗</a></p>
+
+<div id="barre" class="bar" aria-hidden="true"></div>
+<div id="toast" class="toast" role="status"></div>
+
+<div id="fond" class="fond" hidden>
+  <div class="feuille" role="dialog" aria-modal="true" aria-labelledby="clTitre">
+    <div class="poignee"></div>
+    <h3 id="clTitre">Ce que voient vos clients</h3>
+    <p class="sous">✓ Site web et QR code à jour</p>
+    <div id="clContenu"></div>
+    <button type="button" class="fermer" id="clFermer">Fermer</button>
+  </div>
+</div>
+
+<script>
+const CARTE = [{"titre": "TARTINES", "groupe": "plats", "prix": "", "items": [{"id": "p43", "nom": "AVOCAT & ŒUF", "desc": "Avocat écrasé, œuf poché, féta, grenade, sésame", "prix": "14", "veg": true, "sg": false}, {"id": "p44", "nom": "SAUMON & FRAIS", "desc": "Fromage frais, saumon fumé, aneth, citron", "prix": "15", "veg": false, "sg": false}, {"id": "p45", "nom": "CHÈVRE & MIEL", "desc": "Chèvre chaud, miel, noix, roquette", "prix": "13", "veg": true, "sg": false}, {"id": "p46", "nom": "JAMBON & COMTÉ", "desc": "Jambon blanc, comté 18 mois, beurre demi-sel, cornichons", "prix": "13", "veg": false, "sg": false}]}, {"titre": "ŒUFS", "groupe": "plats", "prix": "", "items": [{"id": "p47", "nom": "ŒUFS BÉNÉDICTE", "desc": "Muffin anglais, jambon, sauce hollandaise, pousses", "prix": "15", "veg": false, "sg": false}, {"id": "p48", "nom": "ŒUFS NORDIQUES", "desc": "Muffin anglais, saumon fumé, sauce hollandaise, aneth", "prix": "16", "veg": false, "sg": false}, {"id": "p49", "nom": "SHAKSHUKA", "desc": "Œufs pochés, tomates épicées, poivrons, féta, pain grillé", "prix": "14", "veg": true, "sg": false}, {"id": "p50", "nom": "OMELETTE DU JARDIN", "desc": "Herbes fraîches, champignons, comté, salade", "prix": "13", "veg": true, "sg": true}]}, {"titre": "SALADES", "groupe": "plats", "prix": "", "items": [{"id": "p51", "nom": "CÉSAR REVISITÉE", "desc": "Romaine, poulet grillé, parmesan, croûtons, sauce césar légère", "prix": "16", "veg": false, "sg": false}, {"id": "p52", "nom": "GRECQUE", "desc": "Concombre, tomate, féta, olives, oignon rouge, origan", "prix": "15", "veg": true, "sg": true}, {"id": "p53", "nom": "BOWL SAUMON", "desc": "Saumon mariné, quinoa, edamame, avocat, concombre, sésame", "prix": "18", "veg": false, "sg": true}, {"id": "p54", "nom": "POULET-QUINOA", "desc": "Poulet, quinoa, avocat, grenade, épinard, amandes", "prix": "17", "veg": false, "sg": false}, {"id": "p55", "nom": "VÉGÉ GOURMANDE", "desc": "Halloumi grillé, patate douce, pois chiches, houmous, roquette", "prix": "16", "veg": true, "sg": false}]}, {"titre": "PLATS CHAUDS", "groupe": "plats", "prix": "", "items": [{"id": "p56", "nom": "SAUMON RÔTI", "desc": "Riz vénéré, légumes de saison sautés", "prix": "21", "veg": false, "sg": true}, {"id": "p57", "nom": "POULET FERMIER", "desc": "Marinade citron-gingembre, patate douce, haricots verts", "prix": "19", "veg": false, "sg": true}, {"id": "p58", "nom": "CURRY DE LÉGUMES", "desc": "Lait de coco, riz basmati, coriandre", "prix": "16", "veg": true, "sg": false}, {"id": "p59", "nom": "PARMIGIANA", "desc": "Aubergine, mozzarella, coulis de tomate, basilic", "prix": "16", "veg": true, "sg": false}]}, {"titre": "PIADINAS", "groupe": "plats", "prix": "", "items": [{"id": "p60", "nom": "VEGGIE", "desc": "Légumes grillés, pesto, mozzarella, roquette", "prix": "14", "veg": true, "sg": false}, {"id": "p61", "nom": "POULET", "desc": "Poulet, tomates confites, mozzarella, salade", "prix": "15", "veg": false, "sg": false}, {"id": "p62", "nom": "ITALIENNE", "desc": "Jambon cru, burrata, roquette, pesto", "prix": "16", "veg": false, "sg": false}, {"id": "p63", "nom": "NORDIQUE", "desc": "Saumon fumé, fromage frais, avocat, citron", "prix": "16", "veg": false, "sg": false}]}, {"titre": "CLUBS & BURGERS", "groupe": "plats", "prix": "", "items": [{"id": "p64", "nom": "CLUB CLASSIQUE", "desc": "Poulet, œuf, tomate, salade, mayo maison, frites", "prix": "16", "veg": false, "sg": false}, {"id": "p65", "nom": "CLUB NORDIQUE", "desc": "Saumon fumé, avocat, fromage frais, frites", "prix": "17", "veg": false, "sg": false}, {"id": "p66", "nom": "BURGER MAISON", "desc": "Bœuf, cheddar, oignons confits, cornichons, frites", "prix": "17", "veg": false, "sg": false}, {"id": "p67", "nom": "BURGER VÉGÉ", "desc": "Galette de légumes, cheddar, oignons confits, frites", "prix": "16", "veg": true, "sg": false}]}, {"titre": "À CÔTÉ", "groupe": "plats", "prix": "", "items": [{"id": "p68", "nom": "ŒUF POCHÉ", "desc": "", "prix": "2.5", "veg": false, "sg": false}, {"id": "p69", "nom": "AVOCAT", "desc": "", "prix": "3", "veg": false, "sg": false}, {"id": "p70", "nom": "HALLOUMI GRILLÉ", "desc": "", "prix": "5", "veg": false, "sg": false}, {"id": "p71", "nom": "PATATE DOUCE RÔTIE", "desc": "", "prix": "4", "veg": false, "sg": false}, {"id": "p72", "nom": "SALADE VERTE", "desc": "", "prix": "4", "veg": false, "sg": false}, {"id": "p73", "nom": "FRITES MAISON", "desc": "", "prix": "5", "veg": false, "sg": false}]}, {"titre": "DESSERTS", "groupe": "desserts", "prix": "", "items": [{"id": "p11", "nom": "PAVLOVA FRUITS ROUGES", "desc": "Meringue, chantilly légère, coulis maison", "prix": "8", "veg": false, "sg": false}, {"id": "p12", "nom": "MOUSSE CHOCOLAT NOIR", "desc": "Éclats de fève de cacao", "prix": "7.5", "veg": false, "sg": false}, {"id": "p13", "nom": "CRUMBLE POMME-POIRE", "desc": "Servi tiède, glace vanille", "prix": "7.5", "veg": false, "sg": false}, {"id": "p14", "nom": "CHEESECAKE VANILLE", "desc": "Base spéculoos, cœur fruits rouges", "prix": "8.5", "veg": false, "sg": false}, {"id": "p15", "nom": "FONDANT CHOCOLAT", "desc": "Cœur coulant, crème anglaise", "prix": "8", "veg": false, "sg": true}, {"id": "p16", "nom": "COOKIE MAISON", "desc": "Chocolat & noix de pécan", "prix": "4.5", "veg": false, "sg": false}, {"id": "p17", "nom": "BOWL AÇAÏ", "desc": "Açaï, banane, granola, coco, myrtille", "prix": "11", "veg": true, "sg": false}, {"id": "p18", "nom": "CAFÉ & MIGNARDISES", "desc": "Expresso & trois douceurs du jour", "prix": "9", "veg": false, "sg": false}]}, {"titre": "CAFÉS", "groupe": "boissons", "prix": "", "items": [{"id": "p1", "nom": "EXPRESSO / DÉCA", "desc": "", "prix": "2.5", "veg": false, "sg": false}, {"id": "p2", "nom": "NOISETTE", "desc": "", "prix": "3", "veg": false, "sg": false}, {"id": "p3", "nom": "DOUBLE / ALLONGÉ", "desc": "", "prix": "3.5", "veg": false, "sg": false}, {"id": "p4", "nom": "CAPPUCCINO", "desc": "", "prix": "4.5", "veg": false, "sg": false}, {"id": "p5", "nom": "FLAT WHITE", "desc": "", "prix": "4.5", "veg": false, "sg": false}, {"id": "p6", "nom": "CHOCOLAT CHAUD", "desc": "", "prix": "5", "veg": false, "sg": false}]}, {"titre": "LES LATTES", "groupe": "boissons", "prix": "6.5", "items": [{"id": "p7", "nom": "MATCHA LATTE", "desc": "Thé vert matcha, lait mousseux", "prix": "6.5", "veg": false, "sg": false}, {"id": "p8", "nom": "GOLDEN LATTE", "desc": "Curcuma, gingembre, cannelle, poivre", "prix": "6.5", "veg": false, "sg": false}, {"id": "p9", "nom": "CHAÏ LATTE", "desc": "Thé noir épicé, cardamome, cannelle", "prix": "6.5", "veg": false, "sg": false}, {"id": "p10", "nom": "BETTERAVE LATTE", "desc": "Betterave, vanille, lait mousseux", "prix": "6.5", "veg": false, "sg": false}]}, {"titre": "JUS PRESSÉS À FROID", "groupe": "boissons", "prix": "7.5", "items": [{"id": "p19", "nom": "VERT VIF", "desc": "Pomme, concombre, épinard, citron", "prix": "7.5", "veg": false, "sg": false}, {"id": "p20", "nom": "SOLEIL LEVANT", "desc": "Carotte, orange, curcuma, gingembre", "prix": "7.5", "veg": false, "sg": false}, {"id": "p21", "nom": "ROSE DU DÉSERT", "desc": "Pastèque, fraise, menthe", "prix": "7.5", "veg": false, "sg": false}, {"id": "p22", "nom": "SOUS LES TROPIQUES", "desc": "Ananas, mangue, lait de coco", "prix": "7.5", "veg": false, "sg": false}, {"id": "p23", "nom": "AURORE", "desc": "Betterave, pomme, framboise", "prix": "7.5", "veg": false, "sg": false}, {"id": "p24", "nom": "GRAND MATIN", "desc": "Kiwi, poire, citron vert", "prix": "7.5", "veg": false, "sg": false}]}, {"titre": "SHOTS", "groupe": "boissons", "prix": "4", "items": [{"id": "p25", "nom": "SHOT FEU", "desc": "Gingembre, citron, piment", "prix": "4", "veg": false, "sg": false}, {"id": "p26", "nom": "SHOT VERT", "desc": "Pomme, menthe, spiruline", "prix": "4", "veg": false, "sg": false}]}, {"titre": "BOISSONS FRAÎCHES", "groupe": "boissons", "prix": "", "items": [{"id": "p27", "nom": "EAU DE SOURCE", "desc": "Plate ou pétillante 75 cl", "prix": "5", "veg": false, "sg": false}, {"id": "p28", "nom": "EAU INFUSÉE MAISON", "desc": "Concombre & menthe 75 cl", "prix": "5.5", "veg": false, "sg": false}, {"id": "p29", "nom": "THÉ GLACÉ MAISON", "desc": "Hibiscus, citronnelle, fruits rouges", "prix": "6", "veg": false, "sg": false}, {"id": "p30", "nom": "LIMONADE ARTISANALE", "desc": "33 cl", "prix": "5", "veg": false, "sg": false}, {"id": "p31", "nom": "SODA / COLA", "desc": "33 cl", "prix": "5", "veg": false, "sg": false}, {"id": "p32", "nom": "BIÈRE BLONDE PRESSION", "desc": "25 cl / 50 cl", "prix": "5.5 / 8", "veg": false, "sg": false}, {"id": "p33", "nom": "BIÈRE BLANCHE", "desc": "25 cl / 50 cl", "prix": "6 / 8.5", "veg": false, "sg": false}]}, {"titre": "À L’APÉRO", "groupe": "boissons", "prix": "", "items": [{"id": "p34", "nom": "SPRITZ MAISON", "desc": "Apérol, mousseux, eau pétillante", "prix": "8.5", "veg": false, "sg": false}, {"id": "p35", "nom": "MOJITO DU COMPTOIR", "desc": "Rhum ambré, citron vert, menthe, cassonade", "prix": "9.5", "veg": false, "sg": false}, {"id": "p36", "nom": "AMOUR SPRITZ", "desc": "Fleur de sureau, mousseux, eau pétillante", "prix": "10.5", "veg": false, "sg": false}]}, {"titre": "VINS", "groupe": "boissons", "prix": "", "items": [{"id": "p37", "nom": "Côtes du Rhône — Bio", "desc": "Rouges · verre / bouteille", "prix": "6 / 27", "veg": false, "sg": false}, {"id": "p38", "nom": "Saumur-Champigny", "desc": "Rouges · verre / bouteille", "prix": "6.5 / 29", "veg": false, "sg": false}, {"id": "p39", "nom": "Sauvignon Val de Loire", "desc": "Blancs · verre / bouteille", "prix": "6 / 27", "veg": false, "sg": false}, {"id": "p40", "nom": "Chardonnay Bourgogne", "desc": "Blancs · verre / bouteille", "prix": "8 / 38", "veg": false, "sg": false}, {"id": "p41", "nom": "Rosé de Provence", "desc": "Rosé & bulles · verre / bouteille", "prix": "6 / 27", "veg": false, "sg": false}, {"id": "p42", "nom": "Crémant Brut", "desc": "Rosé & bulles · verre / bouteille", "prix": "8 / 36", "veg": false, "sg": false}]}];
+const FILTRES = [["tout", "Tout"], ["plats", "Brunch & plats"], ["desserts", "Desserts"], ["boissons", "Boissons"], ["masques", "Masqués"]];
+
+const $ = (id) => document.getElementById(id);
+const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const norm = (s) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+const OEIL = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>';
+const OEIL_BARRE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" fill="none" stroke="currentColor" stroke-width="1.8" opacity=".55"/><path d="M4 20 20 4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>';
+
+let filtre = "tout", q = "";
+let masques = new Set(), enregistres = new Set();
+const tous = CARTE.flatMap((s) => s.items.map((it) => ({ ...it, sec: s.titre, groupe: s.groupe })));
+const parId = Object.fromEntries(tous.map((it) => [it.id, it]));
+
+// Surligne la recherche dans un texte, sans tenir compte des accents
+function surligner(t, qn) {
+  if (!qn) return esc(t);
+  let n = "", carte = [];
+  for (let i = 0; i < t.length; i++) for (const c of norm(t[i])) { n += c; carte.push(i); }
+  const k = n.indexOf(qn);
+  if (k < 0) return esc(t);
+  const a = carte[k], b = carte[k + qn.length - 1] + 1;
+  return esc(t.slice(0, a)) + "<mark>" + esc(t.slice(a, b)) + "</mark>" + esc(t.slice(b));
+}
+
+function chips() {
+  $("chips").innerHTML = FILTRES.map(([k, l]) => {
+    const nb = k === "masques" && masques.size ? `<span class="nb">${masques.size}</span>` : "";
+    return `<button type="button" class="chip" data-f="${k}" aria-pressed="${filtre === k}">${l}${nb}</button>`;
+  }).join("");
+}
+
+function rendre() {
+  const qn = norm(q.trim());
+  let n = 0, html = "";
+  for (const s of CARTE) {
+    if (filtre !== "tout" && filtre !== "masques" && s.groupe !== filtre) continue;
+    const items = s.items.filter((it) => (filtre !== "masques" || masques.has(it.id)) &&
+      (!qn || norm(it.nom + " " + it.desc + " " + s.titre).includes(qn)));
+    if (!items.length) continue;
+    n += items.length;
+    html += `<section class="sec"><h2>${esc(s.titre)}</h2>` + items.map((it) => {
+      const m = masques.has(it.id);
+      const pictos = [it.veg && "végé", it.sg && "sans gluten"].filter(Boolean).join(" · ");
+      return `<div class="row${m ? " masque" : ""}" data-id="${it.id}">
+        <div class="txt"><div class="nom">${surligner(it.nom, qn)}${m ? '<span class="badge">Masqué</span>' : ""}</div>
+        ${it.desc || pictos ? `<div class="desc">${surligner(it.desc, qn)}${pictos ? `<span class="pictos">${pictos}</span>` : ""}</div>` : ""}</div>
+        <span class="prix">${esc(it.prix)}</span>
+        <button type="button" class="oeil" data-id="${it.id}" aria-pressed="${m}" aria-label="${m ? "Réafficher" : "Masquer"} ${esc(it.nom)}">${m ? OEIL_BARRE : OEIL}</button>
+      </div>`;
+    }).join("") + "</section>";
+  }
+  $("liste").innerHTML = html || `<p class="vide">${filtre === "masques" && !qn ? "Aucun produit masqué pour l'instant.<br>Touchez l'œil d'un produit pour le masquer." : `Aucun produit ne correspond à «&nbsp;${esc(q.trim())}&nbsp;».`}</p>`;
+  $("compte").textContent = qn ? `${n} résultat${n > 1 ? "s" : ""}` :
+    filtre === "masques" ? `${n} produit${n > 1 ? "s" : ""} masqué${n > 1 ? "s" : ""}` : `${n} produits`;
+  $("effacer").hidden = !q;
+  chips();
+  barre();
+}
+
+const identiques = (a, b) => a.size === b.size && [...a].every((x) => b.has(x));
+let apresEnregistrement = false;
+function barre() {
+  const sale = !identiques(masques, enregistres);
+  const b = $("barre");
+  if (sale) {
+    b.innerHTML = '<button type="button" class="btn-ghost" data-act="annuler">Annuler</button><button type="button" class="btn-main" data-act="enregistrer">Enregistrer</button>';
+  } else if (apresEnregistrement) {
+    b.innerHTML = '<button type="button" class="btn-client" data-act="client">👀 Voir la carte côté client</button>';
+  }
+  const on = sale || apresEnregistrement;
+  b.classList.toggle("on", on);
+  b.setAttribute("aria-hidden", String(!on));
+}
+
+let minuteur;
+function toast(t) {
+  const el = $("toast");
+  el.textContent = t;
+  el.classList.add("on");
+  clearTimeout(minuteur);
+  minuteur = setTimeout(() => el.classList.remove("on"), 2600);
+}
+
+function carteClient() {
+  const retires = [...enregistres].map((id) => parId[id]).filter(Boolean);
+  let h = retires.length ? `<div class="retires">${retires.length > 1 ? "N'apparaissent" : "N'apparaît"} plus&nbsp;: <b>${retires.map((it) => esc(it.nom.toLowerCase())).join(", ")}</b></div>` : "";
+  for (const s of CARTE) {
+    const items = s.items.filter((it) => !enregistres.has(it.id));
+    if (!items.length) continue;
+    h += `<div class="cl-sec">${esc(s.titre)}</div>` + items.map((it) => `<div class="cl-row"><span>${esc(it.nom.charAt(0) + it.nom.slice(1).toLowerCase())}</span><span>${esc(it.prix)}&nbsp;€</span></div>`).join("");
+  }
+  $("clContenu").innerHTML = h;
+  $("fond").hidden = false;
+  $("clContenu").parentElement.scrollTop = 0;
+}
+
+$("q").addEventListener("input", (e) => { q = e.target.value; rendre(); });
+$("q").addEventListener("keydown", (e) => { if (e.key === "Enter") e.target.blur(); });
+$("effacer").addEventListener("click", () => { q = ""; $("q").value = ""; rendre(); $("q").focus(); });
+$("chips").addEventListener("click", (e) => {
+  const c = e.target.closest(".chip");
+  if (!c) return;
+  filtre = c.dataset.f;
+  rendre();
+  window.scrollTo({ top: 0 });
+});
+$("liste").addEventListener("click", (e) => {
+  const o = e.target.closest(".oeil");
+  if (!o) return;
+  const id = o.dataset.id, it = parId[id];
+  if (masques.has(id)) { masques.delete(id); toast(`${it.nom.charAt(0) + it.nom.slice(1).toLowerCase()} : réaffiché`); }
+  else { masques.add(id); toast(`${it.nom.charAt(0) + it.nom.slice(1).toLowerCase()} : masqué. Pensez à enregistrer.`); }
+  apresEnregistrement = false;
+  rendre();
+  const ligne = document.querySelector(`.row[data-id="${id}"]`);
+  if (ligne) ligne.classList.add("flash");
+});
+$("barre").addEventListener("click", (e) => {
+  const act = (e.target.closest("button") || {}).dataset?.act;
+  if (act === "annuler") { masques = new Set(enregistres); apresEnregistrement = false; rendre(); toast("Modifications annulées"); }
+  if (act === "enregistrer") { enregistres = new Set(masques); apresEnregistrement = true; rendre(); toast("✓ Enregistré : le site et le QR code sont à jour."); }
+  if (act === "client") carteClient();
+});
+$("clFermer").addEventListener("click", () => { $("fond").hidden = true; });
+$("fond").addEventListener("click", (e) => { if (e.target.id === "fond") $("fond").hidden = true; });
+
+rendre();
+</script>
+</body>
+</html>
